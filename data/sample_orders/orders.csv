@@ -1,0 +1,5 @@
+order_id,customer,status,total
+ORD-1001,Acme Corp,processing,1299.00
+ORD-1002,Globex,shipped,499.00
+ORD-1003,Initech,refund_requested,249.00
+

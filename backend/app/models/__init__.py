@@ -1,0 +1,33 @@
+from app.core.database import Base
+from app.models.agent_run import AgentRun, AgentStep, AgentTrace
+from app.models.audit_log import AuditLog
+from app.models.document import Document, DocumentChunk
+from app.models.knowledge_base import KnowledgeBase
+from app.models.rbac import Permission, Role, role_permissions, user_roles
+from app.models.sql_query import SQLQueryLog
+from app.models.tool import AgentTool, Approval, ToolCall, ToolPermission
+from app.models.user import Conversation, Message, User, UserPreference
+
+__all__ = [
+    "AgentRun",
+    "AgentStep",
+    "AgentTrace",
+    "AgentTool",
+    "Approval",
+    "AuditLog",
+    "Base",
+    "Conversation",
+    "Document",
+    "DocumentChunk",
+    "KnowledgeBase",
+    "Message",
+    "Permission",
+    "Role",
+    "SQLQueryLog",
+    "ToolCall",
+    "ToolPermission",
+    "User",
+    "UserPreference",
+    "role_permissions",
+    "user_roles",
+]

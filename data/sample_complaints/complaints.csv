@@ -1,0 +1,4 @@
+ticket_id,customer,priority,summary
+CMP-2001,Acme Corp,high,Delayed shipment for enterprise onboarding kit
+CMP-2002,Globex,medium,Invoice mismatch on shipped order
+

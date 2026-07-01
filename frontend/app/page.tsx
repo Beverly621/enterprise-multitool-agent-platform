@@ -8,7 +8,7 @@ const modules = [
 ];
 
 async function getVersion() {
-  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8100";
   try {
     const response = await fetch(`${baseUrl}/api/version`, { cache: "no-store" });
     if (!response.ok) return null;
@@ -32,7 +32,7 @@ export default async function Home() {
             <p className="mt-1 text-sm text-slate-600">Backend foundation, RBAC and provider switching are online.</p>
           </div>
           <a
-            href="http://localhost:8000/docs"
+            href="http://localhost:8100/docs"
             className="rounded-md bg-pine px-4 py-2 text-sm font-medium text-white"
           >
             Swagger
@@ -81,4 +81,3 @@ export default async function Home() {
     </main>
   );
 }
-

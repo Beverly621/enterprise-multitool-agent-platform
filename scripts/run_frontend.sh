@@ -2,5 +2,4 @@
 set -euo pipefail
 
 cd "$(dirname "$0")/../frontend"
-npm run dev
-
+npm run dev -- -p 3100

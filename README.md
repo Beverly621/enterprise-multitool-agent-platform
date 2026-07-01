@@ -37,9 +37,9 @@ docker compose up -d
 
 Open:
 
-- Backend Swagger: http://localhost:8000/docs
-- Health check: http://localhost:8000/health
-- Frontend console: http://localhost:3000
+- Backend Swagger: http://localhost:8100/docs
+- Health check: http://localhost:8100/health
+- Frontend console: http://localhost:3100
 
 Seed demo users after services are running:
 
@@ -65,8 +65,11 @@ source .venv/bin/activate
 pip install -r requirements.txt
 alembic -c alembic.ini upgrade head
 python -m app.seed.seed_all
-uvicorn app.main:app --reload
+cd ..
+bash scripts/run_backend.sh
 ```
+
+For the frontend dev server, use `bash scripts/run_frontend.sh` and open http://localhost:3100.
 
 ## Implemented APIs
 
@@ -87,4 +90,3 @@ uvicorn app.main:app --reload
 - Missing LLM/Embedding API keys automatically fall back to Mock providers.
 - JWT and RBAC are implemented with default Admin, Developer, User and Guest roles.
 - `.env.example` contains no real API keys.
-

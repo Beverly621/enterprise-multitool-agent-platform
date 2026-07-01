@@ -31,8 +31,8 @@ class Settings(BaseSettings):
     celery_result_backend: str = "redis://redis:6379/2"
 
     cors_origins: list[AnyHttpUrl | str] = [
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
+        "http://localhost:3100",
+        "http://127.0.0.1:3100",
     ]
 
 
@@ -42,4 +42,3 @@ def get_settings() -> Settings:
 
 
 settings = get_settings()
-

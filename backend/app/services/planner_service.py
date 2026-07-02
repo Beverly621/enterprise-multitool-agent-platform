@@ -1,6 +1,5 @@
-from app.agent.nodes.intent_router import route_intent
+from app.services.intent_router_service import route_intent
 
 
 def plan_intent(query: str) -> str:
-    return route_intent(query)
-
+    return route_intent(query).intent

@@ -2,7 +2,7 @@
 
 企业级多工具知识库 Agent 平台，面向企业内部知识库、结构化数据库和业务 API 的 AI-Agent 后端与管理控制台。
 
-当前完成阶段：**阶段四：Tool Calling 平台**。
+当前完成阶段：**阶段五：Agent Planner 多步骤任务编排**。
 
 ## Phase Progress
 
@@ -12,7 +12,7 @@
 | 2 | RAG 文档解析、切分、Embedding、向量检索 | Done |
 | 3 | SQL Agent 与 SQL Guardrails | Done |
 | 4 | Tool Calling 与工具注册执行 | Done |
-| 5 | Agent Planner 多步骤编排 | Planned |
+| 5 | Agent Planner 多步骤编排 | Done |
 | 6 | Human-in-the-loop 审批与报告生成 | Planned |
 | 7 | Tracing、审计与观测 | Planned |
 | 8 | 前端后台完整演示与部署文档 | Planned |
@@ -106,7 +106,12 @@ python -m pytest app/tests
 - `POST /api/tools/{tool_name}/disable`
 - `POST /api/tools/{tool_name}/invoke`
 - `GET /api/tool-calls/{tool_call_id}`
+- `POST /api/agent/chat`
+- `GET /api/runs`
+- `GET /api/runs/{run_id}`
+- `GET /api/runs/{run_id}/steps`
 - `GET /api/runs/{run_id}/tool-calls`
+- `GET /api/runs/{run_id}/traces`
 - `GET /api/approvals`
 - `GET /api/approvals/{approval_id}`
 - `POST /api/approvals/{approval_id}/approve`
@@ -142,3 +147,12 @@ python -m pytest app/tests
 - Tool execution uses database-backed Registry metadata, JSON Schema argument validation, role hierarchy checks, timeout/retry handling and sanitized logging.
 - `send_email_draft` never sends real email; it creates `email_drafts`, returns `WAITING_APPROVAL`, and requires `/api/approvals/{approval_id}/approve` or `/reject`.
 - Tool calls write `tool_calls`, `agent_traces` and `audit_logs`; SQL execution tools still pass through SQL Guardrails.
+
+## Stage 5 Notes
+
+- `POST /api/agent/chat` is the unified Agent Planner entrypoint for chat, RAG, SQL, tool calling, approval-required actions and multi-step reports.
+- The planner supports `GENERAL_CHAT`, `RAG_QA`, `SQL_QUERY`, `TOOL_CALL`, `MULTI_STEP_REPORT` and `NEED_APPROVAL` intents.
+- Planner nodes reuse the existing RAG service, SQL Agent and Tool Executor instead of bypassing guardrails.
+- Multi-step reports execute SQL analysis first, optionally enrich with knowledge-base evidence, then render a structured Chinese report.
+- Each planner run writes `agent_runs`, `agent_steps`, `agent_traces` and audit events so `/api/runs/{run_id}/steps` and `/api/runs/{run_id}/traces` can reconstruct the workflow.
+- RBAC is enforced at the planner boundary: Guest can only use general chat and public RAG, User can use normal tools and reports, Developer can run SQL, and Admin can access all flows.

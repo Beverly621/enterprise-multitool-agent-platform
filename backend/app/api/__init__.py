@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
 from app.api import (
+    agent_chat,
     approvals,
     audit,
     auth,
@@ -17,6 +18,7 @@ from app.api import (
 
 api_router = APIRouter()
 api_router.include_router(auth.router, prefix="/auth", tags=["auth"])
+api_router.include_router(agent_chat.router, prefix="/agent", tags=["agent"])
 api_router.include_router(users.router, prefix="/users", tags=["users"])
 api_router.include_router(roles.router, tags=["rbac"])
 api_router.include_router(knowledge_base.router, prefix="/kb", tags=["knowledge-base"])

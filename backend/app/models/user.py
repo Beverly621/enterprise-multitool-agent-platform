@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import Boolean, DateTime, ForeignKey, String, Text, func
 from sqlalchemy.dialects.postgresql import JSONB
@@ -6,6 +9,9 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base
 from app.models.rbac import user_roles
+
+if TYPE_CHECKING:
+    from app.models.rbac import Role
 
 
 class User(Base):
@@ -24,12 +30,12 @@ class User(Base):
         onupdate=func.now(),
     )
 
-    roles: Mapped[list["Role"]] = relationship(
+    roles: Mapped[list[Role]] = relationship(
         secondary=user_roles,
         back_populates="users",
         lazy="selectin",
     )
-    preferences: Mapped["UserPreference | None"] = relationship(back_populates="user")
+    preferences: Mapped[UserPreference | None] = relationship(back_populates="user")
 
 
 class UserPreference(Base):
@@ -66,4 +72,3 @@ class Message(Base):
     content: Mapped[str] = mapped_column(Text, nullable=False)
     metadata_json: Mapped[dict | None] = mapped_column(JSONB)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-

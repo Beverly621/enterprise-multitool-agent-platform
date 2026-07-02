@@ -2,14 +2,14 @@
 
 企业级多工具知识库 Agent 平台，面向企业内部知识库、结构化数据库和业务 API 的 AI-Agent 后端与管理控制台。
 
-当前完成阶段：**阶段一：后端基础工程与数据库设计**。
+当前完成阶段：**阶段二：RAG 知识库模块**。
 
 ## Phase Progress
 
 | Phase | Scope | Status |
 | --- | --- | --- |
 | 1 | FastAPI, PostgreSQL + pgvector, Redis, Celery, JWT, RBAC, Alembic, Docker Compose | Done |
-| 2 | RAG 文档解析、切分、Embedding、向量检索 | Planned |
+| 2 | RAG 文档解析、切分、Embedding、向量检索 | Done |
 | 3 | SQL Agent 与 SQL Guardrails | Planned |
 | 4 | Tool Calling 与工具注册执行 | Planned |
 | 5 | Agent Planner 多步骤编排 | Planned |
@@ -71,6 +71,13 @@ bash scripts/run_backend.sh
 
 For the frontend dev server, use `bash scripts/run_frontend.sh` and open http://localhost:3100.
 
+Run backend tests:
+
+```bash
+cd backend
+python -m pytest app/tests
+```
+
 ## Implemented APIs
 
 - `GET /health`
@@ -82,6 +89,12 @@ For the frontend dev server, use `bash scripts/run_frontend.sh` and open http://
 - `GET /api/roles`
 - `POST /api/roles`
 - `POST /api/permissions/assign`
+- `POST /api/kb`
+- `GET /api/kb`
+- `POST /api/kb/{id}/documents`
+- `GET /api/documents/{id}`
+- `POST /api/kb/{id}/search`
+- `POST /api/chat/rag`
 
 ## Stage 1 Notes
 
@@ -90,3 +103,11 @@ For the frontend dev server, use `bash scripts/run_frontend.sh` and open http://
 - Missing LLM/Embedding API keys automatically fall back to Mock providers.
 - JWT and RBAC are implemented with default Admin, Developer, User and Guest roles.
 - `.env.example` contains no real API keys.
+
+## Stage 2 Notes
+
+- Supports PDF, DOCX, Markdown, TXT and CSV parsing.
+- Document upload returns immediately and dispatches Celery indexing.
+- Chunk defaults are `chunk_size=800` and `chunk_overlap=120`.
+- Search uses PostgreSQL + pgvector and returns retrieved chunks plus citations.
+- `POST /api/chat/rag` returns `answer`, `citations`, `retrieved_chunks` and `run_id`.

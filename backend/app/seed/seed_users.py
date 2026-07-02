@@ -5,9 +5,15 @@ from app.core.security import hash_password
 from app.models.rbac import Permission, Role
 from app.models.user import User
 
-
 ROLE_PERMISSIONS: dict[str, list[str]] = {
-    "Admin": ["admin:*", "users:read", "roles:read", "roles:write", "permissions:assign", "audit:read"],
+    "Admin": [
+        "admin:*",
+        "users:read",
+        "roles:read",
+        "roles:write",
+        "permissions:assign",
+        "audit:read",
+    ],
     "Developer": ["sql_agent:execute", "tools:register", "traces:read", "kb:read", "tools:execute"],
     "User": ["kb:read", "kb:chat", "reports:generate", "tools:execute"],
     "Guest": ["kb:read_public"],
@@ -72,4 +78,3 @@ def seed() -> None:
 
 if __name__ == "__main__":
     seed()
-

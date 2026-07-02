@@ -1,8 +1,7 @@
 from functools import lru_cache
 
-from redis import Redis
-
 from app.core.config import settings
+from redis import Redis
 
 
 @lru_cache

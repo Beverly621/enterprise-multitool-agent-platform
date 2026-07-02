@@ -31,7 +31,10 @@ class AgentStep(Base):
     __tablename__ = "agent_steps"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    run_id: Mapped[str] = mapped_column(ForeignKey("agent_runs.run_id", ondelete="CASCADE"), index=True)
+    run_id: Mapped[str] = mapped_column(
+        ForeignKey("agent_runs.run_id", ondelete="CASCADE"),
+        index=True,
+    )
     step_name: Mapped[str] = mapped_column(String(128), nullable=False)
     step_type: Mapped[str] = mapped_column(String(64), nullable=False)
     status: Mapped[str] = mapped_column(String(32), default="pending", nullable=False)
@@ -58,4 +61,3 @@ class AgentTrace(Base):
     cost: Mapped[float | None] = mapped_column(Numeric(12, 6))
     duration_ms: Mapped[int | None] = mapped_column(Integer)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-

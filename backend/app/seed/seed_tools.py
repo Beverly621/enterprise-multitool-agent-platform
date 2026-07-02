@@ -3,7 +3,6 @@ from sqlalchemy import select
 from app.core.database import SessionLocal
 from app.models.tool import AgentTool
 
-
 DEMO_TOOLS = [
     {
         "name": "order_status_lookup",

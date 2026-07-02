@@ -6,7 +6,6 @@ from app.models.knowledge_base import KnowledgeBase
 from app.models.user import User
 from app.services.provider_factory import get_embedding_provider
 
-
 DEMO_DOC = """
 Enterprise Multi-Tool Agent Platform supports RAG knowledge base Q&A, SQL Agent guarded data access,
 tool calling, human approvals, tracing, Redis session cache and Celery asynchronous workloads.

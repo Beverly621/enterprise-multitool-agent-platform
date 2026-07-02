@@ -1,9 +1,15 @@
+from __future__ import annotations
+
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import DateTime, ForeignKey, String, Text, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base
+
+if TYPE_CHECKING:
+    from app.models.document import Document
 
 
 class KnowledgeBase(Base):
@@ -21,5 +27,4 @@ class KnowledgeBase(Base):
         onupdate=func.now(),
     )
 
-    documents: Mapped[list["Document"]] = relationship(back_populates="knowledge_base")
-
+    documents: Mapped[list[Document]] = relationship(back_populates="knowledge_base")

@@ -4,17 +4,17 @@ Revision ID: 0001_initial_schema
 Revises:
 Create Date: 2026-07-02
 """
-from typing import Sequence, Union
+from collections.abc import Sequence
 
+import sqlalchemy as sa
 from alembic import op
 from pgvector.sqlalchemy import Vector
-import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 revision: str = "0001_initial_schema"
-down_revision: Union[str, None] = None
-branch_labels: Union[str, Sequence[str], None] = None
-depends_on: Union[str, Sequence[str], None] = None
+down_revision: str | None = None
+branch_labels: str | Sequence[str] | None = None
+depends_on: str | Sequence[str] | None = None
 
 
 def upgrade() -> None:
@@ -53,13 +53,28 @@ def upgrade() -> None:
 
     op.create_table(
         "user_roles",
-        sa.Column("user_id", sa.Integer(), sa.ForeignKey("users.id", ondelete="CASCADE"), primary_key=True),
-        sa.Column("role_id", sa.Integer(), sa.ForeignKey("roles.id", ondelete="CASCADE"), primary_key=True),
+        sa.Column(
+            "user_id",
+            sa.Integer(),
+            sa.ForeignKey("users.id", ondelete="CASCADE"),
+            primary_key=True,
+        ),
+        sa.Column(
+            "role_id",
+            sa.Integer(),
+            sa.ForeignKey("roles.id", ondelete="CASCADE"),
+            primary_key=True,
+        ),
     )
 
     op.create_table(
         "role_permissions",
-        sa.Column("role_id", sa.Integer(), sa.ForeignKey("roles.id", ondelete="CASCADE"), primary_key=True),
+        sa.Column(
+            "role_id",
+            sa.Integer(),
+            sa.ForeignKey("roles.id", ondelete="CASCADE"),
+            primary_key=True,
+        ),
         sa.Column(
             "permission_id",
             sa.Integer(),
@@ -204,8 +219,18 @@ def upgrade() -> None:
     op.create_table(
         "tool_permissions",
         sa.Column("id", sa.Integer(), primary_key=True),
-        sa.Column("tool_id", sa.Integer(), sa.ForeignKey("agent_tools.id", ondelete="CASCADE"), nullable=False),
-        sa.Column("role_id", sa.Integer(), sa.ForeignKey("roles.id", ondelete="CASCADE"), nullable=False),
+        sa.Column(
+            "tool_id",
+            sa.Integer(),
+            sa.ForeignKey("agent_tools.id", ondelete="CASCADE"),
+            nullable=False,
+        ),
+        sa.Column(
+            "role_id",
+            sa.Integer(),
+            sa.ForeignKey("roles.id", ondelete="CASCADE"),
+            nullable=False,
+        ),
         sa.Column("permission", sa.String(length=64), nullable=False, server_default="execute"),
         sa.Column("created_at", sa.DateTime(timezone=True), server_default=sa.text("now()")),
     )
@@ -216,7 +241,12 @@ def upgrade() -> None:
         "tool_calls",
         sa.Column("id", sa.Integer(), primary_key=True),
         sa.Column("run_id", sa.String(length=64), nullable=False),
-        sa.Column("step_id", sa.Integer(), sa.ForeignKey("agent_steps.id", ondelete="SET NULL"), nullable=True),
+        sa.Column(
+            "step_id",
+            sa.Integer(),
+            sa.ForeignKey("agent_steps.id", ondelete="SET NULL"),
+            nullable=True,
+        ),
         sa.Column("tool_name", sa.String(length=128), nullable=False),
         sa.Column("tool_args", postgresql.JSONB(), nullable=True),
         sa.Column("tool_result", postgresql.JSONB(), nullable=True),
@@ -285,8 +315,18 @@ def upgrade() -> None:
     op.create_table(
         "user_preferences",
         sa.Column("id", sa.Integer(), primary_key=True),
-        sa.Column("user_id", sa.Integer(), sa.ForeignKey("users.id", ondelete="CASCADE"), nullable=False),
-        sa.Column("default_kb_id", sa.Integer(), sa.ForeignKey("knowledge_bases.id"), nullable=True),
+        sa.Column(
+            "user_id",
+            sa.Integer(),
+            sa.ForeignKey("users.id", ondelete="CASCADE"),
+            nullable=False,
+        ),
+        sa.Column(
+            "default_kb_id",
+            sa.Integer(),
+            sa.ForeignKey("knowledge_bases.id"),
+            nullable=True,
+        ),
         sa.Column("settings_json", postgresql.JSONB(), nullable=True),
         sa.Column("created_at", sa.DateTime(timezone=True), server_default=sa.text("now()")),
         sa.Column("updated_at", sa.DateTime(timezone=True), server_default=sa.text("now()")),
@@ -318,4 +358,3 @@ def downgrade() -> None:
         "users",
     ):
         op.drop_table(table_name)
-

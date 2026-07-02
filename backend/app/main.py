@@ -16,7 +16,6 @@ from app.core.redis import get_redis_client
 from app.core.responses import ok
 from app.services.provider_factory import get_embedding_provider, get_llm_provider
 
-
 configure_logging()
 logger = logging.getLogger(__name__)
 
@@ -40,7 +39,13 @@ async def request_log_middleware(request: Request, call_next: Callable) -> Respo
     started = time.perf_counter()
     response = await call_next(request)
     duration_ms = round((time.perf_counter() - started) * 1000, 2)
-    logger.info("%s %s %s %.2fms", request.method, request.url.path, response.status_code, duration_ms)
+    logger.info(
+        "%s %s %s %.2fms",
+        request.method,
+        request.url.path,
+        response.status_code,
+        duration_ms,
+    )
     response.headers["X-Process-Time-Ms"] = str(duration_ms)
     return response
 
@@ -50,7 +55,11 @@ async def global_exception_handler(request: Request, exc: Exception) -> JSONResp
     logger.exception("Unhandled error while processing %s", request.url.path)
     return JSONResponse(
         status_code=500,
-        content={"success": False, "message": "Internal server error", "error": {"code": "internal_error"}},
+        content={
+            "success": False,
+            "message": "Internal server error",
+            "error": {"code": "internal_error"},
+        },
     )
 
 
@@ -93,4 +102,3 @@ def version():
 
 
 app.include_router(api_router, prefix=settings.api_prefix)
-

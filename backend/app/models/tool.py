@@ -26,7 +26,10 @@ class ToolPermission(Base):
     __tablename__ = "tool_permissions"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    tool_id: Mapped[int] = mapped_column(ForeignKey("agent_tools.id", ondelete="CASCADE"), index=True)
+    tool_id: Mapped[int] = mapped_column(
+        ForeignKey("agent_tools.id", ondelete="CASCADE"),
+        index=True,
+    )
     role_id: Mapped[int] = mapped_column(ForeignKey("roles.id", ondelete="CASCADE"), index=True)
     permission: Mapped[str] = mapped_column(String(64), default="execute", nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
@@ -60,4 +63,3 @@ class Approval(Base):
     payload_json: Mapped[dict | None] = mapped_column(JSONB)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     decided_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
-

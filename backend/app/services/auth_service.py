@@ -3,7 +3,12 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
-from app.core.security import create_access_token, get_user_permissions, hash_password, verify_password
+from app.core.security import (
+    create_access_token,
+    get_user_permissions,
+    hash_password,
+    verify_password,
+)
 from app.models.rbac import Role
 from app.models.user import User
 from app.schemas.auth import TokenResponse, UserCreate, UserRead
@@ -41,7 +46,10 @@ def register_user(db: Session, payload: UserCreate) -> User:
 def authenticate_user(db: Session, email: str, password: str) -> User:
     user = db.scalar(select(User).where(User.email == email))
     if user is None or not verify_password(password, user.hashed_password):
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid email or password")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password",
+        )
     if not user.is_active:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="User is disabled")
     return user
@@ -52,4 +60,3 @@ def issue_token(user: User) -> TokenResponse:
         access_token=create_access_token(user.email),
         expires_in_minutes=settings.jwt_expire_minutes,
     )
-

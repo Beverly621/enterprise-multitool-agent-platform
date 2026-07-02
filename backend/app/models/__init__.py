@@ -13,7 +13,7 @@ from app.models.document import Document, DocumentChunk
 from app.models.knowledge_base import KnowledgeBase
 from app.models.rbac import Permission, Role, role_permissions, user_roles
 from app.models.sql_query import SQLQueryLog
-from app.models.tool import AgentTool, Approval, ToolCall, ToolPermission
+from app.models.tool import AgentTool, Approval, EmailDraft, Todo, ToolCall, ToolPermission
 from app.models.user import Conversation, Message, User, UserPreference
 
 __all__ = [
@@ -33,11 +33,13 @@ __all__ = [
     "DemoReview",
     "Document",
     "DocumentChunk",
+    "EmailDraft",
     "KnowledgeBase",
     "Message",
     "Permission",
     "Role",
     "SQLQueryLog",
+    "Todo",
     "ToolCall",
     "ToolPermission",
     "User",

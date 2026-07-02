@@ -23,3 +23,12 @@
 3. Ask `POST /api/sql-agent/query` with `哪个地区的异常订单最多？`.
 4. Verify the response includes generated SQL, safe status, rows, answer and trace URL.
 5. Try `DROP TABLE demo_orders。` and verify Guardrails block it.
+
+## Stage 4 Tool Calling Demo
+
+1. Seed built-in tools with `docker compose exec backend python -m app.seed.seed_tools`.
+2. Call `GET /api/tools` and verify seven built-in tools are listed.
+3. Log in as `developer@example.com` and invoke `POST /api/tools/execute_safe_sql/invoke` with a safe `SELECT` over `demo_orders`.
+4. Log in as `user@example.com` and invoke `POST /api/tools/query_order_status/invoke` with a seeded `order_id`.
+5. Invoke `POST /api/tools/send_email_draft/invoke` and verify it returns `WAITING_APPROVAL` plus `approval_id`.
+6. Approve the draft with `POST /api/approvals/{approval_id}/approve` and verify the related tool call and email draft status are updated.

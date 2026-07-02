@@ -2,7 +2,7 @@
 
 企业级多工具知识库 Agent 平台，面向企业内部知识库、结构化数据库和业务 API 的 AI-Agent 后端与管理控制台。
 
-当前完成阶段：**阶段三：SQL Agent 模块**。
+当前完成阶段：**阶段四：Tool Calling 平台**。
 
 ## Phase Progress
 
@@ -11,7 +11,7 @@
 | 1 | FastAPI, PostgreSQL + pgvector, Redis, Celery, JWT, RBAC, Alembic, Docker Compose | Done |
 | 2 | RAG 文档解析、切分、Embedding、向量检索 | Done |
 | 3 | SQL Agent 与 SQL Guardrails | Done |
-| 4 | Tool Calling 与工具注册执行 | Planned |
+| 4 | Tool Calling 与工具注册执行 | Done |
 | 5 | Agent Planner 多步骤编排 | Planned |
 | 6 | Human-in-the-loop 审批与报告生成 | Planned |
 | 7 | Tracing、审计与观测 | Planned |
@@ -99,6 +99,18 @@ python -m pytest app/tests
 - `POST /api/sql-agent/query`
 - `GET /api/sql-agent/logs`
 - `GET /api/sql-agent/logs/{id}`
+- `GET /api/tools`
+- `GET /api/tools/{tool_name}`
+- `POST /api/tools/register`
+- `POST /api/tools/{tool_name}/enable`
+- `POST /api/tools/{tool_name}/disable`
+- `POST /api/tools/{tool_name}/invoke`
+- `GET /api/tool-calls/{tool_call_id}`
+- `GET /api/runs/{run_id}/tool-calls`
+- `GET /api/approvals`
+- `GET /api/approvals/{approval_id}`
+- `POST /api/approvals/{approval_id}/approve`
+- `POST /api/approvals/{approval_id}/reject`
 
 ## Stage 1 Notes
 
@@ -123,3 +135,10 @@ python -m pytest app/tests
 - SQL Guardrails allow only single-statement `SELECT`, block sensitive tables/fields, reject `SELECT *`, and clamp `LIMIT` to 100.
 - Each SQL Agent query writes `agent_runs`, `agent_steps`, `agent_traces`, `sql_query_logs` and `audit_logs`.
 - Mock SQL generation works without real LLM API keys and supports the recommended demo questions.
+
+## Stage 4 Notes
+
+- Built-in tools include RAG search, safe SQL execution, order status lookup, after-sales lookup, report generation, email draft approval and todo creation.
+- Tool execution uses database-backed Registry metadata, JSON Schema argument validation, role hierarchy checks, timeout/retry handling and sanitized logging.
+- `send_email_draft` never sends real email; it creates `email_drafts`, returns `WAITING_APPROVAL`, and requires `/api/approvals/{approval_id}/approve` or `/reject`.
+- Tool calls write `tool_calls`, `agent_traces` and `audit_logs`; SQL execution tools still pass through SQL Guardrails.

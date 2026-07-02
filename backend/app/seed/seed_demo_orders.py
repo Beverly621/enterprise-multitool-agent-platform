@@ -1,3 +1,4 @@
+import argparse
 import random
 from datetime import UTC, datetime, timedelta
 
@@ -19,10 +20,13 @@ CATEGORIES = [
     ("electronics", "consumer"),
     ("home_appliances", "home"),
     ("books", "media"),
-    ("fashion", "retail"),
-    ("sports", "retail"),
     ("beauty", "retail"),
-    ("furniture", "home"),
+    ("sports", "retail"),
+    ("toys", "retail"),
+    ("fashion", "retail"),
+    ("food", "grocery"),
+    ("baby", "family"),
+    ("health", "wellness"),
 ]
 ISSUE_TYPES = [
     "delivery_delay",
@@ -34,7 +38,7 @@ ISSUE_TYPES = [
 ]
 
 
-def seed(order_count: int = 240) -> None:
+def seed(order_count: int = 320) -> None:
     random.seed(42)
     with SessionLocal() as db:
         if db.scalar(select(DemoOrder.id).limit(1)):
@@ -96,16 +100,19 @@ def seed(order_count: int = 240) -> None:
                     state=customer.state,
                 )
             )
-            items.append(
-                DemoOrderItem(
-                    order_id=order_id,
-                    product_id=product.product_id,
-                    seller_id=seller_id,
-                    quantity=quantity,
-                    price=product.price,
-                    freight_value=round(random.uniform(5, 28), 2),
+            item_count = 2 if index % 4 == 0 else 1
+            for item_index in range(item_count):
+                item_product = products[(index + item_index * 3) % len(products)]
+                items.append(
+                    DemoOrderItem(
+                        order_id=order_id,
+                        product_id=item_product.product_id,
+                        seller_id=seller_id,
+                        quantity=max(1, quantity - item_index),
+                        price=item_product.price,
+                        freight_value=round(random.uniform(5, 28), 2),
+                    )
                 )
-            )
 
             low_score = index % 9 == 0 or delayed or canceled
             review_score = random.choice([1, 2]) if low_score else random.choice([3, 4, 5])
@@ -135,10 +142,14 @@ def seed(order_count: int = 240) -> None:
         db.add_all(reviews)
         db.add_all(after_sales)
         db.commit()
-        print(f"Seeded {len(orders)} demo orders for SQL Agent.")
+        print(
+            "Seeded demo SQL Agent data: "
+            f"{len(customers)} customers, {len(products)} products, {len(orders)} orders, "
+            f"{len(items)} items, {len(reviews)} reviews, {len(after_sales)} after-sales records."
+        )
 
 
-def reset_and_seed(order_count: int = 240) -> None:
+def reset_and_seed(order_count: int = 320) -> None:
     with SessionLocal() as db:
         for model in (
             DemoAfterSales,
@@ -196,4 +207,11 @@ def _review_comment(score: int, delayed: bool, status: str) -> str:
 
 
 if __name__ == "__main__":
-    seed()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--reset", action="store_true")
+    parser.add_argument("--order-count", type=int, default=320)
+    args = parser.parse_args()
+    if args.reset:
+        reset_and_seed(args.order_count)
+    else:
+        seed(args.order_count)

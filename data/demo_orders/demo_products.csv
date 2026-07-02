@@ -1,0 +1,41 @@
+product_id,product_name,category,department,price
+PROD-1000,Demo Electronics Item 1,electronics,consumer,376.46
+PROD-1001,Demo Home Appliances Item 2,home_appliances,home,353.73
+PROD-1002,Demo Books Item 3,books,media,411.02
+PROD-1003,Demo Beauty Item 4,beauty,retail,61.14
+PROD-1004,Demo Sports Item 5,sports,retail,482.44
+PROD-1005,Demo Toys Item 6,toys,retail,117.17
+PROD-1006,Demo Fashion Item 7,fashion,retail,167.25
+PROD-1007,Demo Food Item 8,food,grocery,107.98
+PROD-1008,Demo Baby Item 9,baby,family,102.82
+PROD-1009,Demo Health Item 10,health,wellness,507.55
+PROD-1010,Demo Electronics Item 11,electronics,consumer,294.19
+PROD-1011,Demo Home Appliances Item 12,home_appliances,home,455.98
+PROD-1012,Demo Books Item 13,books,media,268.07
+PROD-1013,Demo Beauty Item 14,beauty,retail,123.62
+PROD-1014,Demo Sports Item 15,sports,retail,146.15
+PROD-1015,Demo Toys Item 16,toys,retail,505.45
+PROD-1016,Demo Fashion Item 17,fashion,retail,116.02
+PROD-1017,Demo Food Item 18,food,grocery,434.99
+PROD-1018,Demo Baby Item 19,baby,family,486.68
+PROD-1019,Demo Health Item 20,health,wellness,461.11
+PROD-1020,Demo Electronics Item 21,electronics,consumer,294.54
+PROD-1021,Demo Home Appliances Item 22,home_appliances,home,197.26
+PROD-1022,Demo Books Item 23,books,media,180.93
+PROD-1023,Demo Beauty Item 24,beauty,retail,322.44
+PROD-1024,Demo Sports Item 25,sports,retail,378.69
+PROD-1025,Demo Toys Item 26,toys,retail,371.70
+PROD-1026,Demo Fashion Item 27,fashion,retail,381.50
+PROD-1027,Demo Food Item 28,food,grocery,305.93
+PROD-1028,Demo Baby Item 29,baby,family,273.53
+PROD-1029,Demo Health Item 30,health,wellness,29.20
+PROD-1030,Demo Electronics Item 31,electronics,consumer,297.87
+PROD-1031,Demo Home Appliances Item 32,home_appliances,home,321.28
+PROD-1032,Demo Books Item 33,books,media,309.90
+PROD-1033,Demo Beauty Item 34,beauty,retail,353.82
+PROD-1034,Demo Sports Item 35,sports,retail,72.60
+PROD-1035,Demo Toys Item 36,toys,retail,363.31
+PROD-1036,Demo Fashion Item 37,fashion,retail,182.31
+PROD-1037,Demo Food Item 38,food,grocery,291.65
+PROD-1038,Demo Baby Item 39,baby,family,461.80
+PROD-1039,Demo Health Item 40,health,wellness,195.15

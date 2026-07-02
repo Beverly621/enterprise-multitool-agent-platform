@@ -1,8 +1,28 @@
 # Enterprise Multi-Tool Agent Platform
 
-企业级多工具知识库 Agent 平台，面向企业内部知识库、结构化数据库和业务 API 的 AI-Agent 后端与管理控制台。
+企业级多工具知识库 Agent 平台，支持 RAG 文档问答、SQL Agent 数据查询、Tool Calling、多步骤任务编排、异步报告生成、权限控制、SQL 安全防护、审批流、Trace 与 Audit。
 
-当前完成阶段：**阶段七：前端后台与可视化控制台**。
+Enterprise Multi-Tool Agent Platform is an enterprise-grade AI Agent platform that combines RAG, SQL Agent, Tool Calling, multi-step planning, async report generation, RBAC, SQL Guardrails, tracing, and audit logging.
+
+当前完成阶段：**阶段八：Demo 数据、公开资料接入与 GitHub 展示优化**。
+
+## What This Project Solves
+
+普通 RAG Demo 通常只能回答文档问题。本项目模拟企业内部 AI 平台的完整工作流：Agent 可以读取知识库、查询结构化业务数据、调用受权限保护的工具、生成异步报告、进入人工审批，并留下完整 Trace 与 Audit Log。
+
+核心 Demo 主线：
+
+```text
+登录平台 -> 上传制度/售后文档 -> Seed 订单异常数据 -> Agent Chat 提问
+-> SQL Node 查询订单异常 -> RAG Node 检索知识库 -> Report Node 生成报告
+-> Run Trace 回放 -> Reports 查看 -> Approval 审批邮件草稿 -> Audit 查看记录
+```
+
+推荐问题：
+
+```text
+结合最近 30 天订单异常数据和售后知识库生成一份分析报告。
+```
 
 ## Phase Progress
 
@@ -15,24 +35,66 @@
 | 5 | Agent Planner 多步骤编排 | Done |
 | 6 | 异步任务、任务进度、取消、幂等与报告历史 | Done |
 | 7 | 前端后台、可视化控制台、权限菜单与演示页面 | Done |
-| 8 | Demo 数据、公开资料接入与 GitHub 展示优化 | Planned |
+| 8 | Demo 数据、公开资料接入与 GitHub 展示优化 | Done |
+| 9 | 工程保障、可观测性与评测体系 | Planned |
+
+## Core Features
+
+- RAG knowledge-base Q&A with document parsing, chunking, embeddings, pgvector search and citations.
+- SQL Agent analytics with schema reading, SQL generation, safe execution and result explanation.
+- SQL Guardrails that only allow safe read-only queries, block dangerous operations, reject `SELECT *`, enforce `LIMIT`, and protect sensitive tables/fields.
+- Tool Calling platform with registry metadata, JSON Schema validation, permissions, retries, timeouts and traceable execution.
+- Agent Planner that routes `GENERAL_CHAT`, `RAG_QA`, `SQL_QUERY`, `TOOL_CALL`, `MULTI_STEP_REPORT` and `NEED_APPROVAL`.
+- Async Agent tasks and report generation with Celery, Redis, progress APIs, cancellation and report history.
+- Human-in-the-loop approval for sensitive actions such as email draft generation.
+- RBAC for Admin, Developer, User and Guest roles.
+- Full traceability through agent runs, steps, traces, tool calls, SQL logs and audit logs.
+- Mock LLM and Mock Embedding providers so the full demo can run without real API keys.
+- Next.js frontend console for Dashboard, Knowledge Base, Agent Chat, SQL Agent, Tools, Approvals, Runs, Tasks, Reports, Audit and Admin Users.
 
 ## Tech Stack
 
 - Frontend: Next.js, React, TypeScript, Tailwind CSS
 - Backend: FastAPI, SQLAlchemy 2.x, Pydantic
-- Agent foundation: Provider abstraction with Mock/OpenAI implementations
-- Database: PostgreSQL + pgvector
+- Agent foundation: lightweight runtime with LangGraph-compatible boundaries
+- Database: PostgreSQL 16 + pgvector
 - Cache and queue: Redis, Celery
 - Auth: JWT + RBAC
 - Migration: Alembic
+- Providers: Mock, OpenAI-ready provider abstraction
 - Deploy: Docker Compose
+
+## Architecture
+
+```mermaid
+flowchart TD
+    UI[Frontend Console] --> API[FastAPI Backend]
+    API --> Auth[JWT + RBAC]
+    API --> Planner[Agent Planner]
+    Planner --> RAG[RAG Service]
+    Planner --> SQL[SQL Agent]
+    Planner --> Tool[Tool Executor]
+    Planner --> Report[Report Service]
+    RAG --> PG[(PostgreSQL + pgvector)]
+    SQL --> Guardrails[SQL Guardrails]
+    Guardrails --> PG
+    Tool --> PG
+    API --> Redis[(Redis)]
+    API --> Celery[Celery Worker]
+    Celery --> Planner
+    Planner --> Trace[Agent Runs / Steps / Traces]
+    API --> Audit[Audit Logs]
+```
+
+More detail: [docs/ARCHITECTURE_OVERVIEW.md](docs/ARCHITECTURE_OVERVIEW.md)
 
 ## Quick Start
 
 ```bash
 cp .env.example .env
-docker compose up -d
+cp frontend/.env.example frontend/.env.local
+docker compose up -d --build
+bash scripts/seed_demo_data.sh
 ```
 
 Open:
@@ -40,12 +102,6 @@ Open:
 - Backend Swagger: http://localhost:8100/docs
 - Health check: http://localhost:8100/health
 - Frontend console: http://localhost:3100
-
-Seed demo users after services are running:
-
-```bash
-docker compose exec backend python -m app.seed.seed_all
-```
 
 Demo accounts:
 
@@ -56,7 +112,9 @@ Demo accounts:
 | User | user@example.com | user123 |
 | Guest | guest@example.com | guest123 |
 
-## Local Backend Development
+## Local Development
+
+Backend:
 
 ```bash
 cd backend
@@ -69,123 +127,116 @@ cd ..
 bash scripts/run_backend.sh
 ```
 
-For the frontend dev server, use `bash scripts/run_frontend.sh` and open http://localhost:3100.
+Frontend:
 
-Run backend tests:
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Tests:
 
 ```bash
 cd backend
 python -m pytest app/tests
+cd ../frontend
+npm run build
 ```
 
-## Implemented APIs
+## Demo Data
 
-- `GET /health`
-- `GET /api/version`
-- `POST /api/auth/register`
+Stage 8 adds public-safe demo assets:
+
+- `data/demo_docs/`: self-written policy and after-sales Markdown files for RAG.
+- `data/demo_orders/`: deterministic simulated CSV data for SQL Agent analytics.
+- `docs/PUBLIC_DATA_SOURCES.md`: data source and compliance statement.
+- `docs/DEMO_CASES.md`: eight demo cases covering general chat, RAG, SQL, tools, reports, async tasks, approval and Guardrails.
+- `docs/DEMO_GUIDE.md`: step-by-step local demo guide.
+- `docs/DEMO_SCRIPT.md`: recording and interview script.
+
+The order data is simulated and covers 10 states, 10 product categories, 320 orders, 400 order items, 320 reviews and more than 80 after-sales cases.
+
+## Demo Flow
+
+1. Log in as `admin@example.com`.
+2. Open Knowledge Base and upload files from `data/demo_docs/`.
+3. Open Agent Chat and ask a policy question.
+4. Ask `哪个地区的异常订单最多？` to trigger SQL Agent.
+5. Ask the multi-step report question.
+6. Open Runs to inspect SQL Node, RAG Node and Report Node.
+7. Open Reports to view the generated Markdown report.
+8. Ask for an email draft and approve it in Approvals.
+9. Open Audit Log to verify traceability.
+
+Full guide: [docs/DEMO_GUIDE.md](docs/DEMO_GUIDE.md)
+
+## Core APIs
+
 - `POST /api/auth/login`
-- `GET /api/auth/me`
 - `GET /api/dashboard/summary`
-- `GET /api/users`
-- `GET /api/roles`
-- `POST /api/roles`
-- `POST /api/permissions/assign`
 - `POST /api/kb`
-- `GET /api/kb`
-- `GET /api/kb/{id}`
-- `GET /api/kb/{id}/documents`
 - `POST /api/kb/{id}/documents`
-- `GET /api/documents/{id}`
 - `POST /api/kb/{id}/search`
 - `POST /api/chat/rag`
 - `GET /api/sql-agent/schema`
 - `POST /api/sql-agent/query`
-- `GET /api/sql-agent/logs`
-- `GET /api/sql-agent/logs/{id}`
 - `GET /api/tools`
-- `GET /api/tools/{tool_name}`
-- `POST /api/tools/register`
-- `POST /api/tools/{tool_name}/enable`
-- `POST /api/tools/{tool_name}/disable`
 - `POST /api/tools/{tool_name}/invoke`
-- `GET /api/tool-calls/{tool_call_id}`
-- `GET /api/tool-calls`
 - `POST /api/agent/chat`
-- `GET /api/runs`
-- `GET /api/runs/{run_id}`
-- `GET /api/runs/{run_id}/steps`
-- `GET /api/runs/{run_id}/progress`
-- `POST /api/runs/{run_id}/cancel`
-- `GET /api/runs/{run_id}/tool-calls`
 - `GET /api/runs/{run_id}/traces`
 - `GET /api/tasks/{task_id}/progress`
-- `GET /api/tasks`
-- `POST /api/tasks/{task_id}/cancel`
-- `GET /api/approvals`
-- `GET /api/approvals/{approval_id}`
-- `POST /api/approvals/{approval_id}/approve`
-- `POST /api/approvals/{approval_id}/reject`
-- `GET /api/reports`
 - `GET /api/reports/{report_id}`
-- `GET /api/runs/{run_id}/report`
-- `POST /api/reports/{report_id}/export`
+- `GET /api/approvals`
+- `POST /api/approvals/{approval_id}/approve`
+- `GET /api/audit-logs`
 
-## Stage 1 Notes
+## Frontend Pages
 
-- PostgreSQL image uses `pgvector/pgvector:pg16`.
-- Alembic migration creates `vector` extension and the initial schema.
-- Missing LLM/Embedding API keys automatically fall back to Mock providers.
-- JWT and RBAC are implemented with default Admin, Developer, User and Guest roles.
-- `.env.example` contains no real API keys.
+- Login
+- Dashboard
+- Knowledge Base
+- Document Upload
+- Agent Chat
+- SQL Agent
+- Tools
+- Approvals
+- Runs and Run Trace
+- Tasks
+- Reports
+- Audit Log
+- Admin Users
 
-## Stage 2 Notes
+## Security Design
 
-- Supports PDF, DOCX, Markdown, TXT and CSV parsing.
-- Document upload returns immediately and dispatches Celery indexing.
-- Chunk defaults are `chunk_size=800` and `chunk_overlap=120`.
-- Search uses PostgreSQL + pgvector and returns retrieved chunks plus citations.
-- `POST /api/chat/rag` returns `answer`, `citations`, `retrieved_chunks` and `run_id`.
+- No real API keys are committed.
+- `.env.example` files are configuration templates.
+- Missing real provider keys automatically fall back to Mock providers.
+- Frontend never stores model provider keys in `NEXT_PUBLIC_*`.
+- SQL Agent only executes Guardrails-protected read-only queries.
+- `send_email_draft` creates a draft and approval record; it does not send real email.
+- Sensitive operations require human approval.
+- Tool calls, SQL queries, Agent runs and important user actions are traceable.
 
-## Stage 3 Notes
+Before publishing:
 
-- SQL Agent only exposes `demo_*` business tables through a safe Schema Reader.
-- Demo e-commerce seed data includes 240 orders with abnormal statuses, delays, low scores and after-sales cases.
-- SQL Guardrails allow only single-statement `SELECT`, block sensitive tables/fields, reject `SELECT *`, and clamp `LIMIT` to 100.
-- Each SQL Agent query writes `agent_runs`, `agent_steps`, `agent_traces`, `sql_query_logs` and `audit_logs`.
-- Mock SQL generation works without real LLM API keys and supports the recommended demo questions.
+```bash
+bash scripts/check_public_safety.sh
+```
 
-## Stage 4 Notes
+## Screenshots
 
-- Built-in tools include RAG search, safe SQL execution, order status lookup, after-sales lookup, report generation, email draft approval and todo creation.
-- Tool execution uses database-backed Registry metadata, JSON Schema argument validation, role hierarchy checks, timeout/retry handling and sanitized logging.
-- `send_email_draft` never sends real email; it creates `email_drafts`, returns `WAITING_APPROVAL`, and requires `/api/approvals/{approval_id}/approve` or `/reject`.
-- Tool calls write `tool_calls`, `agent_traces` and `audit_logs`; SQL execution tools still pass through SQL Guardrails.
+> Screenshots will be added after the final demo run.
 
-## Stage 5 Notes
+Planned screenshots are listed in [docs/SCREENSHOTS.md](docs/SCREENSHOTS.md).
 
-- `POST /api/agent/chat` is the unified Agent Planner entrypoint for chat, RAG, SQL, tool calling, approval-required actions and multi-step reports.
-- The planner supports `GENERAL_CHAT`, `RAG_QA`, `SQL_QUERY`, `TOOL_CALL`, `MULTI_STEP_REPORT` and `NEED_APPROVAL` intents.
-- Planner nodes reuse the existing RAG service, SQL Agent and Tool Executor instead of bypassing guardrails.
-- Multi-step reports execute SQL analysis first, optionally enrich with knowledge-base evidence, then render a structured Chinese report.
-- Each planner run writes `agent_runs`, `agent_steps`, `agent_traces` and audit events so `/api/runs/{run_id}/steps` and `/api/runs/{run_id}/traces` can reconstruct the workflow.
-- RBAC is enforced at the planner boundary: Guest can only use general chat and public RAG, User can use normal tools and reports, Developer can run SQL, and Admin can access all flows.
+## Resume Summary
 
-## Stage 6 Notes
+See [docs/RESUME_DESCRIPTION.md](docs/RESUME_DESCRIPTION.md) for Chinese and English resume descriptions, project highlights and interview talking points.
 
-- `POST /api/agent/chat` now supports `async_mode=true` and optional `idempotency_key`.
-- Async submissions immediately return `run_id`, `task_id`, `progress_url` and `trace_url`; long work is executed by Celery.
-- New tables store task progress, failed task dead-letter records, idempotency keys and Markdown report history.
-- Users can query progress by run or task, and cancel non-terminal tasks cooperatively.
-- Multi-step async reports are saved to `reports` with Markdown content and sanitized source metadata.
-- Report export is reserved through `/api/reports/{report_id}/export` and currently returns a documented `not_implemented` placeholder.
-- Celery worker imports all task modules explicitly and continues to work with Mock providers when real API keys are absent.
+## Roadmap
 
-## Stage 7 Notes
-
-- The frontend console now includes login, dashboard, knowledge-base management, Agent Chat, SQL Agent, tools, approvals, runs, tasks, reports, audit and admin users pages.
-- Frontend auth uses localStorage token storage, automatic `Authorization: Bearer` headers, `/api/auth/me` session loading and 401 redirect to `/login`.
-- The sidebar is role-aware: Guest, User, Developer and Admin see different navigation entries.
-- Agent Chat supports sync and async mode, idempotency keys, progress polling, citations, generated SQL, tool results and approval IDs.
-- Run detail pages show run metadata, final answer, step timeline, trace timeline, tool calls, task progress and linked reports.
-- Lightweight backend console APIs were added for dashboard summary, task list, global tool call list, KB detail and KB documents.
-- Frontend dependencies were upgraded to Next.js 16.2.10, React 19.2.0 and ESLint 9; `npm audit --omit=dev` reports zero vulnerabilities.
+- Stage 9: observability, token/cost metrics, task duration metrics, RAG evals, SQL safety evals and regression datasets.
+- Stage 10: deployment, CI/CD, production Docker Compose, GitHub Actions and security headers.
+- Stage 11: resume packaging, architecture explanation, interview Q&A and final demo material.
+- Stage 12: final release checklist, GitHub publication, release tag and project retrospective.

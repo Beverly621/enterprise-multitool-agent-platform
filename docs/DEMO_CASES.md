@@ -1,34 +1,121 @@
 # Demo Cases
 
-## Stage 1
+These cases validate that the project behaves like an enterprise multi-tool Agent platform rather than a simple chatbot or standalone RAG demo.
 
-1. Start the stack with `docker compose up -d`.
-2. Seed demo users with `docker compose exec backend python -m app.seed.seed_all`.
-3. Open Swagger at http://localhost:8100/docs.
-4. Log in as `admin@example.com` with `admin123`.
-5. Call `/api/auth/me`, `/api/users` and `/api/roles` with the returned bearer token.
+## Case 1: General Chat
 
-## Stage 2 RAG Demo
+Prompt:
 
-1. Create a public knowledge base with `POST /api/kb`.
-2. Upload `data/sample_docs/platform_overview.md` with `POST /api/kb/{id}/documents`.
-3. Wait for the document status to become `READY`.
-4. Call `POST /api/kb/{id}/search` with a question about tracing or Celery.
-5. Call `POST /api/chat/rag` and verify `answer`, `citations`, `retrieved_chunks` and `run_id`.
+```text
+你好，介绍一下你能做什么？
+```
 
-## Stage 3 SQL Agent Demo
+Expected:
 
-1. Seed demo orders with `docker compose exec backend python -m app.seed.seed_demo_orders`.
-2. Call `GET /api/sql-agent/schema` and verify only `demo_*` tables are returned.
-3. Ask `POST /api/sql-agent/query` with `哪个地区的异常订单最多？`.
-4. Verify the response includes generated SQL, safe status, rows, answer and trace URL.
-5. Try `DROP TABLE demo_orders。` and verify Guardrails block it.
+- Intent: `GENERAL_CHAT`
+- Response introduces RAG, SQL Agent, Tool Calling, async reports, trace, audit and approvals.
 
-## Stage 4 Tool Calling Demo
+## Case 2: RAG Policy Q&A
 
-1. Seed built-in tools with `docker compose exec backend python -m app.seed.seed_tools`.
-2. Call `GET /api/tools` and verify seven built-in tools are listed.
-3. Log in as `developer@example.com` and invoke `POST /api/tools/execute_safe_sql/invoke` with a safe `SELECT` over `demo_orders`.
-4. Log in as `user@example.com` and invoke `POST /api/tools/query_order_status/invoke` with a seeded `order_id`.
-5. Invoke `POST /api/tools/send_email_draft/invoke` and verify it returns `WAITING_APPROVAL` plus `approval_id`.
-6. Approve the draft with `POST /api/approvals/{approval_id}/approve` and verify the related tool call and email draft status are updated.
+Prompt:
+
+```text
+员工遇到利益冲突时应该怎么处理？请给出制度依据。
+```
+
+Expected:
+
+- Intent: `RAG_QA`
+- Response cites `sample_company_policy.md`.
+- Answer mentions disclosure, manager/compliance notification and approval before continuing.
+
+## Case 3: SQL Agent Analytics
+
+Prompt:
+
+```text
+哪个地区的异常订单最多？
+```
+
+Expected:
+
+- Intent: `SQL_QUERY`
+- Response includes `generated_sql`, rows, answer and trace URL.
+- SQL only reads `demo_*` tables and includes a safe `LIMIT`.
+
+## Case 4: Order Status Tool Call
+
+Prompt:
+
+```text
+查询 ORD-100001 的订单状态。
+```
+
+Expected:
+
+- Intent: `TOOL_CALL`
+- Tool: `query_order_status`
+- Tool call is written to `tool_calls`, `agent_traces` and `audit_logs`.
+
+## Case 5: Multi-Step Report
+
+Prompt:
+
+```text
+结合最近 30 天订单异常数据和售后知识库生成一份分析报告。
+```
+
+Expected:
+
+- Intent: `MULTI_STEP_REPORT`
+- Flow: SQL Node -> RAG Node -> Report Node -> Final Node.
+- Report includes abnormal order count, top regions, issue types, low-score categories, policy evidence and recommendations.
+- Run detail shows steps and traces.
+
+## Case 6: Async Report
+
+Request:
+
+```json
+{
+  "message": "使用 async_mode=true 生成订单异常分析报告。",
+  "async_mode": true
+}
+```
+
+Expected:
+
+- Immediate response includes `run_id`, `task_id`, `progress_url` and `trace_url`.
+- Task progress can be checked from the frontend Tasks page or `/api/tasks/{task_id}/progress`.
+- Final report appears in Reports.
+
+## Case 7: Human Approval
+
+Prompt:
+
+```text
+把这份订单异常分析报告生成邮件草稿发给 manager@example.com。
+```
+
+Expected:
+
+- Tool returns `WAITING_APPROVAL`.
+- Response includes `approval_id`.
+- Approval page can approve or reject the draft.
+- The system does not send a real email.
+
+## Case 8: SQL Guardrails
+
+Prompts:
+
+```text
+删除所有订单数据。
+查询 users 表里的 password_hash。
+SELECT * FROM demo_orders。
+```
+
+Expected:
+
+- Unsafe SQL is blocked.
+- Response includes `safe=false` and `blocked_reason`.
+- Audit log records the blocked attempt.

@@ -1,0 +1,61 @@
+customer_id,customer_name,email,state,city
+CUST-10000,Demo Customer 1,demo.customer.1@example.com,SP,Sao Paulo
+CUST-10001,Demo Customer 2,demo.customer.2@example.com,RJ,Rio de Janeiro
+CUST-10002,Demo Customer 3,demo.customer.3@example.com,MG,Belo Horizonte
+CUST-10003,Demo Customer 4,demo.customer.4@example.com,RS,Porto Alegre
+CUST-10004,Demo Customer 5,demo.customer.5@example.com,PR,Curitiba
+CUST-10005,Demo Customer 6,demo.customer.6@example.com,SC,Florianopolis
+CUST-10006,Demo Customer 7,demo.customer.7@example.com,BA,Salvador
+CUST-10007,Demo Customer 8,demo.customer.8@example.com,GO,Goiania
+CUST-10008,Demo Customer 9,demo.customer.9@example.com,PE,Recife
+CUST-10009,Demo Customer 10,demo.customer.10@example.com,CE,Fortaleza
+CUST-10010,Demo Customer 11,demo.customer.11@example.com,SP,Sao Paulo
+CUST-10011,Demo Customer 12,demo.customer.12@example.com,RJ,Rio de Janeiro
+CUST-10012,Demo Customer 13,demo.customer.13@example.com,MG,Belo Horizonte
+CUST-10013,Demo Customer 14,demo.customer.14@example.com,RS,Porto Alegre
+CUST-10014,Demo Customer 15,demo.customer.15@example.com,PR,Curitiba
+CUST-10015,Demo Customer 16,demo.customer.16@example.com,SC,Florianopolis
+CUST-10016,Demo Customer 17,demo.customer.17@example.com,BA,Salvador
+CUST-10017,Demo Customer 18,demo.customer.18@example.com,GO,Goiania
+CUST-10018,Demo Customer 19,demo.customer.19@example.com,PE,Recife
+CUST-10019,Demo Customer 20,demo.customer.20@example.com,CE,Fortaleza
+CUST-10020,Demo Customer 21,demo.customer.21@example.com,SP,Sao Paulo
+CUST-10021,Demo Customer 22,demo.customer.22@example.com,RJ,Rio de Janeiro
+CUST-10022,Demo Customer 23,demo.customer.23@example.com,MG,Belo Horizonte
+CUST-10023,Demo Customer 24,demo.customer.24@example.com,RS,Porto Alegre
+CUST-10024,Demo Customer 25,demo.customer.25@example.com,PR,Curitiba
+CUST-10025,Demo Customer 26,demo.customer.26@example.com,SC,Florianopolis
+CUST-10026,Demo Customer 27,demo.customer.27@example.com,BA,Salvador
+CUST-10027,Demo Customer 28,demo.customer.28@example.com,GO,Goiania
+CUST-10028,Demo Customer 29,demo.customer.29@example.com,PE,Recife
+CUST-10029,Demo Customer 30,demo.customer.30@example.com,CE,Fortaleza
+CUST-10030,Demo Customer 31,demo.customer.31@example.com,SP,Sao Paulo
+CUST-10031,Demo Customer 32,demo.customer.32@example.com,RJ,Rio de Janeiro
+CUST-10032,Demo Customer 33,demo.customer.33@example.com,MG,Belo Horizonte
+CUST-10033,Demo Customer 34,demo.customer.34@example.com,RS,Porto Alegre
+CUST-10034,Demo Customer 35,demo.customer.35@example.com,PR,Curitiba
+CUST-10035,Demo Customer 36,demo.customer.36@example.com,SC,Florianopolis
+CUST-10036,Demo Customer 37,demo.customer.37@example.com,BA,Salvador
+CUST-10037,Demo Customer 38,demo.customer.38@example.com,GO,Goiania
+CUST-10038,Demo Customer 39,demo.customer.39@example.com,PE,Recife
+CUST-10039,Demo Customer 40,demo.customer.40@example.com,CE,Fortaleza
+CUST-10040,Demo Customer 41,demo.customer.41@example.com,SP,Sao Paulo
+CUST-10041,Demo Customer 42,demo.customer.42@example.com,RJ,Rio de Janeiro
+CUST-10042,Demo Customer 43,demo.customer.43@example.com,MG,Belo Horizonte
+CUST-10043,Demo Customer 44,demo.customer.44@example.com,RS,Porto Alegre
+CUST-10044,Demo Customer 45,demo.customer.45@example.com,PR,Curitiba
+CUST-10045,Demo Customer 46,demo.customer.46@example.com,SC,Florianopolis
+CUST-10046,Demo Customer 47,demo.customer.47@example.com,BA,Salvador
+CUST-10047,Demo Customer 48,demo.customer.48@example.com,GO,Goiania
+CUST-10048,Demo Customer 49,demo.customer.49@example.com,PE,Recife
+CUST-10049,Demo Customer 50,demo.customer.50@example.com,CE,Fortaleza
+CUST-10050,Demo Customer 51,demo.customer.51@example.com,SP,Sao Paulo
+CUST-10051,Demo Customer 52,demo.customer.52@example.com,RJ,Rio de Janeiro
+CUST-10052,Demo Customer 53,demo.customer.53@example.com,MG,Belo Horizonte
+CUST-10053,Demo Customer 54,demo.customer.54@example.com,RS,Porto Alegre
+CUST-10054,Demo Customer 55,demo.customer.55@example.com,PR,Curitiba
+CUST-10055,Demo Customer 56,demo.customer.56@example.com,SC,Florianopolis
+CUST-10056,Demo Customer 57,demo.customer.57@example.com,BA,Salvador
+CUST-10057,Demo Customer 58,demo.customer.58@example.com,GO,Goiania
+CUST-10058,Demo Customer 59,demo.customer.59@example.com,PE,Recife
+CUST-10059,Demo Customer 60,demo.customer.60@example.com,CE,Fortaleza

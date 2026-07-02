@@ -1,0 +1,321 @@
+review_id,order_id,review_score,review_comment
+REV-100000,ORD-100000,1,Low score due to abnormal order signal.
+REV-100001,ORD-100001,4,Demo review with acceptable customer experience.
+REV-100002,ORD-100002,5,Demo review with acceptable customer experience.
+REV-100003,ORD-100003,3,Demo review with acceptable customer experience.
+REV-100004,ORD-100004,4,Demo review with acceptable customer experience.
+REV-100005,ORD-100005,2,Low score due to abnormal order signal.
+REV-100006,ORD-100006,3,Demo review with acceptable customer experience.
+REV-100007,ORD-100007,2,Low score due to abnormal order signal.
+REV-100008,ORD-100008,5,Demo review with acceptable customer experience.
+REV-100009,ORD-100009,2,Low score due to abnormal order signal.
+REV-100010,ORD-100010,4,Demo review with acceptable customer experience.
+REV-100011,ORD-100011,5,Demo review with acceptable customer experience.
+REV-100012,ORD-100012,3,Demo review with acceptable customer experience.
+REV-100013,ORD-100013,4,Demo review with acceptable customer experience.
+REV-100014,ORD-100014,1,Low score due to abnormal order signal.
+REV-100015,ORD-100015,3,Demo review with acceptable customer experience.
+REV-100016,ORD-100016,4,Demo review with acceptable customer experience.
+REV-100017,ORD-100017,5,Demo review with acceptable customer experience.
+REV-100018,ORD-100018,1,Low score due to abnormal order signal.
+REV-100019,ORD-100019,2,Low score due to abnormal order signal.
+REV-100020,ORD-100020,5,Demo review with acceptable customer experience.
+REV-100021,ORD-100021,2,Low score due to abnormal order signal.
+REV-100022,ORD-100022,4,Demo review with acceptable customer experience.
+REV-100023,ORD-100023,5,Demo review with acceptable customer experience.
+REV-100024,ORD-100024,3,Demo review with acceptable customer experience.
+REV-100025,ORD-100025,4,Demo review with acceptable customer experience.
+REV-100026,ORD-100026,5,Demo review with acceptable customer experience.
+REV-100027,ORD-100027,2,Low score due to abnormal order signal.
+REV-100028,ORD-100028,1,Low score due to abnormal order signal.
+REV-100029,ORD-100029,2,Low score due to abnormal order signal.
+REV-100030,ORD-100030,3,Demo review with acceptable customer experience.
+REV-100031,ORD-100031,4,Demo review with acceptable customer experience.
+REV-100032,ORD-100032,5,Demo review with acceptable customer experience.
+REV-100033,ORD-100033,2,Low score due to abnormal order signal.
+REV-100034,ORD-100034,4,Demo review with acceptable customer experience.
+REV-100035,ORD-100035,2,Low score due to abnormal order signal.
+REV-100036,ORD-100036,1,Low score due to abnormal order signal.
+REV-100037,ORD-100037,4,Demo review with acceptable customer experience.
+REV-100038,ORD-100038,1,Low score due to abnormal order signal.
+REV-100039,ORD-100039,3,Demo review with acceptable customer experience.
+REV-100040,ORD-100040,4,Demo review with acceptable customer experience.
+REV-100041,ORD-100041,5,Demo review with acceptable customer experience.
+REV-100042,ORD-100042,1,Low score due to abnormal order signal.
+REV-100043,ORD-100043,4,Demo review with acceptable customer experience.
+REV-100044,ORD-100044,5,Demo review with acceptable customer experience.
+REV-100045,ORD-100045,2,Low score due to abnormal order signal.
+REV-100046,ORD-100046,4,Demo review with acceptable customer experience.
+REV-100047,ORD-100047,5,Demo review with acceptable customer experience.
+REV-100048,ORD-100048,3,Demo review with acceptable customer experience.
+REV-100049,ORD-100049,2,Low score due to abnormal order signal.
+REV-100050,ORD-100050,5,Demo review with acceptable customer experience.
+REV-100051,ORD-100051,3,Demo review with acceptable customer experience.
+REV-100052,ORD-100052,4,Demo review with acceptable customer experience.
+REV-100053,ORD-100053,5,Demo review with acceptable customer experience.
+REV-100054,ORD-100054,1,Low score due to abnormal order signal.
+REV-100055,ORD-100055,4,Demo review with acceptable customer experience.
+REV-100056,ORD-100056,1,Low score due to abnormal order signal.
+REV-100057,ORD-100057,2,Low score due to abnormal order signal.
+REV-100058,ORD-100058,1,Low score due to abnormal order signal.
+REV-100059,ORD-100059,5,Demo review with acceptable customer experience.
+REV-100060,ORD-100060,3,Demo review with acceptable customer experience.
+REV-100061,ORD-100061,4,Demo review with acceptable customer experience.
+REV-100062,ORD-100062,5,Demo review with acceptable customer experience.
+REV-100063,ORD-100063,2,Low score due to abnormal order signal.
+REV-100064,ORD-100064,4,Demo review with acceptable customer experience.
+REV-100065,ORD-100065,5,Demo review with acceptable customer experience.
+REV-100066,ORD-100066,3,Demo review with acceptable customer experience.
+REV-100067,ORD-100067,4,Demo review with acceptable customer experience.
+REV-100068,ORD-100068,5,Demo review with acceptable customer experience.
+REV-100069,ORD-100069,3,Demo review with acceptable customer experience.
+REV-100070,ORD-100070,1,Low score due to abnormal order signal.
+REV-100071,ORD-100071,5,Demo review with acceptable customer experience.
+REV-100072,ORD-100072,1,Low score due to abnormal order signal.
+REV-100073,ORD-100073,4,Demo review with acceptable customer experience.
+REV-100074,ORD-100074,5,Demo review with acceptable customer experience.
+REV-100075,ORD-100075,3,Demo review with acceptable customer experience.
+REV-100076,ORD-100076,1,Low score due to abnormal order signal.
+REV-100077,ORD-100077,2,Low score due to abnormal order signal.
+REV-100078,ORD-100078,3,Demo review with acceptable customer experience.
+REV-100079,ORD-100079,4,Demo review with acceptable customer experience.
+REV-100080,ORD-100080,5,Demo review with acceptable customer experience.
+REV-100081,ORD-100081,2,Low score due to abnormal order signal.
+REV-100082,ORD-100082,4,Demo review with acceptable customer experience.
+REV-100083,ORD-100083,5,Demo review with acceptable customer experience.
+REV-100084,ORD-100084,1,Low score due to abnormal order signal.
+REV-100085,ORD-100085,4,Demo review with acceptable customer experience.
+REV-100086,ORD-100086,5,Demo review with acceptable customer experience.
+REV-100087,ORD-100087,2,Low score due to abnormal order signal.
+REV-100088,ORD-100088,4,Demo review with acceptable customer experience.
+REV-100089,ORD-100089,5,Demo review with acceptable customer experience.
+REV-100090,ORD-100090,1,Low score due to abnormal order signal.
+REV-100091,ORD-100091,2,Low score due to abnormal order signal.
+REV-100092,ORD-100092,5,Demo review with acceptable customer experience.
+REV-100093,ORD-100093,3,Demo review with acceptable customer experience.
+REV-100094,ORD-100094,4,Demo review with acceptable customer experience.
+REV-100095,ORD-100095,2,Low score due to abnormal order signal.
+REV-100096,ORD-100096,3,Demo review with acceptable customer experience.
+REV-100097,ORD-100097,4,Demo review with acceptable customer experience.
+REV-100098,ORD-100098,1,Low score due to abnormal order signal.
+REV-100099,ORD-100099,2,Low score due to abnormal order signal.
+REV-100100,ORD-100100,4,Demo review with acceptable customer experience.
+REV-100101,ORD-100101,5,Demo review with acceptable customer experience.
+REV-100102,ORD-100102,3,Demo review with acceptable customer experience.
+REV-100103,ORD-100103,4,Demo review with acceptable customer experience.
+REV-100104,ORD-100104,5,Demo review with acceptable customer experience.
+REV-100105,ORD-100105,2,Low score due to abnormal order signal.
+REV-100106,ORD-100106,4,Demo review with acceptable customer experience.
+REV-100107,ORD-100107,5,Demo review with acceptable customer experience.
+REV-100108,ORD-100108,1,Low score due to abnormal order signal.
+REV-100109,ORD-100109,4,Demo review with acceptable customer experience.
+REV-100110,ORD-100110,5,Demo review with acceptable customer experience.
+REV-100111,ORD-100111,3,Demo review with acceptable customer experience.
+REV-100112,ORD-100112,1,Low score due to abnormal order signal.
+REV-100113,ORD-100113,5,Demo review with acceptable customer experience.
+REV-100114,ORD-100114,1,Low score due to abnormal order signal.
+REV-100115,ORD-100115,4,Demo review with acceptable customer experience.
+REV-100116,ORD-100116,1,Low score due to abnormal order signal.
+REV-100117,ORD-100117,2,Low score due to abnormal order signal.
+REV-100118,ORD-100118,4,Demo review with acceptable customer experience.
+REV-100119,ORD-100119,2,Low score due to abnormal order signal.
+REV-100120,ORD-100120,3,Demo review with acceptable customer experience.
+REV-100121,ORD-100121,4,Demo review with acceptable customer experience.
+REV-100122,ORD-100122,5,Demo review with acceptable customer experience.
+REV-100123,ORD-100123,3,Demo review with acceptable customer experience.
+REV-100124,ORD-100124,4,Demo review with acceptable customer experience.
+REV-100125,ORD-100125,5,Demo review with acceptable customer experience.
+REV-100126,ORD-100126,1,Low score due to abnormal order signal.
+REV-100127,ORD-100127,4,Demo review with acceptable customer experience.
+REV-100128,ORD-100128,5,Demo review with acceptable customer experience.
+REV-100129,ORD-100129,3,Demo review with acceptable customer experience.
+REV-100130,ORD-100130,4,Demo review with acceptable customer experience.
+REV-100131,ORD-100131,5,Demo review with acceptable customer experience.
+REV-100132,ORD-100132,3,Demo review with acceptable customer experience.
+REV-100133,ORD-100133,2,Low score due to abnormal order signal.
+REV-100134,ORD-100134,5,Demo review with acceptable customer experience.
+REV-100135,ORD-100135,2,Low score due to abnormal order signal.
+REV-100136,ORD-100136,4,Demo review with acceptable customer experience.
+REV-100137,ORD-100137,2,Low score due to abnormal order signal.
+REV-100138,ORD-100138,3,Demo review with acceptable customer experience.
+REV-100139,ORD-100139,4,Demo review with acceptable customer experience.
+REV-100140,ORD-100140,1,Low score due to abnormal order signal.
+REV-100141,ORD-100141,3,Demo review with acceptable customer experience.
+REV-100142,ORD-100142,4,Demo review with acceptable customer experience.
+REV-100143,ORD-100143,5,Demo review with acceptable customer experience.
+REV-100144,ORD-100144,1,Low score due to abnormal order signal.
+REV-100145,ORD-100145,2,Low score due to abnormal order signal.
+REV-100146,ORD-100146,5,Demo review with acceptable customer experience.
+REV-100147,ORD-100147,2,Low score due to abnormal order signal.
+REV-100148,ORD-100148,4,Demo review with acceptable customer experience.
+REV-100149,ORD-100149,5,Demo review with acceptable customer experience.
+REV-100150,ORD-100150,3,Demo review with acceptable customer experience.
+REV-100151,ORD-100151,4,Demo review with acceptable customer experience.
+REV-100152,ORD-100152,1,Low score due to abnormal order signal.
+REV-100153,ORD-100153,2,Low score due to abnormal order signal.
+REV-100154,ORD-100154,1,Low score due to abnormal order signal.
+REV-100155,ORD-100155,5,Demo review with acceptable customer experience.
+REV-100156,ORD-100156,3,Demo review with acceptable customer experience.
+REV-100157,ORD-100157,4,Demo review with acceptable customer experience.
+REV-100158,ORD-100158,5,Demo review with acceptable customer experience.
+REV-100159,ORD-100159,3,Demo review with acceptable customer experience.
+REV-100160,ORD-100160,4,Demo review with acceptable customer experience.
+REV-100161,ORD-100161,2,Low score due to abnormal order signal.
+REV-100162,ORD-100162,1,Low score due to abnormal order signal.
+REV-100163,ORD-100163,4,Demo review with acceptable customer experience.
+REV-100164,ORD-100164,5,Demo review with acceptable customer experience.
+REV-100165,ORD-100165,3,Demo review with acceptable customer experience.
+REV-100166,ORD-100166,4,Demo review with acceptable customer experience.
+REV-100167,ORD-100167,5,Demo review with acceptable customer experience.
+REV-100168,ORD-100168,1,Low score due to abnormal order signal.
+REV-100169,ORD-100169,4,Demo review with acceptable customer experience.
+REV-100170,ORD-100170,5,Demo review with acceptable customer experience.
+REV-100171,ORD-100171,2,Low score due to abnormal order signal.
+REV-100172,ORD-100172,4,Demo review with acceptable customer experience.
+REV-100173,ORD-100173,5,Demo review with acceptable customer experience.
+REV-100174,ORD-100174,1,Low score due to abnormal order signal.
+REV-100175,ORD-100175,2,Low score due to abnormal order signal.
+REV-100176,ORD-100176,5,Demo review with acceptable customer experience.
+REV-100177,ORD-100177,3,Demo review with acceptable customer experience.
+REV-100178,ORD-100178,4,Demo review with acceptable customer experience.
+REV-100179,ORD-100179,5,Demo review with acceptable customer experience.
+REV-100180,ORD-100180,1,Low score due to abnormal order signal.
+REV-100181,ORD-100181,4,Demo review with acceptable customer experience.
+REV-100182,ORD-100182,1,Low score due to abnormal order signal.
+REV-100183,ORD-100183,3,Demo review with acceptable customer experience.
+REV-100184,ORD-100184,4,Demo review with acceptable customer experience.
+REV-100185,ORD-100185,5,Demo review with acceptable customer experience.
+REV-100186,ORD-100186,3,Demo review with acceptable customer experience.
+REV-100187,ORD-100187,4,Demo review with acceptable customer experience.
+REV-100188,ORD-100188,5,Demo review with acceptable customer experience.
+REV-100189,ORD-100189,2,Low score due to abnormal order signal.
+REV-100190,ORD-100190,1,Low score due to abnormal order signal.
+REV-100191,ORD-100191,5,Demo review with acceptable customer experience.
+REV-100192,ORD-100192,3,Demo review with acceptable customer experience.
+REV-100193,ORD-100193,4,Demo review with acceptable customer experience.
+REV-100194,ORD-100194,5,Demo review with acceptable customer experience.
+REV-100195,ORD-100195,3,Demo review with acceptable customer experience.
+REV-100196,ORD-100196,1,Low score due to abnormal order signal.
+REV-100197,ORD-100197,5,Demo review with acceptable customer experience.
+REV-100198,ORD-100198,1,Low score due to abnormal order signal.
+REV-100199,ORD-100199,4,Demo review with acceptable customer experience.
+REV-100200,ORD-100200,5,Demo review with acceptable customer experience.
+REV-100201,ORD-100201,2,Low score due to abnormal order signal.
+REV-100202,ORD-100202,4,Demo review with acceptable customer experience.
+REV-100203,ORD-100203,2,Low score due to abnormal order signal.
+REV-100204,ORD-100204,3,Demo review with acceptable customer experience.
+REV-100205,ORD-100205,4,Demo review with acceptable customer experience.
+REV-100206,ORD-100206,5,Demo review with acceptable customer experience.
+REV-100207,ORD-100207,2,Low score due to abnormal order signal.
+REV-100208,ORD-100208,4,Demo review with acceptable customer experience.
+REV-100209,ORD-100209,2,Low score due to abnormal order signal.
+REV-100210,ORD-100210,1,Low score due to abnormal order signal.
+REV-100211,ORD-100211,4,Demo review with acceptable customer experience.
+REV-100212,ORD-100212,5,Demo review with acceptable customer experience.
+REV-100213,ORD-100213,3,Demo review with acceptable customer experience.
+REV-100214,ORD-100214,4,Demo review with acceptable customer experience.
+REV-100215,ORD-100215,5,Demo review with acceptable customer experience.
+REV-100216,ORD-100216,1,Low score due to abnormal order signal.
+REV-100217,ORD-100217,2,Low score due to abnormal order signal.
+REV-100218,ORD-100218,5,Demo review with acceptable customer experience.
+REV-100219,ORD-100219,3,Demo review with acceptable customer experience.
+REV-100220,ORD-100220,4,Demo review with acceptable customer experience.
+REV-100221,ORD-100221,5,Demo review with acceptable customer experience.
+REV-100222,ORD-100222,3,Demo review with acceptable customer experience.
+REV-100223,ORD-100223,4,Demo review with acceptable customer experience.
+REV-100224,ORD-100224,1,Low score due to abnormal order signal.
+REV-100225,ORD-100225,2,Low score due to abnormal order signal.
+REV-100226,ORD-100226,4,Demo review with acceptable customer experience.
+REV-100227,ORD-100227,5,Demo review with acceptable customer experience.
+REV-100228,ORD-100228,1,Low score due to abnormal order signal.
+REV-100229,ORD-100229,4,Demo review with acceptable customer experience.
+REV-100230,ORD-100230,5,Demo review with acceptable customer experience.
+REV-100231,ORD-100231,2,Low score due to abnormal order signal.
+REV-100232,ORD-100232,1,Low score due to abnormal order signal.
+REV-100233,ORD-100233,5,Demo review with acceptable customer experience.
+REV-100234,ORD-100234,1,Low score due to abnormal order signal.
+REV-100235,ORD-100235,4,Demo review with acceptable customer experience.
+REV-100236,ORD-100236,5,Demo review with acceptable customer experience.
+REV-100237,ORD-100237,3,Demo review with acceptable customer experience.
+REV-100238,ORD-100238,1,Low score due to abnormal order signal.
+REV-100239,ORD-100239,5,Demo review with acceptable customer experience.
+REV-100240,ORD-100240,3,Demo review with acceptable customer experience.
+REV-100241,ORD-100241,4,Demo review with acceptable customer experience.
+REV-100242,ORD-100242,5,Demo review with acceptable customer experience.
+REV-100243,ORD-100243,2,Low score due to abnormal order signal.
+REV-100244,ORD-100244,4,Demo review with acceptable customer experience.
+REV-100245,ORD-100245,2,Low score due to abnormal order signal.
+REV-100246,ORD-100246,3,Demo review with acceptable customer experience.
+REV-100247,ORD-100247,2,Low score due to abnormal order signal.
+REV-100248,ORD-100248,5,Demo review with acceptable customer experience.
+REV-100249,ORD-100249,3,Demo review with acceptable customer experience.
+REV-100250,ORD-100250,4,Demo review with acceptable customer experience.
+REV-100251,ORD-100251,5,Demo review with acceptable customer experience.
+REV-100252,ORD-100252,1,Low score due to abnormal order signal.
+REV-100253,ORD-100253,4,Demo review with acceptable customer experience.
+REV-100254,ORD-100254,5,Demo review with acceptable customer experience.
+REV-100255,ORD-100255,3,Demo review with acceptable customer experience.
+REV-100256,ORD-100256,4,Demo review with acceptable customer experience.
+REV-100257,ORD-100257,5,Demo review with acceptable customer experience.
+REV-100258,ORD-100258,3,Demo review with acceptable customer experience.
+REV-100259,ORD-100259,2,Low score due to abnormal order signal.
+REV-100260,ORD-100260,5,Demo review with acceptable customer experience.
+REV-100261,ORD-100261,2,Low score due to abnormal order signal.
+REV-100262,ORD-100262,4,Demo review with acceptable customer experience.
+REV-100263,ORD-100263,5,Demo review with acceptable customer experience.
+REV-100264,ORD-100264,3,Demo review with acceptable customer experience.
+REV-100265,ORD-100265,4,Demo review with acceptable customer experience.
+REV-100266,ORD-100266,1,Low score due to abnormal order signal.
+REV-100267,ORD-100267,3,Demo review with acceptable customer experience.
+REV-100268,ORD-100268,4,Demo review with acceptable customer experience.
+REV-100269,ORD-100269,5,Demo review with acceptable customer experience.
+REV-100270,ORD-100270,1,Low score due to abnormal order signal.
+REV-100271,ORD-100271,4,Demo review with acceptable customer experience.
+REV-100272,ORD-100272,5,Demo review with acceptable customer experience.
+REV-100273,ORD-100273,2,Low score due to abnormal order signal.
+REV-100274,ORD-100274,4,Demo review with acceptable customer experience.
+REV-100275,ORD-100275,5,Demo review with acceptable customer experience.
+REV-100276,ORD-100276,3,Demo review with acceptable customer experience.
+REV-100277,ORD-100277,4,Demo review with acceptable customer experience.
+REV-100278,ORD-100278,5,Demo review with acceptable customer experience.
+REV-100279,ORD-100279,2,Low score due to abnormal order signal.
+REV-100280,ORD-100280,1,Low score due to abnormal order signal.
+REV-100281,ORD-100281,5,Demo review with acceptable customer experience.
+REV-100282,ORD-100282,3,Demo review with acceptable customer experience.
+REV-100283,ORD-100283,4,Demo review with acceptable customer experience.
+REV-100284,ORD-100284,5,Demo review with acceptable customer experience.
+REV-100285,ORD-100285,2,Low score due to abnormal order signal.
+REV-100286,ORD-100286,4,Demo review with acceptable customer experience.
+REV-100287,ORD-100287,2,Low score due to abnormal order signal.
+REV-100288,ORD-100288,1,Low score due to abnormal order signal.
+REV-100289,ORD-100289,4,Demo review with acceptable customer experience.
+REV-100290,ORD-100290,1,Low score due to abnormal order signal.
+REV-100291,ORD-100291,3,Demo review with acceptable customer experience.
+REV-100292,ORD-100292,4,Demo review with acceptable customer experience.
+REV-100293,ORD-100293,5,Demo review with acceptable customer experience.
+REV-100294,ORD-100294,1,Low score due to abnormal order signal.
+REV-100295,ORD-100295,4,Demo review with acceptable customer experience.
+REV-100296,ORD-100296,5,Demo review with acceptable customer experience.
+REV-100297,ORD-100297,2,Low score due to abnormal order signal.
+REV-100298,ORD-100298,4,Demo review with acceptable customer experience.
+REV-100299,ORD-100299,5,Demo review with acceptable customer experience.
+REV-100300,ORD-100300,3,Demo review with acceptable customer experience.
+REV-100301,ORD-100301,2,Low score due to abnormal order signal.
+REV-100302,ORD-100302,5,Demo review with acceptable customer experience.
+REV-100303,ORD-100303,3,Demo review with acceptable customer experience.
+REV-100304,ORD-100304,1,Low score due to abnormal order signal.
+REV-100305,ORD-100305,5,Demo review with acceptable customer experience.
+REV-100306,ORD-100306,1,Low score due to abnormal order signal.
+REV-100307,ORD-100307,4,Demo review with acceptable customer experience.
+REV-100308,ORD-100308,1,Low score due to abnormal order signal.
+REV-100309,ORD-100309,3,Demo review with acceptable customer experience.
+REV-100310,ORD-100310,4,Demo review with acceptable customer experience.
+REV-100311,ORD-100311,5,Demo review with acceptable customer experience.
+REV-100312,ORD-100312,3,Demo review with acceptable customer experience.
+REV-100313,ORD-100313,4,Demo review with acceptable customer experience.
+REV-100314,ORD-100314,5,Demo review with acceptable customer experience.
+REV-100315,ORD-100315,2,Low score due to abnormal order signal.
+REV-100316,ORD-100316,4,Demo review with acceptable customer experience.
+REV-100317,ORD-100317,5,Demo review with acceptable customer experience.
+REV-100318,ORD-100318,3,Demo review with acceptable customer experience.
+REV-100319,ORD-100319,2,Low score due to abnormal order signal.

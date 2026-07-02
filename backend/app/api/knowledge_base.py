@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.core.responses import ok
 from app.core.security import get_current_user, get_user_permissions
+from app.models.audit_log import AuditLog
 from app.models.document import Document
 from app.models.knowledge_base import KnowledgeBase
 from app.models.user import User
@@ -40,6 +41,16 @@ def create_knowledge_base(
         owner_id=current_user.id,
     )
     db.add(kb)
+    db.flush()
+    db.add(
+        AuditLog(
+            actor_id=current_user.id,
+            action="KB_CREATE",
+            resource_type="knowledge_base",
+            resource_id=str(kb.id),
+            metadata_json={"name": kb.name, "visibility": kb.visibility},
+        )
+    )
     db.commit()
     db.refresh(kb)
     return ok(_serialize_kb(kb), "knowledge base created")
@@ -88,6 +99,16 @@ async def upload_document(
         status="UPLOADED",
     )
     db.add(document)
+    db.flush()
+    db.add(
+        AuditLog(
+            actor_id=current_user.id,
+            action="DOCUMENT_UPLOAD",
+            resource_type="document",
+            resource_id=str(document.id),
+            metadata_json={"kb_id": kb.id, "filename": document.filename},
+        )
+    )
     db.commit()
     db.refresh(document)
 

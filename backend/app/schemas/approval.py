@@ -6,6 +6,7 @@ from pydantic import BaseModel
 
 class ApprovalDecisionRequest(BaseModel):
     reason: str | None = None
+    comment: str | None = None
 
 
 class ApprovalRead(BaseModel):

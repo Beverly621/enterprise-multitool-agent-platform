@@ -63,6 +63,7 @@ class SearchResponse(BaseModel):
     top_k: int
     retrieved_chunks: list[RetrievedChunk]
     citations: list[Citation]
+    results: list[dict[str, Any]] = []
 
 
 class RAGRequest(BaseModel):
@@ -77,4 +78,3 @@ class RAGResponse(BaseModel):
     citations: list[Citation]
     retrieved_chunks: list[RetrievedChunk]
     run_id: str
-

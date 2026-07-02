@@ -8,3 +8,5 @@ def test_tool_calling_routes_are_registered() -> None:
     assert "/api/approvals/{approval_id}/approve" in paths
     assert "/api/tool-calls/{tool_call_id}" in paths
     assert "/api/runs/{run_id}/tool-calls" in paths
+    assert "/api/runs/{run_id}/traces" in paths
+    assert "/api/audit" in paths

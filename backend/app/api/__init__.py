@@ -2,6 +2,7 @@ from fastapi import APIRouter
 
 from app.api import (
     approvals,
+    audit,
     auth,
     chat,
     documents,
@@ -26,3 +27,4 @@ api_router.include_router(tools.router, prefix="/tools", tags=["tools"])
 api_router.include_router(approvals.router, prefix="/approvals", tags=["approvals"])
 api_router.include_router(tool_calls.router, prefix="/tool-calls", tags=["tool-calls"])
 api_router.include_router(runs.router, prefix="/runs", tags=["runs"])
+api_router.include_router(audit.router, prefix="/audit", tags=["audit"])

@@ -43,7 +43,11 @@ def approve(
     current_user: Annotated[User, Depends(get_current_user)],
     db: Annotated[Session, Depends(get_db)],
 ):
-    return ok(serialize_approval(approve_request(db, approval_id, current_user, payload.reason)))
+    return ok(
+        serialize_approval(
+            approve_request(db, approval_id, current_user, payload.reason or payload.comment)
+        )
+    )
 
 
 @router.post("/{approval_id}/reject")
@@ -53,4 +57,8 @@ def reject(
     current_user: Annotated[User, Depends(get_current_user)],
     db: Annotated[Session, Depends(get_db)],
 ):
-    return ok(serialize_approval(reject_request(db, approval_id, current_user, payload.reason)))
+    return ok(
+        serialize_approval(
+            reject_request(db, approval_id, current_user, payload.reason or payload.comment)
+        )
+    )

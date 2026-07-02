@@ -10,6 +10,7 @@ from app.models.sql_query import SQLQueryLog
 from app.models.tool import Todo
 from app.services.rag_service import semantic_search
 from app.services.report_service import render_business_report
+from app.services.sql_agent_service import run_sql_agent
 from app.services.sql_executor import execute_safe_sql
 from app.services.sql_guardrails import validate_sql
 from app.tools.base import ToolContext, ToolMetadata
@@ -61,10 +62,9 @@ class ExecuteSafeSQLTool:
         schema_json=_object_schema(
             {
                 "sql": {"type": "string", "minLength": 1},
-                "question": {"type": "string"},
+                "question": {"type": "string", "minLength": 1},
                 "max_rows": {"type": "integer", "minimum": 1, "maximum": 100},
             },
-            ["sql"],
         ),
         permission_level="Developer",
         require_approval=False,
@@ -73,6 +73,23 @@ class ExecuteSafeSQLTool:
     )
 
     async def execute(self, args: dict[str, Any], context: ToolContext) -> dict[str, Any]:
+        if args.get("question") and not args.get("sql"):
+            response = run_sql_agent(context.db, context.user, str(args["question"]))
+            return {
+                "safe": response.safe,
+                "question": response.question,
+                "generated_sql": response.generated_sql,
+                "blocked_reason": response.blocked_reason,
+                "columns": response.columns,
+                "rows": response.rows,
+                "row_count": response.row_count,
+                "duration_ms": response.duration_ms,
+                "answer": response.answer,
+                "sql_agent_run_id": response.run_id,
+                "trace_url": response.trace_url,
+            }
+        if not args.get("sql"):
+            raise ValueError("Either sql or question is required.")
         sql = str(args["sql"])
         guardrail = validate_sql(sql)
         if not guardrail.safe:
@@ -208,6 +225,9 @@ class GenerateReportTool:
                 "analysis": {"type": "string"},
                 "knowledge_basis": {"type": "array", "items": {"type": "string"}},
                 "recommendations": {"type": "array", "items": {"type": "string"}},
+                "data_summary": {"type": "object"},
+                "knowledge_context": {"type": "array"},
+                "report_type": {"type": "string"},
             },
             ["title"],
         ),
@@ -217,12 +237,24 @@ class GenerateReportTool:
     )
 
     async def execute(self, args: dict[str, Any], context: ToolContext) -> dict[str, Any]:
+        findings = args.get("findings", [])
+        if args.get("data_summary"):
+            findings = [
+                *(findings or []),
+                "Data summary: " + _compact_json_like(args["data_summary"]),
+            ]
+        knowledge_basis = args.get("knowledge_basis", [])
+        if args.get("knowledge_context"):
+            knowledge_basis = [
+                *(knowledge_basis or []),
+                *[str(item) for item in args["knowledge_context"]],
+            ]
         content = render_business_report(
             title=str(args["title"]),
             data_sources=args.get("data_sources", []),
-            findings=args.get("findings", []),
-            analysis=args.get("analysis"),
-            knowledge_basis=args.get("knowledge_basis", []),
+            findings=findings,
+            analysis=args.get("analysis") or f"Report type: {args.get('report_type', 'general')}.",
+            knowledge_basis=knowledge_basis,
             recommendations=args.get("recommendations", []),
         )
         return {"format": "markdown", "content": content}
@@ -334,4 +366,10 @@ def _iso(value: Any) -> str | None:
         return None
     if hasattr(value, "isoformat"):
         return value.isoformat()
+    return str(value)
+
+
+def _compact_json_like(value: Any) -> str:
+    if isinstance(value, dict):
+        return ", ".join(f"{key}={item}" for key, item in value.items())
     return str(value)

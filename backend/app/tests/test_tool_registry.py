@@ -16,6 +16,9 @@ def test_builtin_registry_contains_phase_four_tools() -> None:
     }
     assert tools["execute_safe_sql"].metadata.permission_level == "Developer"
     assert tools["send_email_draft"].metadata.require_approval is True
+    assert "question" in tools["execute_safe_sql"].metadata.schema_json["properties"]
+    assert tools["execute_safe_sql"].metadata.schema_json["required"] == []
+    assert "data_summary" in tools["generate_report"].metadata.schema_json["properties"]
 
 
 def test_normalize_tool_name() -> None:

@@ -3,7 +3,8 @@ from datetime import UTC, datetime
 
 from sqlalchemy.orm import Session
 
-from app.models.agent_run import AgentRun, AgentTrace
+from app.models.agent_run import AgentRun, AgentStep, AgentTrace
+from app.models.audit_log import AuditLog
 from app.schemas.kb import Citation, RAGResponse, RetrievedChunk, SearchResponse
 from app.services.provider_base import ChatMessage
 from app.services.provider_factory import get_llm_provider
@@ -23,6 +24,7 @@ def semantic_search(
         top_k=top_k,
         retrieved_chunks=[_to_retrieved_chunk(result) for result in results],
         citations=[_to_citation(result) for result in results],
+        results=[_to_search_result(result) for result in results],
     )
 
 
@@ -46,8 +48,29 @@ def answer_with_rag(
     )
     db.add(run)
     db.flush()
+    db.add(
+        AgentTrace(
+            run_id=run_id,
+            event_type="rag",
+            event_name="RAG_QUERY_STARTED",
+            content=query,
+            metadata_json={"kb_id": kb_id, "top_k": top_k},
+        )
+    )
 
     search_response = semantic_search(db, kb_id, query, top_k)
+    db.add(
+        AgentStep(
+            run_id=run_id,
+            step_name="retrieval",
+            step_type="rag_retrieval",
+            status="SUCCESS",
+            input_json={"kb_id": kb_id, "query": query, "top_k": top_k},
+            output_json={"chunk_count": len(search_response.retrieved_chunks)},
+            started_at=datetime.now(UTC),
+            ended_at=datetime.now(UTC),
+        )
+    )
     context = _build_context(search_response.retrieved_chunks)
     prompt = (
         "You are an enterprise knowledge base assistant. Answer only from the context. "
@@ -65,6 +88,18 @@ def answer_with_rag(
         ]
     )
     duration_ms = int((datetime.now(UTC) - started).total_seconds() * 1000)
+    db.add(
+        AgentStep(
+            run_id=run_id,
+            step_name="answer_generation",
+            step_type="llm",
+            status="SUCCESS",
+            input_json={"query": query, "context_chars": len(context)},
+            output_json={"answer": answer},
+            started_at=started,
+            ended_at=datetime.now(UTC),
+        )
+    )
 
     run.status = "completed"
     run.current_step = "final"
@@ -78,6 +113,15 @@ def answer_with_rag(
             content=answer,
             metadata_json={"kb_id": kb_id, "top_k": top_k},
             duration_ms=duration_ms,
+        )
+    )
+    db.add(
+        AuditLog(
+            actor_id=user_id,
+            action="RAG_QUERY",
+            resource_type="agent_run",
+            resource_id=run_id,
+            metadata_json={"kb_id": kb_id, "top_k": top_k},
         )
     )
     db.commit()
@@ -120,3 +164,16 @@ def _to_retrieved_chunk(result: VectorSearchResult) -> RetrievedChunk:
         score=result.score,
         metadata=result.metadata,
     )
+
+
+def _to_search_result(result: VectorSearchResult) -> dict:
+    return {
+        "content": result.content,
+        "score": result.score,
+        "source": {
+            "document_id": result.document_id,
+            "filename": result.filename,
+            "chunk_index": result.chunk_index,
+        },
+        "metadata": result.metadata,
+    }

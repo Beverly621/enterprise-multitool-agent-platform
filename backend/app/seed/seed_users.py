@@ -15,7 +15,7 @@ ROLE_PERMISSIONS: dict[str, list[str]] = {
         "audit:read",
     ],
     "Developer": ["sql_agent:execute", "tools:register", "traces:read", "kb:read", "tools:execute"],
-    "User": ["kb:read", "kb:chat", "reports:generate", "tools:execute"],
+    "User": ["kb:read", "kb:chat", "reports:generate", "tools:execute", "sql_agent:execute"],
     "Guest": ["kb:read_public"],
 }
 

@@ -2,7 +2,7 @@
 
 企业级多工具知识库 Agent 平台，面向企业内部知识库、结构化数据库和业务 API 的 AI-Agent 后端与管理控制台。
 
-当前完成阶段：**阶段二：RAG 知识库模块**。
+当前完成阶段：**阶段三：SQL Agent 模块**。
 
 ## Phase Progress
 
@@ -10,7 +10,7 @@
 | --- | --- | --- |
 | 1 | FastAPI, PostgreSQL + pgvector, Redis, Celery, JWT, RBAC, Alembic, Docker Compose | Done |
 | 2 | RAG 文档解析、切分、Embedding、向量检索 | Done |
-| 3 | SQL Agent 与 SQL Guardrails | Planned |
+| 3 | SQL Agent 与 SQL Guardrails | Done |
 | 4 | Tool Calling 与工具注册执行 | Planned |
 | 5 | Agent Planner 多步骤编排 | Planned |
 | 6 | Human-in-the-loop 审批与报告生成 | Planned |
@@ -95,6 +95,10 @@ python -m pytest app/tests
 - `GET /api/documents/{id}`
 - `POST /api/kb/{id}/search`
 - `POST /api/chat/rag`
+- `GET /api/sql-agent/schema`
+- `POST /api/sql-agent/query`
+- `GET /api/sql-agent/logs`
+- `GET /api/sql-agent/logs/{id}`
 
 ## Stage 1 Notes
 
@@ -111,3 +115,11 @@ python -m pytest app/tests
 - Chunk defaults are `chunk_size=800` and `chunk_overlap=120`.
 - Search uses PostgreSQL + pgvector and returns retrieved chunks plus citations.
 - `POST /api/chat/rag` returns `answer`, `citations`, `retrieved_chunks` and `run_id`.
+
+## Stage 3 Notes
+
+- SQL Agent only exposes `demo_*` business tables through a safe Schema Reader.
+- Demo e-commerce seed data includes 240 orders with abnormal statuses, delays, low scores and after-sales cases.
+- SQL Guardrails allow only single-statement `SELECT`, block sensitive tables/fields, reject `SELECT *`, and clamp `LIMIT` to 100.
+- Each SQL Agent query writes `agent_runs`, `agent_steps`, `agent_traces`, `sql_query_logs` and `audit_logs`.
+- Mock SQL generation works without real LLM API keys and supports the recommended demo questions.

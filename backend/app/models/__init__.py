@@ -1,6 +1,14 @@
 from app.core.database import Base
 from app.models.agent_run import AgentRun, AgentStep, AgentTrace
 from app.models.audit_log import AuditLog
+from app.models.demo_order import (
+    DemoAfterSales,
+    DemoCustomer,
+    DemoOrder,
+    DemoOrderItem,
+    DemoProduct,
+    DemoReview,
+)
 from app.models.document import Document, DocumentChunk
 from app.models.knowledge_base import KnowledgeBase
 from app.models.rbac import Permission, Role, role_permissions, user_roles
@@ -17,6 +25,12 @@ __all__ = [
     "AuditLog",
     "Base",
     "Conversation",
+    "DemoAfterSales",
+    "DemoCustomer",
+    "DemoOrder",
+    "DemoOrderItem",
+    "DemoProduct",
+    "DemoReview",
     "Document",
     "DocumentChunk",
     "KnowledgeBase",

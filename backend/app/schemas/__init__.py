@@ -19,6 +19,7 @@ from app.schemas.kb import (
     SearchRequest,
     SearchResponse,
 )
+from app.schemas.sql_agent import SQLAgentQueryRequest, SQLAgentQueryResponse, SQLQueryLogRead
 
 __all__ = [
     "APIResponse",
@@ -34,6 +35,9 @@ __all__ = [
     "RoleRead",
     "SearchRequest",
     "SearchResponse",
+    "SQLAgentQueryRequest",
+    "SQLAgentQueryResponse",
+    "SQLQueryLogRead",
     "TokenResponse",
     "UserCreate",
     "UserLogin",

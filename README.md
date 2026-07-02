@@ -2,7 +2,7 @@
 
 企业级多工具知识库 Agent 平台，面向企业内部知识库、结构化数据库和业务 API 的 AI-Agent 后端与管理控制台。
 
-当前完成阶段：**阶段六：异步任务与报告生成增强**。
+当前完成阶段：**阶段七：前端后台与可视化控制台**。
 
 ## Phase Progress
 
@@ -14,8 +14,8 @@
 | 4 | Tool Calling 与工具注册执行 | Done |
 | 5 | Agent Planner 多步骤编排 | Done |
 | 6 | 异步任务、任务进度、取消、幂等与报告历史 | Done |
-| 7 | Tracing、审计与观测 | Planned |
-| 8 | 前端后台完整演示与部署文档 | Planned |
+| 7 | 前端后台、可视化控制台、权限菜单与演示页面 | Done |
+| 8 | Demo 数据、公开资料接入与 GitHub 展示优化 | Planned |
 
 ## Tech Stack
 
@@ -85,12 +85,15 @@ python -m pytest app/tests
 - `POST /api/auth/register`
 - `POST /api/auth/login`
 - `GET /api/auth/me`
+- `GET /api/dashboard/summary`
 - `GET /api/users`
 - `GET /api/roles`
 - `POST /api/roles`
 - `POST /api/permissions/assign`
 - `POST /api/kb`
 - `GET /api/kb`
+- `GET /api/kb/{id}`
+- `GET /api/kb/{id}/documents`
 - `POST /api/kb/{id}/documents`
 - `GET /api/documents/{id}`
 - `POST /api/kb/{id}/search`
@@ -106,6 +109,7 @@ python -m pytest app/tests
 - `POST /api/tools/{tool_name}/disable`
 - `POST /api/tools/{tool_name}/invoke`
 - `GET /api/tool-calls/{tool_call_id}`
+- `GET /api/tool-calls`
 - `POST /api/agent/chat`
 - `GET /api/runs`
 - `GET /api/runs/{run_id}`
@@ -115,6 +119,7 @@ python -m pytest app/tests
 - `GET /api/runs/{run_id}/tool-calls`
 - `GET /api/runs/{run_id}/traces`
 - `GET /api/tasks/{task_id}/progress`
+- `GET /api/tasks`
 - `POST /api/tasks/{task_id}/cancel`
 - `GET /api/approvals`
 - `GET /api/approvals/{approval_id}`
@@ -174,3 +179,13 @@ python -m pytest app/tests
 - Multi-step async reports are saved to `reports` with Markdown content and sanitized source metadata.
 - Report export is reserved through `/api/reports/{report_id}/export` and currently returns a documented `not_implemented` placeholder.
 - Celery worker imports all task modules explicitly and continues to work with Mock providers when real API keys are absent.
+
+## Stage 7 Notes
+
+- The frontend console now includes login, dashboard, knowledge-base management, Agent Chat, SQL Agent, tools, approvals, runs, tasks, reports, audit and admin users pages.
+- Frontend auth uses localStorage token storage, automatic `Authorization: Bearer` headers, `/api/auth/me` session loading and 401 redirect to `/login`.
+- The sidebar is role-aware: Guest, User, Developer and Admin see different navigation entries.
+- Agent Chat supports sync and async mode, idempotency keys, progress polling, citations, generated SQL, tool results and approval IDs.
+- Run detail pages show run metadata, final answer, step timeline, trace timeline, tool calls, task progress and linked reports.
+- Lightweight backend console APIs were added for dashboard summary, task list, global tool call list, KB detail and KB documents.
+- Frontend dependencies were upgraded to Next.js 16.2.10, React 19.2.0 and ESLint 9; `npm audit --omit=dev` reports zero vulnerabilities.

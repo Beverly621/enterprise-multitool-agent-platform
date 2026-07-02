@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
@@ -63,6 +64,34 @@ def list_knowledge_bases(
 ):
     kbs = db.scalars(accessible_kb_statement(current_user)).all()
     return ok([_serialize_kb(kb) for kb in kbs])
+
+
+@router.get("/{kb_id}")
+def get_knowledge_base(
+    kb_id: int,
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_db)],
+):
+    kb = get_accessible_kb(db, kb_id, current_user)
+    documents = db.scalars(
+        select(Document).where(Document.kb_id == kb.id).order_by(Document.id.desc())
+    ).all()
+    data = _serialize_kb(kb)
+    data["documents"] = [_serialize_document(document) for document in documents]
+    return ok(data)
+
+
+@router.get("/{kb_id}/documents")
+def list_kb_documents(
+    kb_id: int,
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_db)],
+):
+    kb = get_accessible_kb(db, kb_id, current_user)
+    documents = db.scalars(
+        select(Document).where(Document.kb_id == kb.id).order_by(Document.id.desc())
+    ).all()
+    return ok([_serialize_document(document) for document in documents])
 
 
 @router.post("/{kb_id}/documents")

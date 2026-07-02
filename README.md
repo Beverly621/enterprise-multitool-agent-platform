@@ -2,7 +2,7 @@
 
 企业级多工具知识库 Agent 平台，面向企业内部知识库、结构化数据库和业务 API 的 AI-Agent 后端与管理控制台。
 
-当前完成阶段：**阶段五：Agent Planner 多步骤任务编排**。
+当前完成阶段：**阶段六：异步任务与报告生成增强**。
 
 ## Phase Progress
 
@@ -13,7 +13,7 @@
 | 3 | SQL Agent 与 SQL Guardrails | Done |
 | 4 | Tool Calling 与工具注册执行 | Done |
 | 5 | Agent Planner 多步骤编排 | Done |
-| 6 | Human-in-the-loop 审批与报告生成 | Planned |
+| 6 | 异步任务、任务进度、取消、幂等与报告历史 | Done |
 | 7 | Tracing、审计与观测 | Planned |
 | 8 | 前端后台完整演示与部署文档 | Planned |
 
@@ -110,12 +110,20 @@ python -m pytest app/tests
 - `GET /api/runs`
 - `GET /api/runs/{run_id}`
 - `GET /api/runs/{run_id}/steps`
+- `GET /api/runs/{run_id}/progress`
+- `POST /api/runs/{run_id}/cancel`
 - `GET /api/runs/{run_id}/tool-calls`
 - `GET /api/runs/{run_id}/traces`
+- `GET /api/tasks/{task_id}/progress`
+- `POST /api/tasks/{task_id}/cancel`
 - `GET /api/approvals`
 - `GET /api/approvals/{approval_id}`
 - `POST /api/approvals/{approval_id}/approve`
 - `POST /api/approvals/{approval_id}/reject`
+- `GET /api/reports`
+- `GET /api/reports/{report_id}`
+- `GET /api/runs/{run_id}/report`
+- `POST /api/reports/{report_id}/export`
 
 ## Stage 1 Notes
 
@@ -156,3 +164,13 @@ python -m pytest app/tests
 - Multi-step reports execute SQL analysis first, optionally enrich with knowledge-base evidence, then render a structured Chinese report.
 - Each planner run writes `agent_runs`, `agent_steps`, `agent_traces` and audit events so `/api/runs/{run_id}/steps` and `/api/runs/{run_id}/traces` can reconstruct the workflow.
 - RBAC is enforced at the planner boundary: Guest can only use general chat and public RAG, User can use normal tools and reports, Developer can run SQL, and Admin can access all flows.
+
+## Stage 6 Notes
+
+- `POST /api/agent/chat` now supports `async_mode=true` and optional `idempotency_key`.
+- Async submissions immediately return `run_id`, `task_id`, `progress_url` and `trace_url`; long work is executed by Celery.
+- New tables store task progress, failed task dead-letter records, idempotency keys and Markdown report history.
+- Users can query progress by run or task, and cancel non-terminal tasks cooperatively.
+- Multi-step async reports are saved to `reports` with Markdown content and sanitized source metadata.
+- Report export is reserved through `/api/reports/{report_id}/export` and currently returns a documented `not_implemented` placeholder.
+- Celery worker imports all task modules explicitly and continues to work with Mock providers when real API keys are absent.

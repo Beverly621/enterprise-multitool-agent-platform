@@ -3,11 +3,13 @@ from fastapi import APIRouter
 from app.api import (
     agent_chat,
     approvals,
+    async_runs,
     audit,
     auth,
     chat,
     documents,
     knowledge_base,
+    reports,
     roles,
     runs,
     sql_agent,
@@ -19,6 +21,7 @@ from app.api import (
 api_router = APIRouter()
 api_router.include_router(auth.router, prefix="/auth", tags=["auth"])
 api_router.include_router(agent_chat.router, prefix="/agent", tags=["agent"])
+api_router.include_router(async_runs.router, tags=["async-runs"])
 api_router.include_router(users.router, prefix="/users", tags=["users"])
 api_router.include_router(roles.router, tags=["rbac"])
 api_router.include_router(knowledge_base.router, prefix="/kb", tags=["knowledge-base"])
@@ -30,3 +33,4 @@ api_router.include_router(approvals.router, prefix="/approvals", tags=["approval
 api_router.include_router(tool_calls.router, prefix="/tool-calls", tags=["tool-calls"])
 api_router.include_router(runs.router, prefix="/runs", tags=["runs"])
 api_router.include_router(audit.router, prefix="/audit", tags=["audit"])
+api_router.include_router(reports.router, tags=["reports"])

@@ -32,13 +32,22 @@ async def run_agent_chat(
     kb_id: int | None = None,
 ) -> AgentState:
     run = _create_run(db, user, query, session_id)
+    return await run_agent_chat_on_run(db, user, run, kb_id=kb_id)
+
+
+async def run_agent_chat_on_run(
+    db: Session,
+    user: User,
+    run: AgentRun,
+    kb_id: int | None = None,
+) -> AgentState:
     state: AgentState = {
         "run_id": run.run_id,
         "user_id": user.id,
-        "session_id": session_id,
-        "query": query,
+        "session_id": run.session_id,
+        "query": run.query,
         "kb_id": kb_id,
-        "messages": [{"role": "user", "content": query}],
+        "messages": [{"role": "user", "content": run.query}],
         "tool_results": [],
         "requires_approval": False,
         "approval_id": None,
@@ -55,7 +64,7 @@ async def run_agent_chat(
                 action="AGENT_RUN_CREATED",
                 resource_type="agent_run",
                 resource_id=run.run_id,
-                metadata_json={"session_id": session_id},
+                metadata_json={"session_id": run.session_id},
             )
         )
         state = run_intent_router_node(db, run, state)

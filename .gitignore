@@ -24,6 +24,8 @@ storage/
 backend/storage/
 celerybeat-schedule
 *.log
+*.swp
+*.swo
 .vscode/
 .idea/
 outputs/

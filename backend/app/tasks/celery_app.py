@@ -14,5 +14,12 @@ celery_app.conf.update(
     result_serializer="json",
     timezone="UTC",
     enable_utc=True,
+    imports=(
+        "app.tasks.agent_tasks",
+        "app.tasks.cleanup_tasks",
+        "app.tasks.document_tasks",
+        "app.tasks.embedding_tasks",
+        "app.tasks.report_tasks",
+        "app.tasks.retry_tasks",
+    ),
 )
-

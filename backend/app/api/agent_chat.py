@@ -9,6 +9,7 @@ from app.core.security import get_current_user
 from app.models.user import User
 from app.schemas.agent_chat import AgentChatRequest
 from app.services.agent_runtime import run_agent
+from app.services.async_run_service import submit_async_agent_run
 
 router = APIRouter()
 
@@ -19,6 +20,17 @@ async def agent_chat(
     current_user: Annotated[User, Depends(get_current_user)],
     db: Annotated[Session, Depends(get_db)],
 ):
+    if payload.async_mode:
+        return ok(
+            submit_async_agent_run(
+                db,
+                current_user,
+                query=payload.query,
+                session_id=payload.session_id,
+                kb_id=payload.kb_id,
+                idempotency_key=payload.idempotency_key,
+            )
+        )
     response = await run_agent(
         db,
         current_user,

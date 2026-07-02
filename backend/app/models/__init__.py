@@ -12,7 +12,9 @@ from app.models.demo_order import (
 from app.models.document import Document, DocumentChunk
 from app.models.knowledge_base import KnowledgeBase
 from app.models.rbac import Permission, Role, role_permissions, user_roles
+from app.models.report import Report
 from app.models.sql_query import SQLQueryLog
+from app.models.task_progress import FailedTask, IdempotencyKey, TaskProgress
 from app.models.tool import AgentTool, Approval, EmailDraft, Todo, ToolCall, ToolPermission
 from app.models.user import Conversation, Message, User, UserPreference
 
@@ -37,8 +39,12 @@ __all__ = [
     "KnowledgeBase",
     "Message",
     "Permission",
+    "Report",
     "Role",
     "SQLQueryLog",
+    "FailedTask",
+    "IdempotencyKey",
+    "TaskProgress",
     "Todo",
     "ToolCall",
     "ToolPermission",

@@ -52,15 +52,18 @@ bash scripts/check_public_safety.sh
 - Eval / Regression 结果：RAG 10/10 passed；SQL Guardrails 22/22 passed，`false_negative=0`；Tool 10/10 passed；Agent 12/12 passed；Regression 12/12 passed。
 - 前端构建结果：`cd frontend && npm run build`，结果 `Compiled successfully`。
 - 安全检查结果：`bash scripts/check_public_safety.sh`，结果通过；仅提示 provider key 占位变量和 token/secret/password 等安全说明词汇需要发布前人工确认语境。
-- Docker 验收状态：待最终补跑。当前阶段未标记 Docker 验收通过，未删除或弱化 `02-test.md` 中 Docker 冷启动、容器内 DB/Celery/API 联通、seed 幂等、前端真实 API 联通验收要求。
+- Docker 验收状态：已于 2026-07-03 补跑通过，结果记录见本地 `test/02-test-result.md`；远端 main 已包含 `cafc9cc fix: stabilize docker milestone validation`。
 
-## Docker 遗留项
+## Docker 补验收结果
 
-当前机器暂不进行 Docker 强制验收。最终交付前必须回到 `02-test.md`，完整补跑：
+上一轮遗留 Docker 强制验收已完成：
 
-- Docker 冷启动。
-- 容器内 DB / Celery / API 联通。
-- seed 幂等。
-- 前端真实 API 联通验收。
+- Docker 冷启动：通过，已执行 `docker compose down -v`、`docker compose build --no-cache`、`docker compose up -d`。
+- 容器内 DB / Celery / API 联通：通过，backend / frontend / celery_worker / postgres / redis 均运行，postgres / redis healthy。
+- seed 幂等：通过，首次 seed 成功，第二次 seed 跳过重复数据。
+- 前端真实 API 联通：通过，`http://localhost:3100/` 可访问，健康检查、登录、同步/异步 Agent、tasks/reports/evals/dashboard HTTP 冒烟通过。
+- 容器内测试：通过，`docker compose exec backend python -m pytest app/tests` 结果 `78 passed, 1 warning`。
+- 容器内前端 lint/build：通过，`npm run lint` 与 `npm run build` 均通过。
+- 公开安全检查：通过，无 tracked `.env`、无高置信 API key、无 tracked 缓存目录。
 
 Dockerfile、docker-compose.yml、compose.yaml、docker-compose.override.yml 等容器相关配置不得删除或弱化。后续新增依赖和环境变量时，必须同步更新 Dockerfile、依赖清单、lockfile 与 `.env.example`。

@@ -52,4 +52,4 @@ Only update expected values when the new behavior is intentionally designed, rev
 - Provider calls stop recording.
 - Core demo intents no longer route.
 - Frontend build fails.
-- Docker final acceptance remains pending until final handoff and must not be marked passed early.
+- Docker cold-start and container integration acceptance regresses after the 2026-07-03 passing validation.

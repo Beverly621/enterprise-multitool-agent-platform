@@ -213,7 +213,7 @@ Docs:
 - [docs/METRICS_DEFINITION.md](docs/METRICS_DEFINITION.md)
 - [docs/REGRESSION_TEST_GUIDE.md](docs/REGRESSION_TEST_GUIDE.md)
 
-Docker final acceptance remains pending and must be rerun before final handoff.
+Docker cold-start and container integration acceptance passed on 2026-07-03. The validation covered Docker cold start, DB/Celery/API connectivity, idempotent demo seed, frontend-to-real-API smoke tests, container backend tests, frontend lint/build and public safety checks.
 
 ## Frontend Pages
 

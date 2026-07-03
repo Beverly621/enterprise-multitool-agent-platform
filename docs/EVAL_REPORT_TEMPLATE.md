@@ -43,4 +43,4 @@
 
 - Allow next stage: Yes / No
 - Required fixes before next stage:
-- Docker final acceptance status: pending final rerun
+- Docker final acceptance status: passed / failed / not applicable

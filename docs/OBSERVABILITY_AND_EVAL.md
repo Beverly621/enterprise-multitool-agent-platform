@@ -152,4 +152,4 @@ The existing Dashboard now displays Agent success rate, average/P95 run latency,
 - Do not commit `.env`, `.env.local` or real provider keys.
 - Do not put model secrets in `NEXT_PUBLIC_*`.
 - Do not store raw authorization headers, tokens, secrets, API keys or passwords in metrics, trace, audit or eval reports.
-- Docker cold-start and container integration acceptance remains a final delivery blocker and must be rerun before final handoff.
+- Docker cold-start and container integration acceptance passed on 2026-07-03. Future changes to DB, Redis, Celery, API, frontend or seed behavior must preserve the same compose-based acceptance path.

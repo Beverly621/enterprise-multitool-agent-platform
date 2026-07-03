@@ -4,7 +4,7 @@
 
 Enterprise Multi-Tool Agent Platform is an enterprise-grade AI Agent platform that combines RAG, SQL Agent, Tool Calling, multi-step planning, async report generation, RBAC, SQL Guardrails, tracing, and audit logging.
 
-当前完成阶段：**阶段十：部署、CI/CD 与生产化配置**。
+当前完成阶段：**阶段十一：简历包装、文档完善、演示材料**。
 
 ## What This Project Solves
 
@@ -89,6 +89,31 @@ flowchart TD
 ```
 
 More detail: [docs/ARCHITECTURE_OVERVIEW.md](docs/ARCHITECTURE_OVERVIEW.md)
+
+## Agent Workflow
+
+```mermaid
+flowchart LR
+    User[User Prompt] --> Router[Intent Router]
+    Router --> General[General Chat]
+    Router --> RAG[RAG Q&A]
+    Router --> SQL[SQL Agent]
+    Router --> Tool[Tool Calling]
+    Router --> Multi[Multi-step Report]
+    Tool --> Approval{Needs Approval?}
+    Approval -->|Yes| Human[Human Approval]
+    Approval -->|No| Result[Tool Result]
+    Multi --> SQL
+    Multi --> RAG
+    Multi --> Report[Report Generation]
+    General --> Trace[Run Trace]
+    RAG --> Trace
+    SQL --> Trace
+    Result --> Trace
+    Human --> Trace
+    Report --> Trace
+    Trace --> Audit[Audit Log]
+```
 
 ## Quick Start
 
@@ -196,6 +221,19 @@ The order data is simulated and covers 10 states, 10 product categories, 320 ord
 
 Full guide: [docs/DEMO_GUIDE.md](docs/DEMO_GUIDE.md)
 
+## Presentation Materials
+
+- Resume descriptions: [docs/RESUME_DESCRIPTION.md](docs/RESUME_DESCRIPTION.md)
+- Interview Q&A: [docs/INTERVIEW_QA.md](docs/INTERVIEW_QA.md)
+- Architecture explanation: [docs/ARCHITECTURE_EXPLAIN.md](docs/ARCHITECTURE_EXPLAIN.md)
+- Demo script: [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md)
+- Project review: [docs/PROJECT_REVIEW.md](docs/PROJECT_REVIEW.md)
+- Technical highlights: [docs/TECHNICAL_HIGHLIGHTS.md](docs/TECHNICAL_HIGHLIGHTS.md)
+- Challenges and solutions: [docs/CHALLENGES_AND_SOLUTIONS.md](docs/CHALLENGES_AND_SOLUTIONS.md)
+- STAR project story: [docs/STAR_PROJECT_STORY.md](docs/STAR_PROJECT_STORY.md)
+- File map: [docs/PROJECT_FILE_MAP.md](docs/PROJECT_FILE_MAP.md)
+- Final presentation guide: [docs/FINAL_PRESENTATION_GUIDE.md](docs/FINAL_PRESENTATION_GUIDE.md)
+
 ## Core APIs
 
 - `POST /api/auth/login`
@@ -284,7 +322,13 @@ See [docs/RESUME_DESCRIPTION.md](docs/RESUME_DESCRIPTION.md) for Chinese and Eng
 
 ## Roadmap
 
-- Stage 9: observability, token/cost metrics, task duration metrics, RAG evals, SQL safety evals and regression datasets. Done.
-- Stage 10: deployment, CI/CD, production Docker Compose, GitHub Actions and security headers. Done.
-- Stage 11: resume packaging, architecture explanation, interview Q&A and final demo material.
-- Stage 12: final release checklist, GitHub publication, release tag and project retrospective.
+- Completed: RAG, SQL Agent, Tool Calling, Agent Planner, async reports, frontend console, eval/metrics, Docker, CI/CD and presentation materials.
+- Short term: Langfuse integration, more document formats, stronger report export and E2E tests.
+- Mid term: multi-tenant isolation, stronger policy engine, enterprise SSO and richer dashboards.
+- Long term: plugin marketplace, multi-agent collaboration, workflow editor and production-grade monitoring.
+
+More detail: [docs/ROADMAP.md](docs/ROADMAP.md)
+
+## License
+
+This project is released under the [MIT License](LICENSE).

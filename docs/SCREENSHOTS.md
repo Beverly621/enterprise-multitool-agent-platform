@@ -8,11 +8,14 @@ Recommended README screenshots:
 2. Knowledge Base
 3. Agent Chat
 4. SQL Agent
-5. Run Trace
-6. Task Progress
-7. Report Detail
-8. Approval
-9. Audit Log
+5. Tools
+6. Approvals
+7. Runs / Trace
+8. Tasks
+9. Reports
+10. Audit
+11. Metrics / Eval
+12. CI/CD
 
 Suggested layout:
 
@@ -29,3 +32,4 @@ Until screenshots are captured, README should use:
 > Screenshots will be added after the final demo run.
 ```
 
+Do not commit generated recording caches or unfinished temporary captures. Final screenshots should be captured from the real local demo and placed under `docs/assets/screenshots/` only after visual review.

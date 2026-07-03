@@ -4,7 +4,7 @@
 
 Enterprise Multi-Tool Agent Platform is an enterprise-grade AI Agent platform that combines RAG, SQL Agent, Tool Calling, multi-step planning, async report generation, RBAC, SQL Guardrails, tracing, and audit logging.
 
-当前完成阶段：**阶段十一：简历包装、文档完善、演示材料**。
+当前完成阶段：**阶段十二：最终收尾、GitHub 发布与项目复盘**。
 
 ## What This Project Solves
 
@@ -233,6 +233,9 @@ Full guide: [docs/DEMO_GUIDE.md](docs/DEMO_GUIDE.md)
 - STAR project story: [docs/STAR_PROJECT_STORY.md](docs/STAR_PROJECT_STORY.md)
 - File map: [docs/PROJECT_FILE_MAP.md](docs/PROJECT_FILE_MAP.md)
 - Final presentation guide: [docs/FINAL_PRESENTATION_GUIDE.md](docs/FINAL_PRESENTATION_GUIDE.md)
+- Final checklist: [docs/FINAL_CHECKLIST.md](docs/FINAL_CHECKLIST.md)
+- Final release guide: [docs/FINAL_RELEASE_GUIDE.md](docs/FINAL_RELEASE_GUIDE.md)
+- Third validation preparation: [docs/THIRD_VALIDATION_PREP.md](docs/THIRD_VALIDATION_PREP.md)
 
 ## Core APIs
 
@@ -308,6 +311,8 @@ Before publishing:
 
 ```bash
 bash scripts/check_public_safety.sh
+bash scripts/final_public_safety_check.sh
+bash scripts/final_repo_check.sh
 ```
 
 ## Screenshots
@@ -328,6 +333,10 @@ See [docs/RESUME_DESCRIPTION.md](docs/RESUME_DESCRIPTION.md) for Chinese and Eng
 - Long term: plugin marketplace, multi-agent collaboration, workflow editor and production-grade monitoring.
 
 More detail: [docs/ROADMAP.md](docs/ROADMAP.md)
+
+## Release Notes
+
+Demo release notes are maintained in [RELEASE_NOTES.md](RELEASE_NOTES.md). The suggested release tag is `v1.0.0-demo`, to be created only after the final `03-test.md` validation passes.
 
 ## License
 

@@ -9,7 +9,9 @@ from app.api import (
     chat,
     dashboard,
     documents,
+    evals,
     knowledge_base,
+    metrics,
     reports,
     roles,
     runs,
@@ -28,6 +30,8 @@ api_router.include_router(dashboard.router, prefix="/dashboard", tags=["dashboar
 api_router.include_router(users.router, prefix="/users", tags=["users"])
 api_router.include_router(roles.router, tags=["rbac"])
 api_router.include_router(knowledge_base.router, prefix="/kb", tags=["knowledge-base"])
+api_router.include_router(metrics.router, prefix="/metrics", tags=["metrics"])
+api_router.include_router(evals.router, prefix="/evals", tags=["evals"])
 api_router.include_router(documents.router, prefix="/documents", tags=["documents"])
 api_router.include_router(chat.router, prefix="/chat", tags=["chat"])
 api_router.include_router(sql_agent.router, prefix="/sql-agent", tags=["sql-agent"])

@@ -21,6 +21,7 @@ from app.models.agent_run import AgentRun
 from app.models.audit_log import AuditLog
 from app.models.user import User
 from app.services.agent_step_service import add_step, add_trace
+from app.services.provider_metrics_service import provider_metrics_scope
 from app.services.tool_permission_service import highest_role_level
 
 
@@ -57,6 +58,8 @@ async def run_agent_chat_on_run(
         "steps": [],
     }
     try:
+        metrics_scope = provider_metrics_scope(db=db, run_id=run.run_id, user_id=user.id)
+        metrics_scope.__enter__()
         add_trace(db, run.run_id, "AGENT_RUN_CREATED", metadata_json={"user_id": user.id})
         db.add(
             AuditLog(
@@ -113,6 +116,9 @@ async def run_agent_chat_on_run(
         state["final_answer"] = _human_error(exc)
         state["current_step"] = "FAILED"
         return state
+    finally:
+        if "metrics_scope" in locals():
+            metrics_scope.__exit__(None, None, None)
 
 
 def _create_run(db: Session, user: User, query: str, session_id: str | None) -> AgentRun:

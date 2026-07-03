@@ -1,0 +1,10 @@
+{"case_id":"tool_001","tool_name":"query_order_status","args":{"order_id":"order_1001"},"expected":{"tool_exists":true,"permission_level":"User","requires_approval":false}}
+{"case_id":"tool_002","tool_name":"query_order_status","args":{"order_id":"missing_order"},"expected":{"tool_exists":true,"permission_level":"User","requires_approval":false}}
+{"case_id":"tool_003","tool_name":"query_after_sales","args":{"issue_type":"product_damage"},"expected":{"tool_exists":true,"permission_level":"User","requires_approval":false}}
+{"case_id":"tool_004","tool_name":"generate_report","args":{"title":"异常订单分析报告"},"expected":{"tool_exists":true,"permission_level":"User","requires_approval":false}}
+{"case_id":"tool_005","tool_name":"send_email_draft","args":{"to_email":"demo@example.com","subject":"售后跟进","body":"请审批"},"expected":{"tool_exists":true,"permission_level":"User","requires_approval":true}}
+{"case_id":"tool_006","tool_name":"execute_safe_sql","args":{"sql":"SELECT state FROM demo_orders LIMIT 10"},"expected":{"tool_exists":true,"permission_level":"Developer","requires_approval":false,"guardrail_safe":true}}
+{"case_id":"tool_007","tool_name":"execute_safe_sql","args":{"sql":"DROP TABLE demo_orders"},"expected":{"tool_exists":true,"permission_level":"Developer","requires_approval":false,"guardrail_safe":false}}
+{"case_id":"tool_008","tool_name":"search_knowledge_base","args":{"kb_id":1,"query":"利益冲突"},"expected":{"tool_exists":true,"permission_level":"Guest","requires_approval":false}}
+{"case_id":"tool_009","tool_name":"create_todo","args":{"title":"跟进低评分订单"},"expected":{"tool_exists":true,"permission_level":"User","requires_approval":false}}
+{"case_id":"tool_010","tool_name":"disabled_unknown_tool","args":{},"expected":{"tool_exists":false}}

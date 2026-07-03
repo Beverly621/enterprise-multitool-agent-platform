@@ -11,6 +11,7 @@ from app.models.demo_order import (
 )
 from app.models.document import Document, DocumentChunk
 from app.models.knowledge_base import KnowledgeBase
+from app.models.metric import EvalCase, EvalResult, EvalRun, ProviderCall, RuntimeMetricsDaily
 from app.models.rbac import Permission, Role, role_permissions, user_roles
 from app.models.report import Report
 from app.models.sql_query import SQLQueryLog
@@ -36,11 +37,16 @@ __all__ = [
     "Document",
     "DocumentChunk",
     "EmailDraft",
+    "EvalCase",
+    "EvalResult",
+    "EvalRun",
     "KnowledgeBase",
     "Message",
     "Permission",
+    "ProviderCall",
     "Report",
     "Role",
+    "RuntimeMetricsDaily",
     "SQLQueryLog",
     "FailedTask",
     "IdempotencyKey",

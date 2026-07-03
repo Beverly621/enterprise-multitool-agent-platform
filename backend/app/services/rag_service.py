@@ -8,6 +8,7 @@ from app.models.audit_log import AuditLog
 from app.schemas.kb import Citation, RAGResponse, RetrievedChunk, SearchResponse
 from app.services.provider_base import ChatMessage
 from app.services.provider_factory import get_llm_provider
+from app.services.provider_metrics_service import provider_metrics_scope
 from app.services.vector_store import VectorSearchResult, VectorStore
 
 
@@ -78,15 +79,16 @@ def answer_with_rag(
         f"Question:\n{query}\n\nContext:\n{context}"
     )
     started = datetime.now(UTC)
-    answer = get_llm_provider().chat(
-        [
-            ChatMessage(
-                role="system",
-                content="Return a concise answer with business-friendly wording.",
-            ),
-            ChatMessage(role="user", content=prompt),
-        ]
-    )
+    with provider_metrics_scope(db=db, run_id=run_id, user_id=user_id, request_type="RAG_ANSWER"):
+        answer = get_llm_provider().chat(
+            [
+                ChatMessage(
+                    role="system",
+                    content="Return a concise answer with business-friendly wording.",
+                ),
+                ChatMessage(role="user", content=prompt),
+            ]
+        )
     duration_ms = int((datetime.now(UTC) - started).total_seconds() * 1000)
     db.add(
         AgentStep(

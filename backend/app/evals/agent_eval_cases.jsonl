@@ -1,0 +1,12 @@
+{"case_id":"agent_001","query":"你好，介绍一下这个平台","expected_intent":"GENERAL_CHAT","expected_status":"SUCCESS"}
+{"case_id":"agent_002","query":"制度里利益冲突应该如何处理？","expected_intent":"RAG_QA","expected_status":"SUCCESS"}
+{"case_id":"agent_003","query":"哪个地区的订单异常最多？","expected_intent":"SQL_QUERY","expected_status":"SUCCESS"}
+{"case_id":"agent_004","query":"查询订单状态 order_1001","expected_intent":"TOOL_CALL","expected_status":"SUCCESS"}
+{"case_id":"agent_005","query":"结合最近 30 天订单异常数据和售后知识库生成一份分析报告。","expected_intent":"MULTI_STEP_REPORT","expected_status":"SUCCESS"}
+{"case_id":"agent_006","query":"请发送邮件给 ops@example.com 并等待审批","expected_intent":"NEED_APPROVAL","expected_status":"WAITING_APPROVAL"}
+{"case_id":"agent_007","query":"async_mode=true 生成报告，结合订单异常数据和售后知识库","expected_intent":"MULTI_STEP_REPORT","expected_status":"SUCCESS"}
+{"case_id":"agent_008","query":"统计低评分订单数量","expected_intent":"SQL_QUERY","expected_status":"SUCCESS"}
+{"case_id":"agent_009","query":"售后记录里商品破损有哪些？","expected_intent":"TOOL_CALL","expected_status":"SUCCESS"}
+{"case_id":"agent_010","query":"生成报告：异常订单复盘","expected_intent":"MULTI_STEP_REPORT","expected_status":"SUCCESS"}
+{"case_id":"agent_011","query":"确认审批这封邮件","expected_intent":"NEED_APPROVAL","expected_status":"WAITING_APPROVAL"}
+{"case_id":"agent_012","query":"帮助我了解售后政策","expected_intent":"RAG_QA","expected_status":"SUCCESS"}

@@ -15,6 +15,7 @@ from app.models.report import Report
 from app.models.task_progress import FailedTask, TaskProgress
 from app.models.tool import Approval, ToolCall
 from app.models.user import User
+from app.services.metrics_service import summary_metrics
 from app.services.tool_permission_service import highest_role_level
 
 router = APIRouter()
@@ -40,6 +41,7 @@ def dashboard_summary(
             "recent_reports": _recent(db, Report, user_id, "user_id"),
             "recent_tool_calls": _recent(db, ToolCall, user_id, "user_id"),
             "recent_audit_logs": _recent_audit_logs(db),
+            "observability": summary_metrics(db, user_id),
         }
     )
 

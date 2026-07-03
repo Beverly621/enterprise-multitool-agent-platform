@@ -1,0 +1,12 @@
+{"case_id":"reg_001","query":"你好，介绍一下这个平台","expected":{"intent":"GENERAL_CHAT"}}
+{"case_id":"reg_002","query":"制度里利益冲突应该如何处理？","expected":{"intent":"RAG_QA"}}
+{"case_id":"reg_003","query":"哪个地区的订单异常最多？","expected":{"intent":"SQL_QUERY"}}
+{"case_id":"reg_004","query":"查询订单状态 order_1001","expected":{"intent":"TOOL_CALL"}}
+{"case_id":"reg_005","query":"结合最近 30 天订单异常数据和售后知识库生成一份分析报告。","expected":{"intent":"MULTI_STEP_REPORT"}}
+{"case_id":"reg_006","query":"请发送邮件给 ops@example.com 并等待审批","expected":{"intent":"NEED_APPROVAL"}}
+{"case_id":"reg_007","sql":"SELECT state, COUNT(order_id) AS cnt FROM demo_orders GROUP BY state LIMIT 10;","expected":{"sql_safe":true}}
+{"case_id":"reg_008","sql":"DROP TABLE demo_orders;","expected":{"sql_safe":false}}
+{"case_id":"reg_009","sql":"SELECT * FROM demo_orders LIMIT 10;","expected":{"sql_safe":false}}
+{"case_id":"reg_010","sql":"SELECT customer_id, token FROM demo_customers LIMIT 10;","expected":{"sql_safe":false}}
+{"case_id":"reg_011","query":"售后记录里商品破损有哪些？","expected":{"intent":"TOOL_CALL"}}
+{"case_id":"reg_012","query":"生成报告：异常订单复盘","expected":{"intent":"MULTI_STEP_REPORT"}}

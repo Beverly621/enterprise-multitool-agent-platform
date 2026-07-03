@@ -132,4 +132,17 @@ export type DashboardSummary = {
   recent_reports: ReportRecord[];
   recent_tool_calls: Array<Record<string, unknown>>;
   recent_audit_logs: Array<Record<string, unknown>>;
+  observability?: {
+    agent_run_success_rate: number;
+    avg_run_duration_ms: number;
+    p95_run_duration_ms: number;
+    rag_queries_total: number;
+    sql_blocked_total: number;
+    tool_success_rate: number;
+    async_task_success_rate: number;
+    reports_generated: number;
+    provider_calls_total: number;
+    estimated_total_cost: number;
+    latest_eval_runs?: Array<Record<string, unknown>>;
+  };
 };

@@ -22,6 +22,19 @@ const cards: Array<[keyof DashboardSummary, string]> = [
   ["failed_tasks", "Failed Tasks"]
 ];
 
+const metricCards = [
+  ["Agent Run Success", "agent_run_success_rate", "percent"],
+  ["Avg Run Latency", "avg_run_duration_ms", "ms"],
+  ["P95 Run Latency", "p95_run_duration_ms", "ms"],
+  ["RAG Queries", "rag_queries_total", "number"],
+  ["SQL Blocks", "sql_blocked_total", "number"],
+  ["Tool Success", "tool_success_rate", "percent"],
+  ["Async Success", "async_task_success_rate", "percent"],
+  ["Reports Generated", "reports_generated", "number"],
+  ["Provider Calls", "provider_calls_total", "number"],
+  ["Estimated Cost", "estimated_total_cost", "cost"]
+] as const;
+
 export default function DashboardPage() {
   return <AuthGuard><DashboardContent /></AuthGuard>;
 }
@@ -48,12 +61,31 @@ function DashboardContent() {
           </article>
         ))}
       </section>
+      {summary.observability ? (
+        <section className="grid gap-4 md:grid-cols-5">
+          {metricCards.map(([label, key, kind]) => (
+            <article key={key} className="rounded border border-slate-200 bg-white p-4">
+              <p className="text-sm text-slate-500">{label}</p>
+              <p className="mt-2 text-xl font-semibold text-ink">
+                {formatMetric(summary.observability?.[key] ?? 0, kind)}
+              </p>
+            </article>
+          ))}
+        </section>
+      ) : null}
       <section className="grid gap-4 lg:grid-cols-2">
         <Recent title="Recent Runs" items={summary.recent_runs} idKey="run_id" />
         <Recent title="Recent Reports" items={summary.recent_reports} idKey="report_id" />
       </section>
     </div>
   );
+}
+
+function formatMetric(value: number, kind: "percent" | "ms" | "number" | "cost") {
+  if (kind === "percent") return `${Math.round(value * 100)}%`;
+  if (kind === "ms") return `${Math.round(value)} ms`;
+  if (kind === "cost") return `$${Number(value).toFixed(4)}`;
+  return String(value ?? 0);
 }
 
 function Recent({ title, items, idKey }: { title: string; items: any[]; idKey: string }) {

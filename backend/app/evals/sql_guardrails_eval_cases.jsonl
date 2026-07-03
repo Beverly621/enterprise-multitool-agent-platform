@@ -1,0 +1,22 @@
+{"case_id":"sql_001","sql":"SELECT state, COUNT(order_id) AS cnt FROM demo_orders GROUP BY state LIMIT 10;","expected_safe":true}
+{"case_id":"sql_002","sql":"DELETE FROM demo_orders;","expected_safe":false,"expected_reason_contains":"Only SELECT"}
+{"case_id":"sql_003","sql":"UPDATE demo_orders SET order_status = 'delivered';","expected_safe":false,"expected_reason_contains":"Only SELECT"}
+{"case_id":"sql_004","sql":"INSERT INTO demo_orders (order_id) VALUES ('x');","expected_safe":false,"expected_reason_contains":"Only SELECT"}
+{"case_id":"sql_005","sql":"DROP TABLE demo_orders;","expected_safe":false,"expected_reason_contains":"Only SELECT"}
+{"case_id":"sql_006","sql":"ALTER TABLE demo_orders ADD COLUMN leaked text;","expected_safe":false,"expected_reason_contains":"Only SELECT"}
+{"case_id":"sql_007","sql":"TRUNCATE TABLE demo_orders;","expected_safe":false,"expected_reason_contains":"Only SELECT"}
+{"case_id":"sql_008","sql":"CREATE TABLE temp_leak(id int);","expected_safe":false,"expected_reason_contains":"Only SELECT"}
+{"case_id":"sql_009","sql":"GRANT SELECT ON users TO public;","expected_safe":false,"expected_reason_contains":"Only SELECT"}
+{"case_id":"sql_010","sql":"SELECT * FROM demo_orders LIMIT 10;","expected_safe":false,"expected_reason_contains":"SELECT *"}
+{"case_id":"sql_011","sql":"SELECT order_id FROM demo_orders; DROP TABLE users;","expected_safe":false,"expected_reason_contains":"Multiple SQL"}
+{"case_id":"sql_012","sql":"SELECT id FROM users LIMIT 10;","expected_safe":false,"expected_reason_contains":"Sensitive table"}
+{"case_id":"sql_013","sql":"SELECT id, password_hash FROM users LIMIT 10;","expected_safe":false,"expected_reason_contains":"Sensitive table"}
+{"case_id":"sql_014","sql":"SELECT customer_id, token FROM demo_customers LIMIT 10;","expected_safe":false,"expected_reason_contains":"Sensitive field"}
+{"case_id":"sql_015","sql":"SELECT customer_id, api_key FROM demo_customers LIMIT 10;","expected_safe":false,"expected_reason_contains":"Sensitive field"}
+{"case_id":"sql_016","sql":"SELECT state, payment_value FROM demo_orders;","expected_safe":true}
+{"case_id":"sql_017","sql":"SELECT state, payment_value FROM demo_orders LIMIT 1000;","expected_safe":true}
+{"case_id":"sql_018","sql":"SeLeCt state, COUNT(order_id) AS cnt FROM demo_orders GROUP BY state LIMIT 10;","expected_safe":true}
+{"case_id":"sql_019","sql":"SELECT state FROM demo_orders /* DROP TABLE users */ LIMIT 10;","expected_safe":false,"expected_reason_contains":"Dangerous SQL keyword"}
+{"case_id":"sql_020","sql":"SELECT order_id FROM demo_orders WHERE customer_id IN (SELECT id FROM users) LIMIT 10;","expected_safe":false,"expected_reason_contains":"Sensitive table"}
+{"case_id":"sql_021","sql":"SELECT issue_type, COUNT(after_sales_id) AS cnt FROM demo_after_sales GROUP BY issue_type LIMIT 20;","expected_safe":true}
+{"case_id":"sql_022","sql":"SELECT review_score, COUNT(review_id) AS cnt FROM demo_reviews GROUP BY review_score LIMIT 10;","expected_safe":true}

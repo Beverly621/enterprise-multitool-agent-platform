@@ -1,0 +1,10 @@
+{"case_id":"rag_001","query":"员工遇到利益冲突时应该怎么处理？","expected_keywords":["主动披露","避免参与相关决策"],"expected_source":"sample_company_policy.md","top_k":5}
+{"case_id":"rag_002","query":"哪些数据不允许外发？","expected_keywords":["客户数据","审批"],"expected_source":"sample_company_policy.md","top_k":5}
+{"case_id":"rag_003","query":"什么操作需要人工审批？","expected_keywords":["人工审批","高风险"],"expected_source":"sample_company_policy.md","top_k":5}
+{"case_id":"rag_004","query":"客户退货需要满足什么条件？","expected_keywords":["退货","验收"],"expected_source":"sample_return_policy.md","top_k":5}
+{"case_id":"rag_005","query":"配送延迟应该如何处理？","expected_keywords":["配送延迟","安抚"],"expected_source":"sample_order_abnormal_handbook.md","top_k":5}
+{"case_id":"rag_006","query":"商品破损售后怎么处理？","expected_keywords":["商品破损","补发"],"expected_source":"sample_after_sales_policy.md","top_k":5}
+{"case_id":"rag_007","query":"退款时效有什么要求？","expected_keywords":["退款","时效"],"expected_source":"sample_return_policy.md","top_k":5}
+{"case_id":"rag_008","query":"客户投诉升级条件是什么？","expected_keywords":["客户投诉","升级"],"expected_source":"sample_after_sales_policy.md","top_k":5}
+{"case_id":"rag_009","query":"低评分订单要怎么跟进？","expected_keywords":["低评分","复盘"],"expected_source":"sample_order_abnormal_handbook.md","top_k":5}
+{"case_id":"rag_010","query":"异常订单复盘需要关注哪些指标？","expected_keywords":["异常订单","复盘"],"expected_source":"sample_order_abnormal_handbook.md","top_k":5}

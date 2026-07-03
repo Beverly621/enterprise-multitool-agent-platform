@@ -4,7 +4,7 @@
 
 Enterprise Multi-Tool Agent Platform is an enterprise-grade AI Agent platform that combines RAG, SQL Agent, Tool Calling, multi-step planning, async report generation, RBAC, SQL Guardrails, tracing, and audit logging.
 
-当前完成阶段：**阶段八：Demo 数据、公开资料接入与 GitHub 展示优化**。
+当前完成阶段：**阶段九：工程保障、可观测性与评测体系**。
 
 ## What This Project Solves
 
@@ -36,7 +36,7 @@ Enterprise Multi-Tool Agent Platform is an enterprise-grade AI Agent platform th
 | 6 | 异步任务、任务进度、取消、幂等与报告历史 | Done |
 | 7 | 前端后台、可视化控制台、权限菜单与演示页面 | Done |
 | 8 | Demo 数据、公开资料接入与 GitHub 展示优化 | Done |
-| 9 | 工程保障、可观测性与评测体系 | Planned |
+| 9 | 工程保障、可观测性与评测体系 | Done |
 
 ## Core Features
 
@@ -50,6 +50,7 @@ Enterprise Multi-Tool Agent Platform is an enterprise-grade AI Agent platform th
 - RBAC for Admin, Developer, User and Guest roles.
 - Full traceability through agent runs, steps, traces, tool calls, SQL logs and audit logs.
 - Mock LLM and Mock Embedding providers so the full demo can run without real API keys.
+- Provider call metrics, token/mock-token cost estimates, eval datasets and regression runners for engineering assurance.
 - Next.js frontend console for Dashboard, Knowledge Base, Agent Chat, SQL Agent, Tools, Approvals, Runs, Tasks, Reports, Audit and Admin Users.
 
 ## Tech Stack
@@ -190,6 +191,29 @@ Full guide: [docs/DEMO_GUIDE.md](docs/DEMO_GUIDE.md)
 - `GET /api/approvals`
 - `POST /api/approvals/{approval_id}/approve`
 - `GET /api/audit-logs`
+- `GET /api/metrics/summary`
+- `GET /api/metrics/agent-runs`
+- `GET /api/metrics/providers`
+- `GET /api/evals/runs`
+
+## Observability and Eval
+
+Stage 9 adds:
+
+- `provider_calls` metrics for Mock/OpenAI provider latency, token estimates, status and estimated cost.
+- Metrics API for Agent runs, RAG, SQL Guardrails, tools, async tasks and providers.
+- RAG, SQL Guardrails, Tool, Agent and Regression JSONL datasets under `backend/app/evals/`.
+- CLI runners: `python -m app.scripts.run_eval --type ...` and `python -m app.scripts.run_regression`.
+- Dashboard metric cards for success rates, latency, SQL blocks, provider calls and estimated cost.
+
+Docs:
+
+- [docs/OBSERVABILITY_AND_EVAL.md](docs/OBSERVABILITY_AND_EVAL.md)
+- [docs/EVAL_REPORT_TEMPLATE.md](docs/EVAL_REPORT_TEMPLATE.md)
+- [docs/METRICS_DEFINITION.md](docs/METRICS_DEFINITION.md)
+- [docs/REGRESSION_TEST_GUIDE.md](docs/REGRESSION_TEST_GUIDE.md)
+
+Docker final acceptance remains pending and must be rerun before final handoff.
 
 ## Frontend Pages
 
@@ -236,7 +260,7 @@ See [docs/RESUME_DESCRIPTION.md](docs/RESUME_DESCRIPTION.md) for Chinese and Eng
 
 ## Roadmap
 
-- Stage 9: observability, token/cost metrics, task duration metrics, RAG evals, SQL safety evals and regression datasets.
+- Stage 9: observability, token/cost metrics, task duration metrics, RAG evals, SQL safety evals and regression datasets. Done.
 - Stage 10: deployment, CI/CD, production Docker Compose, GitHub Actions and security headers.
 - Stage 11: resume packaging, architecture explanation, interview Q&A and final demo material.
 - Stage 12: final release checklist, GitHub publication, release tag and project retrospective.

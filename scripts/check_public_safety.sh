@@ -19,7 +19,18 @@ fail() {
   status=1
 }
 
-tracked_files="$(git ls-files 2>/dev/null || find . -type f)"
+if command -v git >/dev/null 2>&1 && git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  tracked_files="$(git ls-files)"
+else
+  tracked_files="$(
+    find . \
+      \( -path './.git' -o -path './node_modules' -o -path './*/node_modules' \
+      -o -path './__pycache__' -o -path './*/__pycache__' \
+      -o -path './.pytest_cache' -o -path './*/.pytest_cache' \
+      -o -path './.next' -o -path './*/.next' \) -prune \
+      -o -type f -print | sed 's#^\./##'
+  )"
+fi
 
 if printf '%s\n' "$tracked_files" | grep -E '(^|/)\.env($|\.local$|\.[^.]+$)' | grep -vE '(^|/)\.env\.example$' >/dev/null; then
   fail ".env file is tracked. Remove it from Git and keep only .env.example."

@@ -1,7 +1,17 @@
 from pathlib import Path
 
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+def _repo_root() -> Path:
+    for candidate in Path(__file__).resolve().parents:
+        if (candidate / "data").exists() and (candidate / "docs").exists():
+            return candidate
+    workspace = Path("/workspace")
+    if (workspace / "data").exists() and (workspace / "docs").exists():
+        return workspace
+    return Path(__file__).resolve().parents[3]
+
+
+REPO_ROOT = _repo_root()
 
 
 def test_demo_cases_cover_second_milestone_flows() -> None:

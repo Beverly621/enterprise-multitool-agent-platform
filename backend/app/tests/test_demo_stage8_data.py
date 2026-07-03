@@ -3,7 +3,17 @@ import re
 from pathlib import Path
 
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+def _repo_root() -> Path:
+    for candidate in Path(__file__).resolve().parents:
+        if (candidate / "data").exists() and (candidate / "docs").exists():
+            return candidate
+    workspace = Path("/workspace")
+    if (workspace / "data").exists() and (workspace / "docs").exists():
+        return workspace
+    return Path(__file__).resolve().parents[3]
+
+
+REPO_ROOT = _repo_root()
 DEMO_ORDERS = REPO_ROOT / "data" / "demo_orders"
 DEMO_DOCS = REPO_ROOT / "data" / "demo_docs"
 
@@ -90,4 +100,3 @@ def test_stage8_public_files_do_not_contain_high_confidence_secrets() -> None:
         for path in paths:
             if path.is_file():
                 assert not pattern.search(path.read_text(encoding="utf-8", errors="ignore")), path
-

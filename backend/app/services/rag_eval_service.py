@@ -9,7 +9,18 @@ from sqlalchemy.orm import Session
 from app.services.base_eval_service import EvalCaseResult, persist_eval_run
 from app.services.eval_case_loader import load_eval_cases
 
-DEMO_DOCS_DIR = Path(__file__).resolve().parents[3] / "data" / "demo_docs"
+def _demo_docs_dir() -> Path:
+    for candidate in Path(__file__).resolve().parents:
+        demo_docs = candidate / "data" / "demo_docs"
+        if demo_docs.exists():
+            return demo_docs
+    workspace_docs = Path("/workspace/data/demo_docs")
+    if workspace_docs.exists():
+        return workspace_docs
+    return Path(__file__).resolve().parents[3] / "data" / "demo_docs"
+
+
+DEMO_DOCS_DIR = _demo_docs_dir()
 
 
 def run_rag_eval(db: Session | None = None, created_by: int | None = None) -> dict[str, Any]:

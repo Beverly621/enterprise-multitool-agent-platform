@@ -29,6 +29,10 @@ class Settings(BaseSettings):
 
     celery_broker_url: str = "redis://redis:6379/1"
     celery_result_backend: str = "redis://redis:6379/2"
+    demo_mode: bool = False
+    run_migrations_on_start: bool = True
+    seed_demo_on_start: bool = False
+    frontend_origin: str = "http://localhost:3100"
 
     cors_origins: list[AnyHttpUrl | str] = [
         "http://localhost:3100",

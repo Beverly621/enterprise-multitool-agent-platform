@@ -1,0 +1,22 @@
+# Production Checklist
+
+- `.env` and `.env.local` are untracked.
+- `.env.example`, `backend/.env.example`, and `frontend/.env.example` are complete.
+- `JWT_SECRET_KEY` is replaced with a strong production value.
+- Database password is unique and stored only in platform secrets.
+- `FRONTEND_ORIGIN` is set to the production frontend URL.
+- HTTPS is enabled at the reverse proxy or platform layer.
+- Debug or hot reload mode is disabled.
+- Security headers are enabled in FastAPI middleware or Nginx.
+- Log level is appropriate for production.
+- Database backup policy is configured.
+- Redis persistence policy is understood and configured where required.
+- Alembic migrations run before serving traffic.
+- Demo seed is disabled unless intentionally running a public demo.
+- Backend tests pass.
+- Frontend lint and build pass.
+- Docker images build.
+- `bash scripts/check_public_safety.sh` passes.
+- Mock vs real provider configuration is confirmed.
+- Real provider API keys are set only through secrets.
+- No model provider key is exposed through `NEXT_PUBLIC_*`.

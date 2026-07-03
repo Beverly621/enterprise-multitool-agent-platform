@@ -4,7 +4,7 @@
 
 Enterprise Multi-Tool Agent Platform is an enterprise-grade AI Agent platform that combines RAG, SQL Agent, Tool Calling, multi-step planning, async report generation, RBAC, SQL Guardrails, tracing, and audit logging.
 
-当前完成阶段：**阶段九：工程保障、可观测性与评测体系**。
+当前完成阶段：**阶段十：部署、CI/CD 与生产化配置**。
 
 ## What This Project Solves
 
@@ -37,6 +37,7 @@ Enterprise Multi-Tool Agent Platform is an enterprise-grade AI Agent platform th
 | 7 | 前端后台、可视化控制台、权限菜单与演示页面 | Done |
 | 8 | Demo 数据、公开资料接入与 GitHub 展示优化 | Done |
 | 9 | 工程保障、可观测性与评测体系 | Done |
+| 10 | 部署、CI/CD 与生产化配置 | Done |
 
 ## Core Features
 
@@ -144,6 +145,29 @@ python -m pytest app/tests
 cd ../frontend
 npm run build
 ```
+
+## Deployment And CI
+
+Stage 10 adds production-oriented deployment and CI/CD configuration:
+
+- Production Docker Compose template: [deploy/docker-compose.prod.yml](deploy/docker-compose.prod.yml)
+- Optional Nginx reverse proxy: [deploy/nginx.conf](deploy/nginx.conf)
+- Backend and frontend Docker ignore files
+- Environment validation scripts: `scripts/check_env.sh`, `backend/scripts/check_env.py`, `frontend/scripts/check_env.js`
+- Prestart script for migration and optional demo seed: `backend/scripts/prestart.sh`
+- Docker smoke test: `scripts/docker_smoke_test.sh`
+- Pre-deploy check: `scripts/pre_deploy_check.sh`
+- GitHub Actions: backend CI, frontend CI, Docker build, public safety
+
+Deployment docs:
+
+- [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
+- [docs/CI_CD.md](docs/CI_CD.md)
+- [docs/PRODUCTION_CHECKLIST.md](docs/PRODUCTION_CHECKLIST.md)
+- [docs/ENVIRONMENT_VARIABLES.md](docs/ENVIRONMENT_VARIABLES.md)
+- [docs/TROUBLESHOOTING_DEPLOYMENT.md](docs/TROUBLESHOOTING_DEPLOYMENT.md)
+
+Production deployments must provide real secrets through platform environment variables or an untracked `.env`. Do not commit `.env`, API keys, tokens, or model provider secrets.
 
 ## Demo Data
 
@@ -261,6 +285,6 @@ See [docs/RESUME_DESCRIPTION.md](docs/RESUME_DESCRIPTION.md) for Chinese and Eng
 ## Roadmap
 
 - Stage 9: observability, token/cost metrics, task duration metrics, RAG evals, SQL safety evals and regression datasets. Done.
-- Stage 10: deployment, CI/CD, production Docker Compose, GitHub Actions and security headers.
+- Stage 10: deployment, CI/CD, production Docker Compose, GitHub Actions and security headers. Done.
 - Stage 11: resume packaging, architecture explanation, interview Q&A and final demo material.
 - Stage 12: final release checklist, GitHub publication, release tag and project retrospective.

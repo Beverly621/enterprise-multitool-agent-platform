@@ -1,0 +1,20 @@
+app = "enterprise-multitool-agent-platform"
+primary_region = "sjc"
+
+[build]
+  dockerfile = "backend/Dockerfile"
+
+[env]
+  ENVIRONMENT = "prod"
+  DEFAULT_LLM_PROVIDER = "mock"
+  DEFAULT_EMBEDDING_PROVIDER = "mock"
+  RUN_MIGRATIONS_ON_START = "true"
+  SEED_DEMO_ON_START = "false"
+
+[[services]]
+  internal_port = 8000
+  protocol = "tcp"
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]

@@ -25,9 +25,19 @@ app = FastAPI(
     description="Enterprise RAG, SQL Agent, Tool Calling and Agent Planner platform.",
 )
 
+
+def _cors_origins() -> list[str]:
+    origins = {str(origin) for origin in settings.cors_origins}
+    if settings.frontend_origin:
+        origins.add(settings.frontend_origin)
+    if settings.environment == "prod" and "*" in origins:
+        origins.remove("*")
+    return sorted(origins)
+
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[str(origin) for origin in settings.cors_origins],
+    allow_origins=_cors_origins(),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -47,6 +57,10 @@ async def request_log_middleware(request: Request, call_next: Callable) -> Respo
         duration_ms,
     )
     response.headers["X-Process-Time-Ms"] = str(duration_ms)
+    response.headers.setdefault("X-Content-Type-Options", "nosniff")
+    response.headers.setdefault("X-Frame-Options", "DENY")
+    response.headers.setdefault("Referrer-Policy", "no-referrer")
+    response.headers.setdefault("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
     return response
 
 

@@ -1,0 +1,26 @@
+name: Docker Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+    env:
+      POSTGRES_PASSWORD: agent
+      DATABASE_URL: postgresql+psycopg://agent:agent@postgres:5432/agent_platform
+      REDIS_URL: redis://redis:6379/0
+      JWT_SECRET_KEY: ci-only-change-me-secret
+      FRONTEND_ORIGIN: http://localhost:3000
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:8000
+      NEXT_PUBLIC_APP_NAME: Enterprise Multi-Tool Agent Platform
+      DEFAULT_LLM_PROVIDER: mock
+      DEFAULT_EMBEDDING_PROVIDER: mock
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build compose images
+        run: docker compose build
+      - name: Build production compose images
+        run: docker compose -f deploy/docker-compose.prod.yml build

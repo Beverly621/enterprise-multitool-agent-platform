@@ -30,6 +30,7 @@ services:
   backend:
     build:
       context: ./backend
+      target: runtime
     container_name: emtap_backend
     environment:
       DATABASE_URL: postgresql+psycopg://agent:agent@postgres:5432/agent_platform
@@ -39,6 +40,10 @@ services:
       DEFAULT_LLM_PROVIDER: mock
       DEFAULT_EMBEDDING_PROVIDER: mock
       VECTOR_DIMENSION: 1536
+      FRONTEND_ORIGIN: http://localhost:3100
+      DEMO_MODE: "true"
+      RUN_MIGRATIONS_ON_START: "true"
+      SEED_DEMO_ON_START: "false"
       CELERY_BROKER_URL: redis://redis:6379/1
       CELERY_RESULT_BACKEND: redis://redis:6379/2
     ports:
@@ -56,6 +61,7 @@ services:
   celery_worker:
     build:
       context: ./backend
+      target: runtime
     container_name: emtap_celery_worker
     environment:
       DATABASE_URL: postgresql+psycopg://agent:agent@postgres:5432/agent_platform
@@ -66,6 +72,10 @@ services:
       DEFAULT_LLM_PROVIDER: mock
       DEFAULT_EMBEDDING_PROVIDER: mock
       VECTOR_DIMENSION: 1536
+      FRONTEND_ORIGIN: http://localhost:3100
+      DEMO_MODE: "true"
+      RUN_MIGRATIONS_ON_START: "false"
+      SEED_DEMO_ON_START: "false"
     depends_on:
       backend:
         condition: service_started
@@ -79,6 +89,7 @@ services:
   celery_beat:
     build:
       context: ./backend
+      target: runtime
     container_name: emtap_celery_beat
     profiles: ["beat"]
     environment:
@@ -97,9 +108,11 @@ services:
   frontend:
     build:
       context: ./frontend
+      target: development
     container_name: emtap_frontend
     environment:
       NEXT_PUBLIC_API_BASE_URL: http://backend:8000
+      NEXT_PUBLIC_APP_NAME: Enterprise Multi-Tool Agent Platform
     ports:
       - "3100:3000"
     depends_on:

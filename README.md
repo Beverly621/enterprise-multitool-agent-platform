@@ -1,121 +1,351 @@
 # Enterprise Multi-Tool Agent Platform
 
-企业级多工具知识库 Agent 平台，支持 RAG 文档问答、SQL Agent 数据查询、Tool Calling、多步骤任务编排、异步报告生成、权限控制、SQL 安全防护、审批流、Trace 与 Audit。
+<p align="center">
+  <img src="assets/readme-hero.svg" alt="Enterprise Multi-Tool Agent Platform" width="100%" />
+</p>
 
-Enterprise Multi-Tool Agent Platform is an enterprise-grade AI Agent platform that combines RAG, SQL Agent, Tool Calling, multi-step planning, async report generation, RBAC, SQL Guardrails, tracing, and audit logging.
+<p align="center">
+  <strong>Author:</strong> <a href="https://github.com/Beverly621">GitHub @Beverly621</a>
+</p>
 
-当前完成阶段：**阶段十二：最终收尾、GitHub 发布与项目复盘**。
 
-## What This Project Solves
+<p align="center">
+  <img alt="Portfolio Project" src="https://img.shields.io/badge/Portfolio-AI%20Agent%20Engineering-2563EB?style=flat-square" />
+  <img alt="Backend" src="https://img.shields.io/badge/Backend-FastAPI-059669?style=flat-square" />
+  <img alt="Frontend" src="https://img.shields.io/badge/Frontend-Next.js-111827?style=flat-square" />
+  <img alt="Database" src="https://img.shields.io/badge/Database-PostgreSQL%20%2B%20pgvector-1D4ED8?style=flat-square" />
+  <img alt="License" src="https://img.shields.io/badge/License-MIT-7C3AED?style=flat-square" />
+</p>
 
-普通 RAG Demo 通常只能回答文档问题。本项目模拟企业内部 AI 平台的完整工作流：Agent 可以读取知识库、查询结构化业务数据、调用受权限保护的工具、生成异步报告、进入人工审批，并留下完整 Trace 与 Audit Log。
+> Portfolio project / engineering showcase for AI-Agent and backend engineering roles.  
+> Chinese project name: 企业级多工具知识库 Agent 平台.  
+> Chinese documentation: [`README_ZH.md`](README_ZH.md).
 
-核心 Demo 主线：
+Enterprise Multi-Tool Agent Platform is **an enterprise-grade multi-tool AI Agent platform that combines RAG, SQL Agent, Tool Calling, multi-step planning, asynchronous report generation, RBAC, SQL Guardrails, human-in-the-loop approvals, tracing, audit logging, metrics, evaluation workflows, and a full-stack admin console.**
 
-```text
-登录平台 -> 上传制度/售后文档 -> Seed 订单异常数据 -> Agent Chat 提问
--> SQL Node 查询订单异常 -> RAG Node 检索知识库 -> Report Node 生成报告
--> Run Trace 回放 -> Reports 查看 -> Approval 审批邮件草稿 -> Audit 查看记录
-```
+This repository is designed as a portfolio-grade AI Agent engineering project rather than a consumer-facing product. It demonstrates how an enterprise-style Agent platform can connect unstructured knowledge-base documents, structured business data, tool execution, approval workflows, asynchronous tasks, observability, evaluation, and CI/CD into one coherent full-stack system.
 
-推荐问题：
+The project is intentionally built beyond a simple RAG chatbot. A normal RAG demo answers questions from documents; this platform routes user intent across RAG, SQL analytics, tool calls, multi-step report generation, approvals, trace replay, audit logs, and frontend operations pages.
 
-```text
-结合最近 30 天订单异常数据和售后知识库生成一份分析报告。
-```
+## Why This Project
 
-## Phase Progress
+Real enterprise Agent systems usually need to answer questions that cross several boundaries:
 
-| Phase | Scope | Status |
-| --- | --- | --- |
-| 1 | FastAPI, PostgreSQL + pgvector, Redis, Celery, JWT, RBAC, Alembic, Docker Compose | Done |
-| 2 | RAG 文档解析、切分、Embedding、向量检索 | Done |
-| 3 | SQL Agent 与 SQL Guardrails | Done |
-| 4 | Tool Calling 与工具注册执行 | Done |
-| 5 | Agent Planner 多步骤编排 | Done |
-| 6 | 异步任务、任务进度、取消、幂等与报告历史 | Done |
-| 7 | 前端后台、可视化控制台、权限菜单与演示页面 | Done |
-| 8 | Demo 数据、公开资料接入与 GitHub 展示优化 | Done |
-| 9 | 工程保障、可观测性与评测体系 | Done |
-| 10 | 部署、CI/CD 与生产化配置 | Done |
+- Unstructured internal documents, such as policies, return rules, and after-sales procedures.
+- Structured operational data, such as orders, reviews, customer regions, and issue types.
+- Business tools that may read or write internal state.
+- Human approval for sensitive or high-impact actions.
+- Role-based access control, audit logs, traceability, and repeatable evaluation.
 
-## Core Features
+This project uses an order-abnormality analysis scenario to show that complete AI Agent engineering is not only about prompts. It also requires safe SQL generation, tool permissions, async execution, reproducible demo data, local mock providers, evaluation datasets, and operational visibility.
 
-- RAG knowledge-base Q&A with document parsing, chunking, embeddings, pgvector search and citations.
-- SQL Agent analytics with schema reading, SQL generation, safe execution and result explanation.
-- SQL Guardrails that only allow safe read-only queries, block dangerous operations, reject `SELECT *`, enforce `LIMIT`, and protect sensitive tables/fields.
-- Tool Calling platform with registry metadata, JSON Schema validation, permissions, retries, timeouts and traceable execution.
-- Agent Planner that routes `GENERAL_CHAT`, `RAG_QA`, `SQL_QUERY`, `TOOL_CALL`, `MULTI_STEP_REPORT` and `NEED_APPROVAL`.
-- Async Agent tasks and report generation with Celery, Redis, progress APIs, cancellation and report history.
-- Human-in-the-loop approval for sensitive actions such as email draft generation.
-- RBAC for Admin, Developer, User and Guest roles.
-- Full traceability through agent runs, steps, traces, tool calls, SQL logs and audit logs.
-- Mock LLM and Mock Embedding providers so the full demo can run without real API keys.
-- Provider call metrics, token/mock-token cost estimates, eval datasets and regression runners for engineering assurance.
-- Next.js frontend console for Dashboard, Knowledge Base, Agent Chat, SQL Agent, Tools, Approvals, Runs, Tasks, Reports, Audit and Admin Users.
+Engineering questions this project addresses:
 
-## Tech Stack
+- How can an Agent combine unstructured documents and structured business data?
+- How can generated SQL be constrained before execution?
+- How can tool permissions and approvals reduce automation risk?
+- How can each Agent run be traced and audited?
+- How can a public demo run without real API keys?
+- How can new Agent capabilities be checked with regression and eval workflows?
 
-- Frontend: Next.js, React, TypeScript, Tailwind CSS
-- Backend: FastAPI, SQLAlchemy 2.x, Pydantic
-- Agent foundation: lightweight runtime with LangGraph-compatible boundaries
-- Database: PostgreSQL 16 + pgvector
-- Cache and queue: Redis, Celery
-- Auth: JWT + RBAC
-- Migration: Alembic
-- Providers: Mock, OpenAI-ready provider abstraction
-- Deploy: Docker Compose
+## Key Features
 
-## Architecture
+| Capability | Description |
+|---|---|
+| RAG Knowledge Base | Supports knowledge-base creation, document upload, parsing, chunking, embedding abstraction, pgvector retrieval, RAG answers, and citations. |
+| SQL Agent | Reads an allowed demo schema, generates SQL for business questions, executes guarded read-only queries, and explains results. |
+| SQL Guardrails | Blocks mutating SQL, DDL, multiple statements, `SELECT *`, sensitive tables, sensitive fields, and oversized result sets before execution. |
+| Tool Calling | Provides a database-backed tool registry, JSON Schema validation, role checks, execution records, timeouts, retries, and traceable results. |
+| Human-in-the-loop Approval | Sensitive tools such as `send_email_draft` create approval records instead of executing external side effects automatically. |
+| Agent Planner | Routes `GENERAL_CHAT`, `RAG_QA`, `SQL_QUERY`, `TOOL_CALL`, `MULTI_STEP_REPORT`, and `NEED_APPROVAL` intents through explicit nodes. |
+| Async Agent Tasks | Uses Celery and Redis for long-running Agent/report workflows with progress APIs, cancellation, failed task records, and idempotency support. |
+| Report Generation | Produces Markdown business reports and stores report history for review from the console. |
+| RBAC | Seeds Admin, Developer, User, and Guest roles with different API and tool capabilities. |
+| Trace & Audit Logs | Persists Agent runs, steps, traces, SQL logs, tool calls, approvals, and audit events for debugging and review. |
+| Metrics & Evaluation | Includes provider call metrics, runtime metrics APIs, RAG eval, SQL Guardrails eval, tool eval, and Agent regression runners. |
+| Frontend Console | Next.js console for dashboard, knowledge base, Agent chat, SQL Agent, tools, approvals, runs, tasks, reports, audit, and admin users. |
+| Mock Provider | Mock LLM and embedding providers make local demos and CI-style validation possible without real provider keys. |
+| Docker & CI/CD | Includes Docker Compose, production Compose template, Dockerfiles, GitHub Actions, environment checks, smoke tests, and public safety scanning. |
+
+## System Architecture
 
 ```mermaid
 flowchart TD
     UI[Frontend Console] --> API[FastAPI Backend]
     API --> Auth[JWT + RBAC]
     API --> Planner[Agent Planner]
-    Planner --> RAG[RAG Service]
-    Planner --> SQL[SQL Agent]
-    Planner --> Tool[Tool Executor]
-    Planner --> Report[Report Service]
-    RAG --> PG[(PostgreSQL + pgvector)]
+    Planner --> Router[Intent Router]
+    Router --> RAG[RAG Node]
+    Router --> SQL[SQL Agent Node]
+    Router --> Tool[Tool Node]
+    Router --> Report[Report Node]
+    Router --> Approval[Approval Node]
+    Planner --> Trace[Agent Runs / Steps / Traces]
+    RAG --> Vector[PostgreSQL + pgvector]
     SQL --> Guardrails[SQL Guardrails]
-    Guardrails --> PG
-    Tool --> PG
+    Guardrails --> Vector
+    Tool --> Vector
     API --> Redis[(Redis)]
     API --> Celery[Celery Worker]
     Celery --> Planner
-    Planner --> Trace[Agent Runs / Steps / Traces]
     API --> Audit[Audit Logs]
+    API --> Metrics[Metrics + Eval]
 ```
 
-More detail: [docs/ARCHITECTURE_OVERVIEW.md](docs/ARCHITECTURE_OVERVIEW.md)
+More architecture detail: [`docs/ARCHITECTURE_OVERVIEW.md`](docs/ARCHITECTURE_OVERVIEW.md) and [`docs/ARCHITECTURE_EXPLAIN.md`](docs/ARCHITECTURE_EXPLAIN.md).
 
 ## Agent Workflow
 
 ```mermaid
-flowchart LR
-    User[User Prompt] --> Router[Intent Router]
-    Router --> General[General Chat]
-    Router --> RAG[RAG Q&A]
-    Router --> SQL[SQL Agent]
-    Router --> Tool[Tool Calling]
-    Router --> Multi[Multi-step Report]
-    Tool --> Approval{Needs Approval?}
-    Approval -->|Yes| Human[Human Approval]
-    Approval -->|No| Result[Tool Result]
-    Multi --> SQL
-    Multi --> RAG
-    Multi --> Report[Report Generation]
-    General --> Trace[Run Trace]
-    RAG --> Trace
-    SQL --> Trace
-    Result --> Trace
-    Human --> Trace
-    Report --> Trace
-    Trace --> Audit[Audit Log]
+sequenceDiagram
+    participant User
+    participant UI as Frontend Console
+    participant API as FastAPI API
+    participant Router as Intent Router
+    participant SQL as SQL Node
+    participant RAG as RAG Node
+    participant Tool as Tool Node
+    participant Report as Report Node
+    participant Trace as Trace/Audit
+
+    User->>UI: Ask a business question
+    UI->>API: POST /api/agent/chat
+    API->>Router: Classify intent
+    Router-->>API: MULTI_STEP_REPORT
+    API->>SQL: Query structured order data
+    SQL-->>API: Guarded SQL result
+    API->>RAG: Retrieve policy knowledge
+    RAG-->>API: Citations and context
+    API->>Tool: Optional tool execution / approval
+    API->>Report: Generate markdown report
+    API->>Trace: Persist steps and events
+    API-->>UI: Final answer / report / run_id
 ```
 
-## Quick Start
+Supported Agent intents:
+
+- `GENERAL_CHAT`
+- `RAG_QA`
+- `SQL_QUERY`
+- `TOOL_CALL`
+- `MULTI_STEP_REPORT`
+- `NEED_APPROVAL`
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | Next.js 16, React 19, TypeScript, Tailwind CSS, lucide-react |
+| Backend | FastAPI, Python, SQLAlchemy 2.x, Pydantic 2, Uvicorn |
+| Database | PostgreSQL 16 + pgvector |
+| Vector Search | pgvector |
+| Cache / Queue | Redis |
+| Async Tasks | Celery |
+| Auth | JWT + RBAC |
+| Migration | Alembic |
+| Agent Runtime | Lightweight Agent runtime with explicit planner/node boundaries |
+| LLM Providers | Mock provider by default; OpenAI adapter implemented; Anthropic and DeepSeek env variables are reserved placeholders |
+| Embedding Providers | Mock embedding provider by default; OpenAI embedding adapter implemented |
+| DevOps | Docker Compose, production Compose template, Nginx config, GitHub Actions |
+| Testing / Evaluation | pytest, frontend lint/build, Docker smoke test, public safety scripts, eval and regression runners |
+
+## Demo Scenario: Order Abnormality Analysis with Knowledge-Grounded Agent Workflow
+
+The demo simulates an enterprise support and operations scenario:
+
+- Structured order data is stored in PostgreSQL.
+- Policy and after-sales documents are indexed in the knowledge base.
+- The Agent combines SQL analysis and RAG retrieval.
+- The final output is a Markdown report with traceable steps.
+- Sensitive or high-impact tool actions require human approval.
+
+The demo dataset is synthetic and self-generated for portfolio demonstration. It does not contain real enterprise orders, real customer records, real complaints, private internal documents, or production data.
+
+Verified demo CSV scale:
+
+| Demo file | Rows |
+|---|---:|
+| `data/demo_orders/demo_customers.csv` | 60 |
+| `data/demo_orders/demo_products.csv` | 40 |
+| `data/demo_orders/demo_orders.csv` | 320 |
+| `data/demo_orders/demo_order_items.csv` | 400 |
+| `data/demo_orders/demo_reviews.csv` | 320 |
+| `data/demo_orders/demo_after_sales.csv` | 153 |
+
+Example demo questions:
+
+```text
+Which region has the highest number of abnormal orders?
+What should employees do when they encounter a conflict of interest?
+Generate an analysis report combining recent abnormal order data and after-sales knowledge base.
+Create an email draft for the generated report and wait for approval.
+```
+
+## Project Development Roadmap
+
+| Stage | Focus | Outcome |
+|---|---|---|
+| Stage 1 | Backend Foundation & Database Design | FastAPI, PostgreSQL + pgvector, Redis, Celery, JWT, RBAC, Alembic, and Docker Compose foundation. |
+| Stage 2 | RAG Knowledge Base | Document parsing, chunking, embedding abstraction, vector storage, retrieval APIs, and citation-aware answers. |
+| Stage 3 | SQL Agent | Demo business schema, schema reader, SQL generation, guarded execution, result explanation, and SQL logs. |
+| Stage 4 | Tool Calling | Tool registry, JSON Schema validation, role checks, execution records, built-in tools, and approvals. |
+| Milestone Test 1 | Foundation / RAG / SQL / Tools | First milestone validation for stages 1-4 with bug fixes and regression coverage. |
+| Stage 5 | Agent Planner | Intent routing and multi-step orchestration across RAG, SQL, Tool, Report, Approval, and Final nodes. |
+| Stage 6 | Async Tasks & Reports | Celery-backed async Agent runs, task progress, cancellation, idempotency, failed tasks, and report history. |
+| Stage 7 | Frontend Console | Full-stack console for dashboard, KB, Agent chat, SQL Agent, tools, approvals, runs, tasks, reports, audit, and users. |
+| Stage 8 | Demo Data & GitHub Documentation | Public-safe synthetic demo data, demo docs, demo guide, cases, and repository presentation material. |
+| Milestone Test 2 | Planner / Async / Frontend / Demo | Second validation across multi-step workflows, async tasks, console pages, and demo assets. |
+| Stage 9 | Observability & Evaluation | Provider calls, runtime metrics, eval datasets, RAG eval, SQL Guardrails eval, tool eval, and Agent regression. |
+| Stage 10 | Deployment & CI/CD | Production Compose, Dockerfiles, environment checks, GitHub Actions, smoke tests, and public safety checks. |
+| Stage 11 | Resume / Demo / Interview Documentation | Resume descriptions, interview Q&A, architecture explanation, demo script, technical highlights, and project story. |
+| Stage 12 | Final Release Preparation | Release notes, final checklist, final roadmap, final repo check, final smoke test, and validation preparation. |
+| Final Validation | End-to-end project review | Final validation guidance and readiness review for GitHub portfolio presentation. |
+
+## Engineering Highlights
+
+### 1. Multi-tool Agent runtime instead of a single RAG chatbot
+
+The Agent entrypoint routes requests across chat, RAG, SQL analytics, tool execution, approval-required actions, and multi-step reports. This keeps the user experience unified while preserving explicit internal boundaries that can be tested and traced.
+
+Key modules: `backend/app/agent/`, `backend/app/services/planner_service.py`, `backend/app/api/agent_chat.py`.
+
+### 2. SQL Guardrails for safe structured data access
+
+Generated SQL is validated before execution. Guardrails only allow safe read-only `SELECT` statements, block sensitive tables and fields, reject `SELECT *`, disallow multiple statements, and enforce result limits.
+
+Key modules: `backend/app/services/sql_guardrails.py`, `backend/app/services/sql_executor.py`, `backend/app/services/schema_reader.py`.
+
+### 3. Human-in-the-loop approval for sensitive tool actions
+
+Tools that may represent high-impact actions can create approval records instead of executing automatically. The `send_email_draft` tool is intentionally approval-gated and does not send real email directly.
+
+Key modules: `backend/app/services/approval_service.py`, `backend/app/api/approvals.py`, `frontend/app/approvals/page.tsx`.
+
+### 4. Async report generation with progress tracking
+
+Long-running Agent workflows can run through Celery and Redis. The system stores task progress, failed task records, idempotency keys, and report history so the frontend can display operational state instead of waiting on a blocking HTTP request.
+
+Key modules: `backend/app/tasks/`, `backend/app/services/task_progress_service.py`, `backend/app/services/report_history_service.py`.
+
+### 5. Full traceability across Agent runs
+
+Agent behavior is inspectable through persisted runs, steps, traces, SQL logs, tool calls, approvals, reports, and audit logs. This makes multi-step workflows easier to debug and easier to explain during technical review.
+
+Key modules: `backend/app/services/tracing_service.py`, `backend/app/api/runs.py`, `frontend/app/runs/`.
+
+### 6. Mock providers for reproducible public demos
+
+Mock LLM and embedding providers allow the demo and tests to run without real model credentials. OpenAI adapters are implemented for real-provider extension, but public validation can use mock mode by default.
+
+Key modules: `backend/app/services/mock_provider.py`, `backend/app/services/openai_provider.py`, `backend/app/services/provider_factory.py`.
+
+### 7. Evaluation datasets and regression runners
+
+The repository includes JSONL eval datasets and scripts for RAG, SQL Guardrails, Tool Calling, Agent eval, and core regression checks. This gives the project a quality-control path beyond manual demo clicking.
+
+Key modules: `backend/app/evals/`, `backend/app/scripts/run_eval.py`, `backend/app/scripts/run_regression.py`.
+
+### 8. Full-stack console for debugging and demonstration
+
+The Next.js console surfaces backend state through pages for knowledge bases, Agent runs, SQL results, tools, approvals, tasks, reports, audit, and admin users. It is designed for engineering visibility and interview demonstration rather than consumer product onboarding.
+
+Key modules: `frontend/app/`, `frontend/components/`, `frontend/lib/api.ts`.
+
+### 9. GitHub public safety and CI/CD checks
+
+The project includes `.gitignore`, `.env.example`, safety scripts, Docker smoke tests, pre-deploy checks, and GitHub Actions for backend, frontend, Docker build, and public-safety validation.
+
+Key modules: `scripts/`, `.github/workflows/`, `deploy/`.
+
+## Security and Safety Design
+
+| Area | Mechanism |
+|---|---|
+| RBAC | Admin, Developer, User, and Guest roles are seeded with different permissions. |
+| SQL Guardrails | Generated SQL is checked before execution and limited to allowed demo business tables. |
+| Tool Permission | Built-in tools declare permission levels and approval requirements. |
+| Approval Flow | Sensitive tools create approval records and wait for human review. |
+| Audit Logs | Login, Agent chat, SQL queries, tool calls, approvals, reports, and key security events are audit-ready. |
+| Secret Handling | `.env` and local secret files are ignored; examples use placeholders only. |
+| Mock Provider by Default | Public demo mode does not require real model provider keys. |
+| Synthetic Demo Data | Demo documents and CSV files are self-generated or simulated for portfolio use. |
+| Public Safety Checks | Scripts check for tracked env files, generated artifacts, and high-confidence secret patterns. |
+
+This repository should not be described as production-proven. It is a production-oriented portfolio implementation that would still need tenant isolation, SSO, monitoring, backups, rate limiting, runtime alerting, incident procedures, and real deployment hardening before production use.
+
+## Observability and Evaluation
+
+| Area | Status | Notes |
+|---|---|---|
+| Agent Run Trace | Implemented | Agent runs, steps, and trace events are persisted and exposed through run APIs. |
+| Tool Call Logs | Implemented | Tool execution writes tool call records and trace/audit events. |
+| SQL Query Logs | Implemented | SQL Agent queries record generated SQL, blocked reasons, previews, row counts, and timings. |
+| Audit Logs | Implemented | Security and workflow events are designed for auditability with sanitized metadata. |
+| Provider Call Metrics | Implemented | Mock and OpenAI provider calls can record model, request type, status, latency, tokens/cost estimates, and sanitized errors. |
+| RAG Eval | Implemented | Uses `backend/app/evals/rag_eval_cases.jsonl` and `python -m app.scripts.run_eval --type rag`. |
+| SQL Guardrails Eval | Implemented | Covers safe selects, mutating SQL, DDL, sensitive tables/fields, missing limits, and bypass attempts. |
+| Tool Eval | Implemented | Checks tool existence, permissions, approval requirements, and SQL Guardrails reuse. |
+| Agent Regression | Implemented | Uses regression cases for core demo intent routing and safety behavior. |
+| Langfuse / OpenTelemetry | Planned | Trace and provider-call structures are designed for future exporter integration. |
+
+Metrics APIs include:
+
+- `GET /api/metrics/summary`
+- `GET /api/metrics/agent-runs`
+- `GET /api/metrics/rag`
+- `GET /api/metrics/sql-guardrails`
+- `GET /api/metrics/tools`
+- `GET /api/metrics/tasks`
+- `GET /api/metrics/providers`
+- `GET /api/evals/runs`
+- `GET /api/evals/runs/{eval_run_id}`
+
+## Frontend Console
+
+The console is designed for debugging and demonstrating enterprise Agent workflows, not as a consumer-facing product UI.
+
+Verified pages:
+
+| Page | Path | Purpose |
+|---|---|---|
+| Login | `/login` | Demo account login and token setup. |
+| Dashboard | `/dashboard` | High-level operational and metrics summary. |
+| Knowledge Base | `/kb`, `/kb/[id]` | Knowledge-base list, detail, document upload, and document status. |
+| Agent Chat | `/agent` | Unified Agent interaction for chat, RAG, SQL, tools, async runs, and reports. |
+| SQL Agent | `/sql-agent` | Natural-language SQL analytics and guarded execution results. |
+| Tools | `/tools`, `/tools/[toolName]` | Tool registry, schema inspection, and invocation panel. |
+| Approvals | `/approvals` | Human approval and rejection flow. |
+| Runs / Trace | `/runs`, `/runs/[runId]` | Agent run detail, steps, traces, tool calls, task progress, and linked reports. |
+| Tasks | `/tasks` | Async task progress and status. |
+| Reports | `/reports`, `/reports/[reportId]` | Markdown report history and report details. |
+| Audit | `/audit` | Audit log review. |
+| Admin Users | `/admin/users` | Admin-facing user list. |
+
+An independent Metrics/Eval page was not found in the verified `frontend/app` tree. Metrics are represented through backend APIs and dashboard-oriented summaries.
+
+## Repository Structure
+
+```text
+.
+├── backend/                  # FastAPI backend, Agent runtime, services, models, tasks, tests
+├── frontend/                 # Next.js console and UI components
+├── data/                     # Synthetic demo documents and demo order CSV files
+├── docs/                     # Architecture, demo, deployment, eval, roadmap, and presentation docs
+├── scripts/                  # Seed, smoke test, safety, environment, and deployment check scripts
+├── deploy/                   # Production Compose template, Nginx config, and platform notes
+├── .github/workflows/        # Backend CI, frontend CI, Docker build, and public safety workflows
+├── docker-compose.yml        # Local development/demo Compose stack
+├── pyproject.toml            # Python project/tooling configuration
+├── RELEASE_NOTES.md          # Release notes
+├── LICENSE                   # MIT License
+└── README.md                 # Public project overview
+```
+
+## Local Demo Notes
+
+This repository is primarily a portfolio project. The following notes are kept for local verification and demonstration, not as an end-user installation guide. This README intentionally does not include installer/download instructions for external users.
+
+Docker-first local demo:
 
 ```bash
 cp .env.example .env
@@ -126,35 +356,11 @@ bash scripts/seed_demo_data.sh
 
 Open:
 
-- Backend Swagger: http://localhost:8100/docs
-- Health check: http://localhost:8100/health
-- Frontend console: http://localhost:3100
+- Backend Swagger: `http://localhost:8100/docs`
+- Health check: `http://localhost:8100/health`
+- Frontend console: `http://localhost:3100`
 
-Demo accounts:
-
-| Role | Email | Password |
-| --- | --- | --- |
-| Admin | admin@example.com | admin123 |
-| Developer | developer@example.com | dev123 |
-| User | user@example.com | user123 |
-| Guest | guest@example.com | guest123 |
-
-## Local Development
-
-Backend:
-
-```bash
-cd backend
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-alembic -c alembic.ini upgrade head
-python -m app.seed.seed_all
-cd ..
-bash scripts/run_backend.sh
-```
-
-Frontend:
+Frontend-only development server:
 
 ```bash
 cd frontend
@@ -162,182 +368,142 @@ npm install
 npm run dev
 ```
 
-Tests:
+Common validation commands:
 
 ```bash
 cd backend
 python -m pytest app/tests
+
 cd ../frontend
+npm run lint
 npm run build
+
+cd ..
+bash scripts/check_public_safety.sh
 ```
 
-## Deployment And CI
-
-Stage 10 adds production-oriented deployment and CI/CD configuration:
-
-- Production Docker Compose template: [deploy/docker-compose.prod.yml](deploy/docker-compose.prod.yml)
-- Optional Nginx reverse proxy: [deploy/nginx.conf](deploy/nginx.conf)
-- Backend and frontend Docker ignore files
-- Environment validation scripts: `scripts/check_env.sh`, `backend/scripts/check_env.py`, `frontend/scripts/check_env.js`
-- Prestart script for migration and optional demo seed: `backend/scripts/prestart.sh`
-- Docker smoke test: `scripts/docker_smoke_test.sh`
-- Pre-deploy check: `scripts/pre_deploy_check.sh`
-- GitHub Actions: backend CI, frontend CI, Docker build, public safety
-
-Deployment docs:
-
-- [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
-- [docs/CI_CD.md](docs/CI_CD.md)
-- [docs/PRODUCTION_CHECKLIST.md](docs/PRODUCTION_CHECKLIST.md)
-- [docs/ENVIRONMENT_VARIABLES.md](docs/ENVIRONMENT_VARIABLES.md)
-- [docs/TROUBLESHOOTING_DEPLOYMENT.md](docs/TROUBLESHOOTING_DEPLOYMENT.md)
-
-Production deployments must provide real secrets through platform environment variables or an untracked `.env`. Do not commit `.env`, API keys, tokens, or model provider secrets.
-
-## Demo Data
-
-Stage 8 adds public-safe demo assets:
-
-- `data/demo_docs/`: self-written policy and after-sales Markdown files for RAG.
-- `data/demo_orders/`: deterministic simulated CSV data for SQL Agent analytics.
-- `docs/PUBLIC_DATA_SOURCES.md`: data source and compliance statement.
-- `docs/DEMO_CASES.md`: eight demo cases covering general chat, RAG, SQL, tools, reports, async tasks, approval and Guardrails.
-- `docs/DEMO_GUIDE.md`: step-by-step local demo guide.
-- `docs/DEMO_SCRIPT.md`: recording and interview script.
-
-The order data is simulated and covers 10 states, 10 product categories, 320 orders, 400 order items, 320 reviews and more than 80 after-sales cases.
-
-## Demo Flow
-
-1. Log in as `admin@example.com`.
-2. Open Knowledge Base and upload files from `data/demo_docs/`.
-3. Open Agent Chat and ask a policy question.
-4. Ask `哪个地区的异常订单最多？` to trigger SQL Agent.
-5. Ask the multi-step report question.
-6. Open Runs to inspect SQL Node, RAG Node and Report Node.
-7. Open Reports to view the generated Markdown report.
-8. Ask for an email draft and approve it in Approvals.
-9. Open Audit Log to verify traceability.
-
-Full guide: [docs/DEMO_GUIDE.md](docs/DEMO_GUIDE.md)
-
-## Presentation Materials
-
-- Resume descriptions: [docs/RESUME_DESCRIPTION.md](docs/RESUME_DESCRIPTION.md)
-- Interview Q&A: [docs/INTERVIEW_QA.md](docs/INTERVIEW_QA.md)
-- Architecture explanation: [docs/ARCHITECTURE_EXPLAIN.md](docs/ARCHITECTURE_EXPLAIN.md)
-- Demo script: [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md)
-- Project review: [docs/PROJECT_REVIEW.md](docs/PROJECT_REVIEW.md)
-- Technical highlights: [docs/TECHNICAL_HIGHLIGHTS.md](docs/TECHNICAL_HIGHLIGHTS.md)
-- Challenges and solutions: [docs/CHALLENGES_AND_SOLUTIONS.md](docs/CHALLENGES_AND_SOLUTIONS.md)
-- STAR project story: [docs/STAR_PROJECT_STORY.md](docs/STAR_PROJECT_STORY.md)
-- File map: [docs/PROJECT_FILE_MAP.md](docs/PROJECT_FILE_MAP.md)
-- Final presentation guide: [docs/FINAL_PRESENTATION_GUIDE.md](docs/FINAL_PRESENTATION_GUIDE.md)
-- Final checklist: [docs/FINAL_CHECKLIST.md](docs/FINAL_CHECKLIST.md)
-- Final release guide: [docs/FINAL_RELEASE_GUIDE.md](docs/FINAL_RELEASE_GUIDE.md)
-- Third validation preparation: [docs/THIRD_VALIDATION_PREP.md](docs/THIRD_VALIDATION_PREP.md)
-
-## Core APIs
-
-- `POST /api/auth/login`
-- `GET /api/dashboard/summary`
-- `POST /api/kb`
-- `POST /api/kb/{id}/documents`
-- `POST /api/kb/{id}/search`
-- `POST /api/chat/rag`
-- `GET /api/sql-agent/schema`
-- `POST /api/sql-agent/query`
-- `GET /api/tools`
-- `POST /api/tools/{tool_name}/invoke`
-- `POST /api/agent/chat`
-- `GET /api/runs/{run_id}/traces`
-- `GET /api/tasks/{task_id}/progress`
-- `GET /api/reports/{report_id}`
-- `GET /api/approvals`
-- `POST /api/approvals/{approval_id}/approve`
-- `GET /api/audit-logs`
-- `GET /api/metrics/summary`
-- `GET /api/metrics/agent-runs`
-- `GET /api/metrics/providers`
-- `GET /api/evals/runs`
-
-## Observability and Eval
-
-Stage 9 adds:
-
-- `provider_calls` metrics for Mock/OpenAI provider latency, token estimates, status and estimated cost.
-- Metrics API for Agent runs, RAG, SQL Guardrails, tools, async tasks and providers.
-- RAG, SQL Guardrails, Tool, Agent and Regression JSONL datasets under `backend/app/evals/`.
-- CLI runners: `python -m app.scripts.run_eval --type ...` and `python -m app.scripts.run_regression`.
-- Dashboard metric cards for success rates, latency, SQL blocks, provider calls and estimated cost.
-
-Docs:
-
-- [docs/OBSERVABILITY_AND_EVAL.md](docs/OBSERVABILITY_AND_EVAL.md)
-- [docs/EVAL_REPORT_TEMPLATE.md](docs/EVAL_REPORT_TEMPLATE.md)
-- [docs/METRICS_DEFINITION.md](docs/METRICS_DEFINITION.md)
-- [docs/REGRESSION_TEST_GUIDE.md](docs/REGRESSION_TEST_GUIDE.md)
-
-Docker cold-start and container integration acceptance passed on 2026-07-03. The validation covered Docker cold start, DB/Celery/API connectivity, idempotent demo seed, frontend-to-real-API smoke tests, container backend tests, frontend lint/build and public safety checks.
-
-## Frontend Pages
-
-- Login
-- Dashboard
-- Knowledge Base
-- Document Upload
-- Agent Chat
-- SQL Agent
-- Tools
-- Approvals
-- Runs and Run Trace
-- Tasks
-- Reports
-- Audit Log
-- Admin Users
-
-## Security Design
-
-- No real API keys are committed.
-- `.env.example` files are configuration templates.
-- Missing real provider keys automatically fall back to Mock providers.
-- Frontend never stores model provider keys in `NEXT_PUBLIC_*`.
-- SQL Agent only executes Guardrails-protected read-only queries.
-- `send_email_draft` creates a draft and approval record; it does not send real email.
-- Sensitive operations require human approval.
-- Tool calls, SQL queries, Agent runs and important user actions are traceable.
-
-Before publishing:
+Eval examples:
 
 ```bash
-bash scripts/check_public_safety.sh
-bash scripts/final_public_safety_check.sh
-bash scripts/final_repo_check.sh
+cd backend
+python -m app.scripts.run_eval --type rag
+python -m app.scripts.run_eval --type sql-guardrails
+python -m app.scripts.run_eval --type tool
+python -m app.scripts.run_regression
 ```
+
+## Demo Accounts
+
+Demo accounts are defined in `backend/app/seed/seed_users.py`:
+
+| Role | Email | Password | Purpose |
+|---|---|---|---|
+| Admin | `admin@example.com` | `admin123` | Full demo administration and audit access. |
+| Developer | `developer@example.com` | `dev123` | SQL Agent, traces, tool registration, and developer workflows. |
+| User | `user@example.com` | `user123` | Knowledge-base chat, reports, tools, and standard Agent workflows. |
+| Guest | `guest@example.com` | `guest123` | Public knowledge-base read access. |
+
+These are demo-only credentials and should not be used as production credentials.
+
+## Documentation Map
+
+| Document | Purpose |
+|---|---|
+| [`docs/DEMO_GUIDE.md`](docs/DEMO_GUIDE.md) | Step-by-step local demo guide. |
+| [`docs/DEMO_CASES.md`](docs/DEMO_CASES.md) | Eight demo cases covering chat, RAG, SQL, tools, reports, async tasks, approvals, and Guardrails. |
+| [`docs/PUBLIC_DATA_SOURCES.md`](docs/PUBLIC_DATA_SOURCES.md) | Public-safe data statement and synthetic demo data explanation. |
+| [`docs/ARCHITECTURE_OVERVIEW.md`](docs/ARCHITECTURE_OVERVIEW.md) | System architecture overview. |
+| [`docs/ARCHITECTURE_EXPLAIN.md`](docs/ARCHITECTURE_EXPLAIN.md) | Architecture explanation for presentation and interview. |
+| [`docs/TECHNICAL_HIGHLIGHTS.md`](docs/TECHNICAL_HIGHLIGHTS.md) | Technical highlights mapped to modules. |
+| [`docs/CHALLENGES_AND_SOLUTIONS.md`](docs/CHALLENGES_AND_SOLUTIONS.md) | Engineering challenges and implementation decisions. |
+| [`docs/OBSERVABILITY_AND_EVAL.md`](docs/OBSERVABILITY_AND_EVAL.md) | Metrics, trace, audit, eval datasets, and regression workflows. |
+| [`docs/METRICS_DEFINITION.md`](docs/METRICS_DEFINITION.md) | Metrics definitions and interpretation. |
+| [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) | Deployment notes and environment requirements. |
+| [`docs/CI_CD.md`](docs/CI_CD.md) | GitHub Actions and local CI reproduction. |
+| [`docs/RESUME_DESCRIPTION.md`](docs/RESUME_DESCRIPTION.md) | Resume-ready project descriptions. |
+| [`docs/INTERVIEW_QA.md`](docs/INTERVIEW_QA.md) | Interview Q&A and talking points. |
+| [`docs/PROJECT_FINAL_REVIEW.md`](docs/PROJECT_FINAL_REVIEW.md) | Final project review and status summary. |
+| [`docs/FINAL_PRESENTATION_GUIDE.md`](docs/FINAL_PRESENTATION_GUIDE.md) | Presentation guide for demo/interview use. |
+| [`docs/ROADMAP.md`](docs/ROADMAP.md) | Project roadmap. |
+| [`docs/FINAL_ROADMAP.md`](docs/FINAL_ROADMAP.md) | Final roadmap for future improvements. |
+
+## Demo Recording
+
+The following GIFs were captured from the local demo environment using the seeded demo accounts and synthetic demo data.
+
+| Agent Chat multi-step workflow | SQL Agent guarded analytics |
+|---|---|
+| ![Agent Chat demo](demo/Agent%20Chat.gif) | ![SQL Agent demo](demo/SQL%20Agent.gif) |
 
 ## Screenshots
 
-> Screenshots will be added after the final demo run.
+Screenshots were captured from the local demo console with the seeded Admin demo account. They show the actual frontend pages backed by the FastAPI backend, PostgreSQL demo data, Redis/Celery runtime, and Mock providers.
 
-Planned screenshots are listed in [docs/SCREENSHOTS.md](docs/SCREENSHOTS.md).
+| Dashboard | Knowledge Base |
+|---|---|
+| ![Dashboard](screenshots/01-dashboard.png) | ![Knowledge Base](screenshots/02-knowledge-base.png) |
 
-## Resume Summary
+| Agent Chat | SQL Agent |
+|---|---|
+| ![Agent Chat report workflow](screenshots/03-agent-chat-report.png) | ![SQL Agent guarded query](screenshots/04-sql-agent.png) |
 
-See [docs/RESUME_DESCRIPTION.md](docs/RESUME_DESCRIPTION.md) for Chinese and English resume descriptions, project highlights and interview talking points.
+| Tools | Approvals |
+|---|---|
+| ![Tools](screenshots/05-tools.png) | ![Approvals](screenshots/06-approvals.png) |
 
-## Roadmap
+| Run Trace | Tasks |
+|---|---|
+| ![Run Trace](screenshots/07-run-trace.png) | ![Tasks](screenshots/08-tasks.png) |
 
-- Completed: RAG, SQL Agent, Tool Calling, Agent Planner, async reports, frontend console, eval/metrics, Docker, CI/CD and presentation materials.
-- Short term: Langfuse integration, more document formats, stronger report export and E2E tests.
-- Mid term: multi-tenant isolation, stronger policy engine, enterprise SSO and richer dashboards.
-- Long term: plugin marketplace, multi-agent collaboration, workflow editor and production-grade monitoring.
+| Reports | Audit |
+|---|---|
+| ![Reports](screenshots/09-reports.png) | ![Audit](screenshots/10-audit.png) |
 
-More detail: [docs/ROADMAP.md](docs/ROADMAP.md)
+| Admin Users |
+|---|
+| ![Admin Users](screenshots/11-admin-users.png) |
 
-## Release Notes
+## Current Status
 
-Demo release notes are maintained in [RELEASE_NOTES.md](RELEASE_NOTES.md). The suggested release tag is `v1.0.0-demo`, to be created only after the final `03-test.md` validation passes.
+All planned development stages have been completed in the verified stage-12 project snapshot. The repository includes milestone validation materials, final validation guidance, public-safety checks, CI/CD workflows, and portfolio presentation documentation.
+
+Current status should be described as:
+
+- Portfolio-ready engineering showcase.
+- Local-demo-ready with Mock providers.
+- Public-safe demo data and documentation included.
+- Includes local demo screenshots and GIF recordings for portfolio presentation.
+
+Current status should not be described as:
+
+- Production-proven.
+- Commercially deployed.
+- Using real enterprise data.
+- Serving real user traffic.
+
+## Future Improvements
+
+Short term:
+
+- Keep screenshots and demo recordings updated as the UI evolves.
+- Add Playwright E2E tests for login, RAG, SQL Agent, multi-step reports, approvals, and audit.
+- Enhance report export to PDF and DOCX.
+- Integrate Langfuse or OpenTelemetry for trace and provider-call export.
+
+Mid term:
+
+- Add multi-tenant isolation across users, knowledge bases, tools, reports, and traces.
+- Add enterprise SSO.
+- Introduce finer-grained permission policies for tools, KBs, and SQL schemas.
+- Add more Tool plugins and a safer plugin packaging contract.
+
+Long term:
+
+- Build a visual workflow editor.
+- Support multi-Agent collaboration.
+- Build a plugin marketplace.
+- Add production-grade monitoring, alerting, backup/restore, and incident runbooks.
 
 ## License
 
-This project is released under the [MIT License](LICENSE).
+This project is licensed under the MIT License.

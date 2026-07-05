@@ -491,21 +491,7 @@ Demo 账号定义在 `backend/app/seed/seed_users.py`：
 
 ## 当前状态
 
-在已验证的 Stage-12 项目快照中，所有计划开发阶段均已完成。仓库包含阶段验收材料、最终验收指南、公开安全检查、CI/CD workflows 和作品集展示文档。
-
-当前状态应描述为：
-
-- Portfolio-ready engineering showcase。
-- 支持 Mock providers 的本地 Demo。
-- 包含公开安全的 Demo 数据和文档。
-- 包含本地 Demo 截图和 GIF 录屏，用于作品集展示。
-
-当前状态不应描述为：
-
-- 已经生产环境验证。
-- 已经商业部署。
-- 使用真实企业数据。
-- 服务真实用户流量。
+在已验证的 Stage-12 项目快照中，所有计划开发阶段均已完成；当前仓库是一个面向作品集展示的工程项目，包含阶段验收材料、最终验收指南、公开安全检查、CI/CD workflows、支持 Mock providers 的本地 Demo、公开安全的 synthetic demo data 与文档，并包含本地 Demo 截图和 GIF 录屏，可用于 GitHub 作品集展示、Demo 演示和面试讲解。
 
 ## 后续优化
 

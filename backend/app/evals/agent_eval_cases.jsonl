@@ -10,3 +10,13 @@
 {"case_id":"agent_010","query":"生成报告：异常订单复盘","expected_intent":"MULTI_STEP_REPORT","expected_status":"SUCCESS"}
 {"case_id":"agent_011","query":"确认审批这封邮件","expected_intent":"NEED_APPROVAL","expected_status":"WAITING_APPROVAL"}
 {"case_id":"agent_012","query":"帮助我了解售后政策","expected_intent":"RAG_QA","expected_status":"SUCCESS"}
+{"case_id":"agent_013","query":"请统计各州订单异常数量","expected_intent":"SQL_QUERY","expected_status":"SUCCESS"}
+{"case_id":"agent_014","query":"退货政策对退款时效有什么说明？","expected_intent":"RAG_QA","expected_status":"SUCCESS"}
+{"case_id":"agent_015","query":"查询订单状态 order_2026","expected_intent":"TOOL_CALL","expected_status":"SUCCESS"}
+{"case_id":"agent_016","query":"请发送异常订单报告邮件给 ops@example.com","expected_intent":"NEED_APPROVAL","expected_status":"WAITING_APPROVAL"}
+{"case_id":"agent_017","query":"结合订单异常数据和售后知识库生成报告","expected_intent":"MULTI_STEP_REPORT","expected_status":"SUCCESS"}
+{"case_id":"agent_018","query":"客户投诉升级依据是什么？","expected_intent":"RAG_QA","expected_status":"SUCCESS"}
+{"case_id":"agent_019","query":"售后记录里退款请求有哪些？","expected_intent":"TOOL_CALL","expected_status":"SUCCESS"}
+{"case_id":"agent_020","query":"统计低评分订单的地区分布","expected_intent":"SQL_QUERY","expected_status":"SUCCESS"}
+{"case_id":"agent_021","query":"你好，帮助我理解系统能力","expected_intent":"GENERAL_CHAT","expected_status":"SUCCESS"}
+{"case_id":"agent_022","query":"生成报告：低评分订单和售后异常复盘","expected_intent":"MULTI_STEP_REPORT","expected_status":"SUCCESS"}

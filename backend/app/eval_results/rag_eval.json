@@ -1,0 +1,16 @@
+{
+  "eval_run_id": "eval_4ba5a07dcdc94cdd9debc4066e2aa73a",
+  "case_type": "RAG",
+  "status": "PASSED",
+  "total_cases": 30,
+  "passed_cases": 30,
+  "failed_cases": 0,
+  "pass_rate": 1.0,
+  "failed_case_ids": [],
+  "timestamp": "2026-07-05T11:52:50.737527+00:00",
+  "summary": {
+    "scoring": "retrieval_hit*0.5 + keyword_match*0.3 + citation_present*0.2"
+  },
+  "result_file": "backend/app/eval_results/rag_eval.json",
+  "db_write": "skipped"
+}

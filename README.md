@@ -27,6 +27,22 @@ This repository is designed as a portfolio-grade AI Agent engineering project ra
 
 The project is intentionally built beyond a simple RAG chatbot. A normal RAG demo answers questions from documents; this platform routes user intent across RAG, SQL analytics, tool calls, multi-step report generation, approvals, trace replay, audit logs, and frontend operations pages.
 
+## Metrics Snapshot
+
+| Metric | Value | Source |
+|---|---:|---|
+| Total Eval Cases | 171 | `backend/app/evals/*.jsonl` |
+| Overall Eval Pass Rate | 100.00% (144/144) | `backend/app/eval_results/all_eval.json` |
+| RAG Eval Pass Rate | 100.00% (30/30) | `backend/app/eval_results/rag_eval.json` |
+| SQL Guardrails Unsafe SQL Block Rate | 100.00% (43/43) | `backend/app/eval_results/sql_guardrails_eval.json` |
+| Tool Calling Eval Pass Rate | 100.00% (30/30) | `backend/app/eval_results/tool_eval.json` |
+| Regression Pass Rate | 100.00% (27/27) | `backend/app/eval_results/regression.json` |
+| Async Submit p95 Latency | 0.007 ms | `backend/app/eval_results/async_benchmark.json` |
+| Trace Replay Success Rate | 100.00% (10/10) | `backend/app/eval_results/trace_benchmark.json` |
+
+> Metrics are generated from synthetic demo data and Mock providers.
+> Async latency measures the time to return `run_id`, not full Agent workflow completion time.
+
 ## Why This Project
 
 Real enterprise Agent systems usually need to answer questions that cross several boundaries:
@@ -287,6 +303,17 @@ This repository should not be described as production-proven. It is a production
 | Tool Eval | Implemented | Checks tool existence, permissions, approval requirements, and SQL Guardrails reuse. |
 | Agent Regression | Implemented | Uses regression cases for core demo intent routing and safety behavior. |
 | Langfuse / OpenTelemetry | Planned | Trace and provider-call structures are designed for future exporter integration. |
+
+Metric definitions:
+
+- Eval Pass Rate = passed cases / total cases from `python -m app.scripts.run_eval --type all`.
+- RAG Eval Pass Rate = passed RAG cases / total RAG cases from `python -m app.scripts.run_eval --type rag`.
+- Unsafe SQL Block Rate = blocked unsafe SQL cases / total unsafe SQL cases from `python -m app.scripts.run_eval --type sql-guardrails`.
+- Tool Calling Eval Pass Rate = passed tool cases / total tool cases from `python -m app.scripts.run_eval --type tool`.
+- Regression Pass Rate = passed regression cases / total regression cases from `python -m app.scripts.run_regression`.
+- Async Submit Latency = time to return `run_id` from `python -m app.scripts.benchmark_async`, not full task completion time.
+- Trace Replay Success Rate = failed Agent runs with retrievable run, steps, tool call, SQL log, audit log, and error / total checked failed runs from `python -m app.scripts.benchmark_trace`.
+- Public validation uses Mock providers and synthetic demo data, so it does not require real model API keys or private enterprise data.
 
 Metrics APIs include:
 

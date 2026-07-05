@@ -53,3 +53,9 @@ jobs:
       - name: Run tests
         working-directory: backend
         run: python -m pytest app/tests
+      - name: Run SQL Guardrails eval smoke
+        working-directory: backend
+        run: python -m app.scripts.run_eval --type sql-guardrails --no-db
+      - name: Run regression smoke
+        working-directory: backend
+        run: python -m app.scripts.run_regression --no-db

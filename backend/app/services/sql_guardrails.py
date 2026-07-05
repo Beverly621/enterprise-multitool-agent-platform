@@ -38,6 +38,11 @@ SENSITIVE_FIELDS = {
     "token",
 }
 MAX_LIMIT = 100
+INJECTION_PATTERNS = (
+    r"\bor\s+1\s*=\s*1\b",
+    r"\bunion\s+select\b",
+    r"--",
+)
 
 
 @dataclass(slots=True)
@@ -69,7 +74,13 @@ def validate_sql(sql: str) -> SQLGuardrailResult:
     if any(re.search(rf"\b{keyword}\b", lowered) for keyword in FORBIDDEN_KEYWORDS):
         return SQLGuardrailResult(False, None, "Dangerous SQL keyword is not allowed.")
 
-    if re.search(r"select\s+\*", lowered) or re.search(r",\s*\*", lowered):
+    if any(re.search(pattern, lowered) for pattern in INJECTION_PATTERNS):
+        return SQLGuardrailResult(False, None, "Injection-like SQL pattern is not allowed.")
+
+    if (
+        re.search(r"select\s+(?:\w+\.)?\*", lowered)
+        or re.search(r",\s*(?:\w+\.)?\*", lowered)
+    ):
         return SQLGuardrailResult(False, None, "SELECT * is not allowed.")
 
     tables = _extract_table_names(lowered)

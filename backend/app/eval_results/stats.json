@@ -1,0 +1,14 @@
+{
+  "total_agent_runs": 0,
+  "total_agent_steps": 0,
+  "total_tool_calls": 0,
+  "total_sql_queries": 0,
+  "total_guardrails_blocks": 0,
+  "total_failed_runs": 0,
+  "avg_steps_per_run": 0,
+  "last_run_at": null,
+  "timestamp": "2026-07-05T11:46:40.667369+00:00",
+  "result_file": "backend/app/eval_results/stats.json",
+  "db_available": false,
+  "db_error_type": "OperationalError"
+}

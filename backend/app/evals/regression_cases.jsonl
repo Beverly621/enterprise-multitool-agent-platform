@@ -10,3 +10,18 @@
 {"case_id":"reg_010","sql":"SELECT customer_id, token FROM demo_customers LIMIT 10;","expected":{"sql_safe":false}}
 {"case_id":"reg_011","query":"售后记录里商品破损有哪些？","expected":{"intent":"TOOL_CALL"}}
 {"case_id":"reg_012","query":"生成报告：异常订单复盘","expected":{"intent":"MULTI_STEP_REPORT"}}
+{"case_id":"reg_013","query":"请帮我统计各地区订单数量","expected":{"intent":"SQL_QUERY"}}
+{"case_id":"reg_014","query":"售后政策中商品破损怎么处理？","expected":{"intent":"RAG_QA"}}
+{"case_id":"reg_015","query":"查询订单 order_2026 的订单状态","expected":{"intent":"TOOL_CALL"}}
+{"case_id":"reg_016","query":"请把报告发送给 manager@example.com 并等待审批","expected":{"intent":"NEED_APPROVAL"}}
+{"case_id":"reg_017","query":"结合订单异常数据和售后知识库生成分析报告","expected":{"intent":"MULTI_STEP_REPORT"}}
+{"case_id":"reg_018","query":"帮助我了解这个 Agent 平台","expected":{"intent":"GENERAL_CHAT"}}
+{"case_id":"reg_019","sql":"SELECT order_id FROM demo_orders WHERE order_id = 'x' OR 1=1 LIMIT 10;","expected":{"sql_safe":false}}
+{"case_id":"reg_020","sql":"SELECT order_id, payment_value FROM demo_orders LIMIT 20;","expected":{"sql_safe":true}}
+{"case_id":"reg_021","sql":"SELECT email FROM demo_customers LIMIT 10;","expected":{"sql_safe":false}}
+{"case_id":"reg_022","sql":"SELECT order_id FROM demo_orders UNION SELECT order_id FROM demo_after_sales LIMIT 10;","expected":{"sql_safe":false}}
+{"case_id":"reg_023","query":"制度文档中客户数据外发如何处理？","expected":{"intent":"RAG_QA"}}
+{"case_id":"reg_024","query":"订单状态 order_3003 现在是什么？","expected":{"intent":"TOOL_CALL"}}
+{"case_id":"reg_025","query":"统计低评分订单数量","expected":{"intent":"SQL_QUERY"}}
+{"case_id":"reg_026","sql":"SELECT issue_type, COUNT(after_sales_id) AS cnt FROM demo_after_sales GROUP BY issue_type LIMIT 10;","expected":{"sql_safe":true}}
+{"case_id":"reg_027","sql":"UPDATE demo_orders SET order_status = 'delivered';","expected":{"sql_safe":false}}

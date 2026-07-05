@@ -8,3 +8,23 @@
 {"case_id":"tool_008","tool_name":"search_knowledge_base","args":{"kb_id":1,"query":"利益冲突"},"expected":{"tool_exists":true,"permission_level":"Guest","requires_approval":false}}
 {"case_id":"tool_009","tool_name":"create_todo","args":{"title":"跟进低评分订单"},"expected":{"tool_exists":true,"permission_level":"User","requires_approval":false}}
 {"case_id":"tool_010","tool_name":"disabled_unknown_tool","args":{},"expected":{"tool_exists":false}}
+{"case_id":"tool_011","tool_name":"search_knowledge_base","args":{"kb_id":1,"query":"退货政策","top_k":3},"expected":{"tool_exists":true,"permission_level":"Guest","requires_approval":false,"args_valid":true}}
+{"case_id":"tool_012","tool_name":"search_knowledge_base","args":{"kb_id":1,"query":"退货政策","top_k":100},"expected":{"tool_exists":true,"permission_level":"Guest","requires_approval":false,"args_valid":false}}
+{"case_id":"tool_013","tool_name":"search_knowledge_base","args":{"kb_id":1},"expected":{"tool_exists":true,"permission_level":"Guest","requires_approval":false,"args_valid":false}}
+{"case_id":"tool_014","tool_name":"query_order_status","args":{"order_id":"order_2002","extra":"not_allowed"},"expected":{"tool_exists":true,"permission_level":"User","requires_approval":false,"args_valid":false}}
+{"case_id":"tool_015","tool_name":"query_order_status","args":{"order_id":"order_2002"},"expected":{"tool_exists":true,"permission_level":"User","requires_approval":false,"args_valid":true}}
+{"case_id":"tool_016","tool_name":"query_after_sales","args":{"issue_type":"refund_request","limit":5},"expected":{"tool_exists":true,"permission_level":"User","requires_approval":false,"args_valid":true}}
+{"case_id":"tool_017","tool_name":"query_after_sales","args":{"issue_type":"refund_request","limit":100},"expected":{"tool_exists":true,"permission_level":"User","requires_approval":false,"args_valid":false}}
+{"case_id":"tool_018","tool_name":"generate_report","args":{"title":"售后异常摘要","findings":["低评分订单上升"]},"expected":{"tool_exists":true,"permission_level":"User","requires_approval":false,"args_valid":true}}
+{"case_id":"tool_019","tool_name":"generate_report","args":{"findings":["缺少标题"]},"expected":{"tool_exists":true,"permission_level":"User","requires_approval":false,"args_valid":false}}
+{"case_id":"tool_020","tool_name":"send_email_draft","args":{"to_email":"ops@example.com","subject":"审批异常报告","body":"请审核报告"},"expected":{"tool_exists":true,"permission_level":"User","requires_approval":true,"args_valid":true}}
+{"case_id":"tool_021","tool_name":"send_email_draft","args":{"to_email":"not-an-email","subject":"审批异常报告","body":"请审核报告"},"expected":{"tool_exists":true,"permission_level":"User","requires_approval":true,"args_valid":false}}
+{"case_id":"tool_022","tool_name":"create_todo","args":{"title":"跟进退款异常","priority":"HIGH"},"expected":{"tool_exists":true,"permission_level":"User","requires_approval":false,"args_valid":true}}
+{"case_id":"tool_023","tool_name":"create_todo","args":{"title":"跟进退款异常","priority":"URGENT"},"expected":{"tool_exists":true,"permission_level":"User","requires_approval":false,"args_valid":false}}
+{"case_id":"tool_024","tool_name":"execute_safe_sql","args":{"sql":"SELECT order_id FROM demo_orders LIMIT 10"},"expected":{"tool_exists":true,"permission_level":"Developer","requires_approval":false,"args_valid":true,"guardrail_safe":true}}
+{"case_id":"tool_025","tool_name":"execute_safe_sql","args":{"sql":"SELECT * FROM demo_orders LIMIT 10"},"expected":{"tool_exists":true,"permission_level":"Developer","requires_approval":false,"args_valid":true,"guardrail_safe":false}}
+{"case_id":"tool_026","tool_name":"execute_safe_sql","args":{"sql":"SELECT order_id FROM demo_orders WHERE order_id = 'x' OR 1=1 LIMIT 10"},"expected":{"tool_exists":true,"permission_level":"Developer","requires_approval":false,"args_valid":true,"guardrail_safe":false}}
+{"case_id":"tool_027","tool_name":"send_email_draft","args":{"to_email":"approver@example.com","subject":"需要审批","body":"生成邮件草稿"},"expected":{"tool_exists":true,"permission_level":"User","requires_approval":true,"args_valid":true}}
+{"case_id":"tool_028","tool_name":"missing_fallback_tool","args":{"query":"fallback"},"expected":{"tool_exists":false}}
+{"case_id":"tool_029","tool_name":"query_after_sales","args":{"order_id":"order_1001","issue_type":"product_damage","limit":10},"expected":{"tool_exists":true,"permission_level":"User","requires_approval":false,"args_valid":true}}
+{"case_id":"tool_030","tool_name":"search_knowledge_base","args":{"kb_id":1,"query":"客户数据外发","metadata_filter":{"source":"policy"}},"expected":{"tool_exists":true,"permission_level":"Guest","requires_approval":false,"args_valid":true}}

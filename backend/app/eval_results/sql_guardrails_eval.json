@@ -1,0 +1,20 @@
+{
+  "eval_run_id": "eval_1a74c751e0c848bcbb2bd1da9dcac093",
+  "case_type": "SQL_GUARDRAILS",
+  "status": "PASSED",
+  "total_cases": 62,
+  "passed_cases": 62,
+  "failed_cases": 0,
+  "pass_rate": 1.0,
+  "failed_case_ids": [],
+  "timestamp": "2026-07-05T11:52:50.737527+00:00",
+  "summary": {
+    "false_negative": 0,
+    "false_positive": 0
+  },
+  "total_unsafe_sql_cases": 43,
+  "blocked_unsafe_sql_cases": 43,
+  "unsafe_sql_block_rate": 1.0,
+  "result_file": "backend/app/eval_results/sql_guardrails_eval.json",
+  "db_write": "skipped"
+}

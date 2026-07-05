@@ -1,0 +1,19 @@
+{
+  "benchmark": "async_submit_latency",
+  "iterations": 20,
+  "mock_provider": true,
+  "measurement_scope": "time_to_return_run_id_not_full_agent_workflow_completion",
+  "avg_submit_latency_ms": 0.004,
+  "p50_submit_latency_ms": 0.003,
+  "p95_submit_latency_ms": 0.007,
+  "max_submit_latency_ms": 0.01,
+  "sample_run_ids": [
+    "run_715c202c68a541219a4c7274b4aef0f8",
+    "run_bfe5de929d884c7ab7a67f3cdf5bc976",
+    "run_42f4cb4f7ba5490585fe9e459d1d9994",
+    "run_c96e33ed3c2e483e845f92d318ef56fb",
+    "run_3bde2361c0bd48d2a5c69961e23df85c"
+  ],
+  "timestamp": "2026-07-05T11:46:40.415154+00:00",
+  "result_file": "backend/app/eval_results/async_benchmark.json"
+}

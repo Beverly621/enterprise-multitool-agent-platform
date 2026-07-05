@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from app.services.base_eval_service import EvalCaseResult, persist_eval_run
 from app.services.eval_case_loader import load_eval_cases
 from app.services.sql_guardrails import validate_sql
+from app.services.tool_validation_service import validate_tool_args
 from app.tools import get_builtin_tools
 
 
@@ -28,6 +29,12 @@ def run_tool_eval(db: Session | None = None, created_by: int | None = None) -> d
                     "requires_approval": tool.metadata.require_approval,
                 }
             )
+            try:
+                validate_tool_args(tool.metadata.schema_json, case.get("args", {}))
+                actual["args_valid"] = True
+            except Exception as exc:
+                actual["args_valid"] = False
+                actual["validation_error"] = str(exc)
         if tool_name == "execute_safe_sql" and case.get("args", {}).get("sql"):
             guardrail = validate_sql(case["args"]["sql"])
             actual["guardrail_safe"] = guardrail.safe

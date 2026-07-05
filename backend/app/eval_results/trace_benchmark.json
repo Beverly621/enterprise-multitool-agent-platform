@@ -1,0 +1,20 @@
+{
+  "benchmark": "trace_replay",
+  "total_failed_runs_checked": 10,
+  "successful_replays": 10,
+  "failed_replays": 0,
+  "trace_replay_success_rate": 1.0,
+  "avg_lookup_time_ms": 0.0,
+  "failed_run_ids": [],
+  "required_trace_parts": [
+    "run",
+    "steps",
+    "tool_call",
+    "sql_log",
+    "audit_log",
+    "error"
+  ],
+  "data_mode": "synthetic_failed_agent_runs",
+  "timestamp": "2026-07-05T11:46:40.422394+00:00",
+  "result_file": "backend/app/eval_results/trace_benchmark.json"
+}

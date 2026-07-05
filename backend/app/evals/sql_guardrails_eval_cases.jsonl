@@ -20,3 +20,43 @@
 {"case_id":"sql_020","sql":"SELECT order_id FROM demo_orders WHERE customer_id IN (SELECT id FROM users) LIMIT 10;","expected_safe":false,"expected_reason_contains":"Sensitive table"}
 {"case_id":"sql_021","sql":"SELECT issue_type, COUNT(after_sales_id) AS cnt FROM demo_after_sales GROUP BY issue_type LIMIT 20;","expected_safe":true}
 {"case_id":"sql_022","sql":"SELECT review_score, COUNT(review_id) AS cnt FROM demo_reviews GROUP BY review_score LIMIT 10;","expected_safe":true}
+{"case_id":"sql_023","sql":"SELECT o.state, COUNT(o.order_id) AS cnt FROM demo_orders o JOIN demo_reviews r ON o.order_id = r.order_id WHERE r.review_score <= 2 GROUP BY o.state LIMIT 20;","expected_safe":true}
+{"case_id":"sql_024","sql":"SELECT issue_type, status, COUNT(after_sales_id) AS cnt FROM demo_after_sales GROUP BY issue_type, status LIMIT 50;","expected_safe":true}
+{"case_id":"sql_025","sql":"SELECT category, AVG(price) AS avg_price FROM demo_products GROUP BY category LIMIT 20;","expected_safe":true}
+{"case_id":"sql_026","sql":"SELECT seller_id, SUM(price) AS item_amount FROM demo_order_items GROUP BY seller_id LIMIT 30;","expected_safe":true}
+{"case_id":"sql_027","sql":"SELECT customer_name, state FROM demo_customers LIMIT 10;","expected_safe":true}
+{"case_id":"sql_028","sql":"SELECT DISTINCT state FROM demo_orders LIMIT 30;","expected_safe":true}
+{"case_id":"sql_029","sql":"SELECT order_status, COUNT(order_id) AS cnt FROM demo_orders GROUP BY order_status LIMIT 10;","expected_safe":true}
+{"case_id":"sql_030","sql":"SELECT order_id, payment_value FROM demo_orders WHERE payment_value > 100 LIMIT 20;","expected_safe":true}
+{"case_id":"sql_031","sql":"SELECT r.review_score, COUNT(o.order_id) AS cnt FROM demo_reviews r JOIN demo_orders o ON r.order_id = o.order_id GROUP BY r.review_score LIMIT 10;","expected_safe":true}
+{"case_id":"sql_032","sql":"SELECT after_sales_id, issue_type FROM demo_after_sales WHERE status = 'open' LIMIT 10;","expected_safe":true}
+{"case_id":"sql_033","sql":"SELECT product_id, product_name, department FROM demo_products LIMIT 20;","expected_safe":true}
+{"case_id":"sql_034","sql":"SELECT order_id FROM demo_orders WHERE order_id IN (SELECT order_id FROM demo_reviews WHERE review_score <= 2) LIMIT 20;","expected_safe":true}
+{"case_id":"sql_035","sql":"SELECT order_id FROM demo_orders WHERE order_id = 'order_1001' OR 1=1 LIMIT 10;","expected_safe":false,"expected_reason_contains":"Injection-like"}
+{"case_id":"sql_036","sql":"SELECT order_id FROM demo_orders -- LIMIT 10","expected_safe":false,"expected_reason_contains":"Injection-like"}
+{"case_id":"sql_037","sql":"SELECT order_id FROM demo_orders UNION SELECT order_id FROM demo_after_sales LIMIT 10;","expected_safe":false,"expected_reason_contains":"Injection-like"}
+{"case_id":"sql_038","sql":"SELECT email FROM demo_customers LIMIT 10;","expected_safe":false,"expected_reason_contains":"Sensitive field"}
+{"case_id":"sql_039","sql":"SELECT phone FROM demo_customers LIMIT 10;","expected_safe":false,"expected_reason_contains":"Sensitive field"}
+{"case_id":"sql_040","sql":"SELECT address FROM demo_customers LIMIT 10;","expected_safe":false,"expected_reason_contains":"Sensitive field"}
+{"case_id":"sql_041","sql":"SELECT secret FROM demo_orders LIMIT 10;","expected_safe":false,"expected_reason_contains":"Sensitive field"}
+{"case_id":"sql_042","sql":"SELECT token FROM demo_orders LIMIT 10;","expected_safe":false,"expected_reason_contains":"Sensitive field"}
+{"case_id":"sql_043","sql":"SELECT id FROM audit_logs LIMIT 10;","expected_safe":false,"expected_reason_contains":"Sensitive table"}
+{"case_id":"sql_044","sql":"SELECT id FROM role_permissions LIMIT 10;","expected_safe":false,"expected_reason_contains":"Sensitive table"}
+{"case_id":"sql_045","sql":"SELECT id FROM agent_traces LIMIT 10;","expected_safe":false,"expected_reason_contains":"Sensitive table"}
+{"case_id":"sql_046","sql":"SELECT order_id FROM payments LIMIT 10;","expected_safe":false,"expected_reason_contains":"Only demo business tables"}
+{"case_id":"sql_047","sql":"SELECT id FROM sqlite_master LIMIT 10;","expected_safe":false,"expected_reason_contains":"Only demo business tables"}
+{"case_id":"sql_048","sql":"SELECT 1;","expected_safe":false,"expected_reason_contains":"allowed demo table"}
+{"case_id":"sql_049","sql":"DROP VIEW demo_orders_view;","expected_safe":false,"expected_reason_contains":"Only SELECT"}
+{"case_id":"sql_050","sql":"CREATE INDEX idx_demo_orders_state ON demo_orders(state);","expected_safe":false,"expected_reason_contains":"Only SELECT"}
+{"case_id":"sql_051","sql":"ALTER TABLE demo_customers DROP COLUMN customer_name;","expected_safe":false,"expected_reason_contains":"Only SELECT"}
+{"case_id":"sql_052","sql":"DELETE FROM demo_after_sales WHERE status = 'open';","expected_safe":false,"expected_reason_contains":"Only SELECT"}
+{"case_id":"sql_053","sql":"UPDATE demo_reviews SET review_score = 5 WHERE review_score = 1;","expected_safe":false,"expected_reason_contains":"Only SELECT"}
+{"case_id":"sql_054","sql":"INSERT INTO demo_after_sales (after_sales_id) VALUES ('case_x');","expected_safe":false,"expected_reason_contains":"Only SELECT"}
+{"case_id":"sql_055","sql":"TRUNCATE demo_after_sales;","expected_safe":false,"expected_reason_contains":"Only SELECT"}
+{"case_id":"sql_056","sql":"REVOKE SELECT ON demo_orders FROM public;","expected_safe":false,"expected_reason_contains":"Only SELECT"}
+{"case_id":"sql_057","sql":"SELECT order_id FROM demo_orders; SELECT id FROM users;","expected_safe":false,"expected_reason_contains":"Multiple SQL"}
+{"case_id":"sql_058","sql":"SELECT state, * FROM demo_orders LIMIT 10;","expected_safe":false,"expected_reason_contains":"SELECT *"}
+{"case_id":"sql_059","sql":"SELECT o.*, r.review_score FROM demo_orders o JOIN demo_reviews r ON o.order_id = r.order_id LIMIT 10;","expected_safe":false,"expected_reason_contains":"SELECT *"}
+{"case_id":"sql_060","sql":"SELECT order_id FROM demo_orders WHERE EXISTS (SELECT 1 FROM users WHERE users.id = demo_orders.customer_id) LIMIT 10;","expected_safe":false,"expected_reason_contains":"Sensitive table"}
+{"case_id":"sql_061","sql":"SELECT order_id FROM demo_orders /* delete bypass attempt */ LIMIT 10;","expected_safe":false,"expected_reason_contains":"Dangerous SQL keyword"}
+{"case_id":"sql_062","sql":"SELECT order_id FROM demo_orders WHERE order_status = 'delivered' LIMIT 500;","expected_safe":true}

@@ -1,7 +1,7 @@
 # Enterprise Multi-Tool Agent Platform
 
 <p align="center">
-  <img src="assets/readme-hero.svg" alt="Enterprise Multi-Tool Agent Platform" width="100%" />
+  <img src="assets/readme-hero-v5-clean.svg" alt="Enterprise Multi-Tool Agent Platform" width="100%" />
 </p>
 
 <p align="center">
@@ -22,9 +22,9 @@
 
 Enterprise Multi-Tool Agent Platform 是一个企业级多工具 AI Agent 平台，集成 RAG、SQL Agent、Tool Calling、多步骤任务规划、异步报告生成、RBAC 权限控制、SQL Guardrails、Human-in-the-loop 审批、Trace、Audit、Metrics、Evaluation 以及完整的全栈后台控制台。
 
-这个仓库不是面向普通用户的消费级产品，而是一个完整前后端 AI-Agent 工程项目。它展示了如何把非结构化知识库文档、结构化业务数据、工具执行、审批流、异步任务、可观测性、评测体系和 CI/CD 组织成一个完整的全栈系统。
+本仓库定位为完整前后端 AI-Agent 工程项目，面向企业式工作流的工程拆解与演示。它展示了如何把非结构化知识库文档、结构化业务数据、工具执行、审批流、异步任务、可观测性、评测体系和 CI/CD 组织成一个完整的全栈系统。
 
-本项目也不是普通 RAG Chatbot。普通 RAG Demo 通常只回答文档问题；本平台会根据用户意图在 RAG、SQL 分析、工具调用、多步骤报告生成、审批流、Trace 回放、Audit 日志和前端运维页面之间进行编排。
+相较于通常只回答文档问题的普通 RAG Demo，本平台会根据用户意图在 RAG、SQL 分析、工具调用、多步骤报告生成、审批流、Trace 回放、Audit 日志和前端运维页面之间进行编排。
 
 ## 工程指标快照
 

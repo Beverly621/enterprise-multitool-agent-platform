@@ -1,7 +1,7 @@
 # Enterprise Multi-Tool Agent Platform
 
 <p align="center">
-  <img src="assets/readme-hero.svg" alt="Enterprise Multi-Tool Agent Platform" width="100%" />
+  <img src="assets/readme-hero-v5-clean.svg" alt="Enterprise Multi-Tool Agent Platform" width="100%" />
 </p>
 
 <p align="center">
@@ -23,7 +23,7 @@
 
 Enterprise Multi-Tool Agent Platform is **an enterprise-grade multi-tool AI Agent platform that combines RAG, SQL Agent, Tool Calling, multi-step planning, asynchronous report generation, RBAC, SQL Guardrails, human-in-the-loop approvals, tracing, audit logging, metrics, evaluation workflows, and a full-stack admin console.**
 
-This repository is designed as a full-stack AI Agent engineering project rather than a consumer-facing product. It demonstrates how an enterprise-style Agent platform can connect unstructured knowledge-base documents, structured business data, tool execution, approval workflows, asynchronous tasks, observability, evaluation, and CI/CD into one coherent full-stack system.
+This repository presents a full-stack AI Agent engineering system for enterprise-style workflows. It demonstrates how an enterprise-style Agent platform can connect unstructured knowledge-base documents, structured business data, tool execution, approval workflows, asynchronous tasks, observability, evaluation, and CI/CD into one coherent full-stack system.
 
 The project is intentionally built beyond a simple RAG chatbot. A normal RAG demo answers questions from documents; this platform routes user intent across RAG, SQL analytics, tool calls, multi-step report generation, approvals, trace replay, audit logs, and frontend operations pages.
 
@@ -263,7 +263,7 @@ Key modules: `backend/app/evals/`, `backend/app/scripts/run_eval.py`, `backend/a
 
 ### 8. Full-stack console for debugging and demonstration
 
-The Next.js console surfaces backend state through pages for knowledge bases, Agent runs, SQL results, tools, approvals, tasks, reports, audit, and admin users. It is designed for engineering visibility and interview demonstration rather than consumer product onboarding.
+The Next.js console is built for engineering visibility and technical demonstration, surfacing backend state through pages for knowledge bases, Agent runs, SQL results, tools, approvals, tasks, reports, audit, and admin users.
 
 Key modules: `frontend/app/`, `frontend/components/`, `frontend/lib/api.ts`.
 

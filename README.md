@@ -10,20 +10,20 @@
 
 
 <p align="center">
-  <img alt="Portfolio Project" src="https://img.shields.io/badge/Portfolio-AI%20Agent%20Engineering-2563EB?style=flat-square" />
+  <img alt="Full-Stack Agent Platform" src="https://img.shields.io/badge/Full--Stack%20Agent-Platform-2563EB?style=flat-square" />
   <img alt="Backend" src="https://img.shields.io/badge/Backend-FastAPI-059669?style=flat-square" />
   <img alt="Frontend" src="https://img.shields.io/badge/Frontend-Next.js-111827?style=flat-square" />
   <img alt="Database" src="https://img.shields.io/badge/Database-PostgreSQL%20%2B%20pgvector-1D4ED8?style=flat-square" />
   <img alt="License" src="https://img.shields.io/badge/License-MIT-7C3AED?style=flat-square" />
 </p>
 
-> Portfolio project / engineering showcase for AI-Agent and backend engineering roles.  
+> Full-stack AI Agent engineering project for multi-tool orchestration, RAG, SQL Guardrails, async workflows, traceability, and evaluation.
 > Chinese project name: 企业级多工具知识库 Agent 平台.  
 > Chinese documentation: [`README_ZH.md`](README_ZH.md).
 
 Enterprise Multi-Tool Agent Platform is **an enterprise-grade multi-tool AI Agent platform that combines RAG, SQL Agent, Tool Calling, multi-step planning, asynchronous report generation, RBAC, SQL Guardrails, human-in-the-loop approvals, tracing, audit logging, metrics, evaluation workflows, and a full-stack admin console.**
 
-This repository is designed as a portfolio-grade AI Agent engineering project rather than a consumer-facing product. It demonstrates how an enterprise-style Agent platform can connect unstructured knowledge-base documents, structured business data, tool execution, approval workflows, asynchronous tasks, observability, evaluation, and CI/CD into one coherent full-stack system.
+This repository is designed as a full-stack AI Agent engineering project rather than a consumer-facing product. It demonstrates how an enterprise-style Agent platform can connect unstructured knowledge-base documents, structured business data, tool execution, approval workflows, asynchronous tasks, observability, evaluation, and CI/CD into one coherent full-stack system.
 
 The project is intentionally built beyond a simple RAG chatbot. A normal RAG demo answers questions from documents; this platform routes user intent across RAG, SQL analytics, tool calls, multi-step report generation, approvals, trace replay, audit logs, and frontend operations pages.
 
@@ -37,7 +37,7 @@ The project is intentionally built beyond a simple RAG chatbot. A normal RAG dem
 | SQL Guardrails Unsafe SQL Block Rate | 100.00% (43/43) | `backend/app/eval_results/sql_guardrails_eval.json` |
 | Tool Calling Eval Pass Rate | 100.00% (30/30) | `backend/app/eval_results/tool_eval.json` |
 | Regression Pass Rate | 100.00% (27/27) | `backend/app/eval_results/regression.json` |
-| Async Submit p95 Latency | 0.007 ms | `backend/app/eval_results/async_benchmark.json` |
+| Async Submit p95 Latency | 0.007 ms (local benchmark, `run_id` return only) | `backend/app/eval_results/async_benchmark.json` |
 | Trace Replay Success Rate | 100.00% (10/10) | `backend/app/eval_results/trace_benchmark.json` |
 
 > Metrics are generated from synthetic demo data and Mock providers.
@@ -287,7 +287,7 @@ Key modules: `scripts/`, `.github/workflows/`, `deploy/`.
 | Synthetic Demo Data | Demo documents and CSV files are self-generated or simulated for portfolio use. |
 | Public Safety Checks | Scripts check for tracked env files, generated artifacts, and high-confidence secret patterns. |
 
-This repository should not be described as production-proven. It is a production-oriented portfolio implementation that would still need tenant isolation, SSO, monitoring, backups, rate limiting, runtime alerting, incident procedures, and real deployment hardening before production use.
+This repository should not be described as production-proven. It is a production-oriented engineering implementation that would still need tenant isolation, SSO, monitoring, backups, rate limiting, runtime alerting, incident procedures, and real deployment hardening before production use.
 
 ## Observability and Evaluation
 
@@ -370,7 +370,7 @@ An independent Metrics/Eval page was not found in the verified `frontend/app` tr
 
 ## Local Demo Notes
 
-This repository is primarily a portfolio project. The following notes are kept for local verification and demonstration, not as an end-user installation guide. This README intentionally does not include installer/download instructions for external users.
+This repository is primarily a full-stack AI Agent engineering project. The Docker-first local demo has been verified with Mock providers and synthetic demo data.
 
 Docker-first local demo:
 
@@ -492,7 +492,7 @@ Screenshots were captured from the local demo console with the seeded Admin demo
 
 ## Current Status
 
-All planned development stages have been completed in the verified stage-12 project snapshot. The repository is a portfolio-ready engineering showcase with milestone validation materials, final validation guidance, public-safety checks, CI/CD workflows, Mock-provider local demo support, public-safe synthetic demo data and documentation, plus local demo screenshots and GIF recordings for portfolio presentation.
+All planned development stages have been completed in the verified stage-12 project snapshot. The repository is a complete full-stack AI Agent engineering project with milestone validation materials, final validation guidance, public-safety checks, CI/CD workflows, Mock-provider local demo support, public-safe synthetic demo data and documentation, plus local demo screenshots and GIF recordings for technical presentation.
 
 ## Future Improvements
 
